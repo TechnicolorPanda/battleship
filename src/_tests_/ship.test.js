@@ -1,4 +1,4 @@
-import shipLength from '../factories/Ship.js';
+import { shipLength, shipHits } from '../factories/Ship.js';
 
 test('ship with length of 5', () => {
     expect(shipLength('carrier')).toBe(5);
@@ -8,13 +8,13 @@ test('ship with length of 3', () => {
   expect(shipLength('destroyer')).toBe(3);
 })
 
-// test('carrier has been hit in positions 3 and 4', () => {
-//   expect(shipHits('carrier', 3, 4)).toBe(3, 4);
-// })
+test('hits remaining on patrol boat that has been hit 1 time', () => {
+  expect(shipHits('patrol boat', 1)).toBe(1);
+})
 
-// test('patrol boat has been hit in position 1', () => {
-//   expect(shipHits('patrol boat', 1)).toBe(1);
-// })
+test('hits remaining on carrier that has been hit 2 times', () => {
+  expect(shipHits('carrier', 2)).toBe(3);
+})
 
 // test('destroyer has not been sunk', () => {
 //   expect(shipSunk('destroyer', sunk)).toBe(false);
