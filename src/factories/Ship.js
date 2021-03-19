@@ -8,24 +8,18 @@ const shipType = {
     {name: 'patrol boat', length: 2},
   ]
 }
-    export const shipLength = (newShip) => {
-    let matchingShip = shipType.ship.find((element) => {
-        return (element.name === newShip);
-        })
-    return matchingShip.length;
-    };
+export const shipLength = (newShip) => {
+  let matchingShip = shipType.ship.find((element) => {
+    return (element.name === newShip);
+    })
+  return matchingShip.length;
+};
 
-    export const shipHits = (newShip, hits) => {
-      return shipLength(newShip) - hits;
-    }
+export const shipHits = (newShip, hits) => {
+  return shipLength(newShip) - hits;
+}
 
-    // const sunk = (shipType) => {
-    //   for (let i = 0; i < shipType.length; i++) {
-    //     if (shipType[i] === 0) {
-    //       return false;
-    //     } else {
-    //       return true;
-    //     }
-    //   }
-    // }
+export const shipSunk = (newShip, hits) => {
+  return (shipLength(newShip) === hits) ? true: false;
+}
 
