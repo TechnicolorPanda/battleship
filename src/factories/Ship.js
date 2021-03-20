@@ -15,11 +15,11 @@ export const shipLength = (newShip) => {
   return matchingShip.length;
 };
 
-export const shipHits = (newShip, hits) => {
+export const isHit = (newShip, hits) => {
   return shipLength(newShip) - hits;
 }
 
-export const shipSunk = (newShip, hits) => {
+export const isSunk = (newShip, hits) => {
   return (shipLength(newShip) === hits) ? true: false;
 }
 
