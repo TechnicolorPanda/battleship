@@ -8,6 +8,7 @@ const shipType = {
     {name: 'patrol boat', length: 2},
   ]
 }
+
 export const shipLength = (newShip) => {
   let matchingShip = shipType.ship.find((element) => {
     return (element.name === newShip);
@@ -22,4 +23,6 @@ export const isHit = (newShip, hits) => {
 export const isSunk = (newShip, hits) => {
   return (shipLength(newShip) === hits) ? true: false;
 }
+
+export default shipLength;
 
