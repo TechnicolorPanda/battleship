@@ -8,9 +8,9 @@ import shipLength from './Ship.js';
     return columnNumber;
   }
  
-  export const createBoard = () => {
+  export const createBoard = (row) => {
     let newBoard = Array(10).fill(0).map(row => new Array(10).fill(false));
-    return newBoard[0];
+    return newBoard[row];
   }
 
   export const placeShip = (shipType, row, column) => {
@@ -34,5 +34,11 @@ import shipLength from './Ship.js';
     return false;
   }
 
+  export const recordHit = (row, column) => {
+    let columnNumber = findY(column) - 1;
+    let newBoard = createBoard(findX(row));
+    newBoard.splice(columnNumber, 1, true);
+    return newBoard;
+  }
    
 
