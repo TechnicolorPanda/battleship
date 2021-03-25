@@ -51,11 +51,31 @@ const Gameboard = () => {
     recordHit(row, column);
   }
 
-  console.log(newBoard);
+  // function grid() {
+  //   const content = document.createElement('div');
+  //   content.classList.add('box');
+  //   container.appendChild(content);
+  //   for (let i = 0; i < 10; i++) {
+  //     let row = document.createElement('div');
+  //     row.className = 'row';
+  //     for (let j = 1; j <= 10; j++) {
+  //       let cell = document.createElement('div');
+  //       cell.className = 'gridsquare';
+  //       row.appendChild(cell);
+  //     }
+  //     content.appendChild(row);
+  //   }
+  // }
+
+  let testRow = newBoard[1];
+
+  console.log(newBoard[0]);
 
   return (
     <div className={`game-board`}>
-      {createGameboard}
+      <div>testing</div>
+      {newBoard.map((row, index) => (
+        <div className = 'row' key = {index}>{row}</div>))}
     </div>
   )
 }
