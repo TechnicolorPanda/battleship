@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import shipLength from './Ship.js';
+import '../styles/gameboard.css';
 
 const Gameboard = () => {
   const [shipCoordinates, setShipCoordinates] = useState('');
@@ -67,15 +68,31 @@ const Gameboard = () => {
   //   }
   // }
 
-  let testRow = newBoard[1];
-
-  console.log(newBoard[0]);
-
   return (
     <div className={`game-board`}>
-      <div>testing</div>
-      {newBoard.map((row, index) => (
-        <div className = 'row' key = {index}>{row}</div>))}
+      <div>Battleship</div>
+      <div>
+        <table className = 'center'>
+        {newBoard.slice(1, newBoard.length).map((column, index) => {
+            return (
+              <tbody>
+              <tr>
+                <td className = {column[0] ? 'background-red': 'background-blue'}></td>
+                <td className = {column[1] ? 'background-red': 'background-blue'}></td>
+                <td className = {column[2] ? 'background-red': 'background-blue'}></td>
+                <td className = {column[3] ? 'background-red': 'background-blue'}></td>
+                <td className = {column[4] ? 'background-red': 'background-blue'}></td>
+                <td className = {column[5] ? 'background-red': 'background-blue'}></td>
+                <td className = {column[6] ? 'background-red': 'background-blue'}></td>
+                <td className = {column[7] ? 'background-red': 'background-blue'}></td>
+                <td className = {column[8] ? 'background-red': 'background-blue'}></td>
+                <td className = {column[9] ? 'background-red': 'background-blue'}></td>
+              </tr>
+              </tbody>
+            );
+          })}
+        </table>
+      </div>
     </div>
   )
 }
