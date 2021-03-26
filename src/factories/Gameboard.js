@@ -52,6 +52,10 @@ const Gameboard = () => {
     recordHit(row, column);
   }
 
+  const initiateAttack = (event) => {
+    event.target.className = 'background-red'
+  }
+
   // function grid() {
   //   const content = document.createElement('div');
   //   content.classList.add('box');
@@ -77,16 +81,45 @@ const Gameboard = () => {
             return (
               <tbody>
               <tr>
-                <td className = {column[0] ? 'background-red': 'background-blue'}></td>
-                <td className = {column[1] ? 'background-red': 'background-blue'}></td>
-                <td className = {column[2] ? 'background-red': 'background-blue'}></td>
-                <td className = {column[3] ? 'background-red': 'background-blue'}></td>
-                <td className = {column[4] ? 'background-red': 'background-blue'}></td>
-                <td className = {column[5] ? 'background-red': 'background-blue'}></td>
-                <td className = {column[6] ? 'background-red': 'background-blue'}></td>
-                <td className = {column[7] ? 'background-red': 'background-blue'}></td>
-                <td className = {column[8] ? 'background-red': 'background-blue'}></td>
-                <td className = {column[9] ? 'background-red': 'background-blue'}></td>
+                <td className = 
+                  {column[0] ? 'background-red': 'background-blue'}
+                  onClick = {initiateAttack}
+                ></td>
+                <td className = 
+                  {column[1] ? 'background-red': 'background-blue'}
+                  onClick = {initiateAttack}
+                ></td>
+                <td className = 
+                  {column[2] ? 'background-red': 'background-blue'}
+                  onClick = {initiateAttack}
+                ></td>
+                <td className = 
+                  {column[3] ? 'background-red': 'background-blue'}
+                  onClick = {initiateAttack}
+                ></td>
+                <td className = 
+                  {column[4] ? 'background-red': 'background-blue'}
+                  onClick = {initiateAttack}
+                ></td>
+                <td className = 
+                  {column[5] ? 'background-red': 'background-blue'}
+                  onClick = {initiateAttack}
+                ></td>
+                <td className = 
+                  {column[6] ? 'background-red': 'background-blue'}
+                  onClick = {initiateAttack}
+                ></td>
+                <td className = 
+                  {column[7] ? 'background-red': 'background-blue'}
+                  onClick = {initiateAttack}
+                ></td>
+                <td className = 
+                  {column[8] ? 'background-red': 'background-blue'}
+                  onClick = {initiateAttack}
+                ></td>
+                <td className = {column[9] ? 'background-red': 'background-blue'}
+                  onClick = {initiateAttack}
+                ></td>
               </tr>
               </tbody>
             );
