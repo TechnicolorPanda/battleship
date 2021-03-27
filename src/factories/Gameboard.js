@@ -43,6 +43,7 @@ const Gameboard = () => {
     let columnNumber = findY(column) - 1;
     let newRow = createNewRow(findX(row));
     newRow.splice(columnNumber, 1, true);
+    console.log(newRow);
     return newRow;
   }
 
@@ -53,7 +54,12 @@ const Gameboard = () => {
   }
 
   const initiateAttack = (event) => {
-    event.target.className = 'background-red'
+    event.target.className = 'background-red'; 
+    let coordinates = 'A1';
+    // let coordinates  = event.target.value;
+    let row = coordinates.charAt(0);
+    let column = coordinates.charAt(1);
+    recordHit(row, column);
   }
 
   // function grid() {
@@ -81,9 +87,11 @@ const Gameboard = () => {
             return (
               <tbody>
               <tr>
-                <td className = 
-                  {column[0] ? 'background-red': 'background-blue'}
+                <td 
+                  className = {column[0] ? 'background-red': 'background-blue'}
+                  value = {'A' + index}
                   onClick = {initiateAttack}
+                  key = {'A' + index}
                 ></td>
                 <td className = 
                   {column[1] ? 'background-red': 'background-blue'}
