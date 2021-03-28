@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import shipLength from './Ship.js';
 import '../styles/gameboard.css';
+import uniqid from 'uniqid';
 
 const Gameboard = () => {
   const [shipCoordinates, setShipCoordinates] = useState('');
@@ -44,7 +45,6 @@ const Gameboard = () => {
     let newRow = createNewRow(findX(row));
     newRow.splice(columnNumber, 1, true);
     console.log(newRow);
-    return newRow;
   }
 
   const createGameboard = (shipType, row, column) => {
@@ -53,30 +53,14 @@ const Gameboard = () => {
     recordHit(row, column);
   }
 
-  const initiateAttack = (event) => {
+  const initiateAttack = (event, index) => {
     event.target.className = 'background-red'; 
-    let coordinates = 'A1';
-    // let coordinates  = event.target.value;
+    let coordinates = 'B2';
+    // let coordinates = event.target.value;
     let row = coordinates.charAt(0);
     let column = coordinates.charAt(1);
     recordHit(row, column);
   }
-
-  // function grid() {
-  //   const content = document.createElement('div');
-  //   content.classList.add('box');
-  //   container.appendChild(content);
-  //   for (let i = 0; i < 10; i++) {
-  //     let row = document.createElement('div');
-  //     row.className = 'row';
-  //     for (let j = 1; j <= 10; j++) {
-  //       let cell = document.createElement('div');
-  //       cell.className = 'gridsquare';
-  //       row.appendChild(cell);
-  //     }
-  //     content.appendChild(row);
-  //   }
-  // }
 
   return (
     <div className={`game-board`}>
@@ -85,47 +69,67 @@ const Gameboard = () => {
         <table className = 'center'>
         {newBoard.slice(1, newBoard.length).map((column, index) => {
             return (
-              <tbody>
+              <tbody key = {uniqid()}>
               <tr>
                 <td 
+                  key = {uniqid()}
                   className = {column[0] ? 'background-red': 'background-blue'}
                   value = {'A' + index}
                   onClick = {initiateAttack}
-                  key = {'A' + index}
                 ></td>
-                <td className = 
-                  {column[1] ? 'background-red': 'background-blue'}
+                <td 
+                  key = {uniqid()}
+                  className = {column[1] ? 'background-red': 'background-blue'}
+                  value = {index}
                   onClick = {initiateAttack}
                 ></td>
-                <td className = 
-                  {column[2] ? 'background-red': 'background-blue'}
+                <td 
+                  key = {uniqid()}
+                  className = {column[2] ? 'background-red': 'background-blue'}
+                  value = {index}
                   onClick = {initiateAttack}
                 ></td>
-                <td className = 
-                  {column[3] ? 'background-red': 'background-blue'}
+                <td 
+                  key = {uniqid()}
+                  className = {column[3] ? 'background-red': 'background-blue'}
+                  value = {index}
                   onClick = {initiateAttack}
                 ></td>
-                <td className = 
-                  {column[4] ? 'background-red': 'background-blue'}
+                <td 
+                  key = {uniqid()}
+                  className = {column[4] ? 'background-red': 'background-blue'}
+                  value = {index}
                   onClick = {initiateAttack}
                 ></td>
-                <td className = 
-                  {column[5] ? 'background-red': 'background-blue'}
+                <td                   
+                  key = {uniqid()}
+                  className = {column[5] ? 'background-red': 'background-blue'}
+                  value = {index}
                   onClick = {initiateAttack}
                 ></td>
-                <td className = 
-                  {column[6] ? 'background-red': 'background-blue'}
+                <td 
+                  key = {uniqid()}
+                  className = {column[6] ? 'background-red': 'background-blue'}
+                  value = {index}
                   onClick = {initiateAttack}
                 ></td>
-                <td className = 
+                <td 
+                  key = {uniqid()}
+                  className = 
                   {column[7] ? 'background-red': 'background-blue'}
+                  value = {index}
                   onClick = {initiateAttack}
                 ></td>
-                <td className = 
-                  {column[8] ? 'background-red': 'background-blue'}
+                <td 
+                  key = {uniqid()}
+                  className = {column[8] ? 'background-red': 'background-blue'}
+                  value = {index}
                   onClick = {initiateAttack}
                 ></td>
-                <td className = {column[9] ? 'background-red': 'background-blue'}
+                <td 
+                  key = {uniqid()}
+                  className = {column[9] ? 'background-red': 'background-blue'}
+                  value = {index}
                   onClick = {initiateAttack}
                 ></td>
               </tr>
