@@ -1,4 +1,6 @@
-import shipLength from './Ship.js';
+import Ship from './Ship.js';
+
+const Gameboard = () => {
 
   const findX = (rowLetter) => {
     return rowLetter.charCodeAt(0) - 65;
@@ -8,14 +10,16 @@ import shipLength from './Ship.js';
     return columnNumber;
   }
 
-  export const createBoard = (row) => {
+  const createBoard = (row) => {
     let newBoard = Array(10).fill(0).map(row => new Array(10).fill(false));
     return newBoard[row];
   }
 
-  export const placeShip = (shipType, row, column) => {
+  const placeShip = (shipType, row, column) => {
     let shipCoordinates = [];
-    for (let i = 0; i < shipLength(shipType); i++) {
+    const newShip = Ship();
+    let lengthOfShip = newShip.shipLength();
+    for (let i = 0; i < lengthOfShip(shipType); i++) {
       shipCoordinates = shipCoordinates.concat([
         [findX(row),
          findY(column) + i
@@ -25,7 +29,7 @@ import shipLength from './Ship.js';
     return shipCoordinates; 
   }
 
-  export const receiveAttack = (shipCoordinates, row, column) => {
+  const receiveAttack = (shipCoordinates, row, column) => {
     for (let i = 0; i < shipCoordinates.length; i++) {
       if (JSON.stringify(shipCoordinates[i]) === JSON.stringify([findX(row), findY(column)])) {
         return true;
@@ -34,9 +38,13 @@ import shipLength from './Ship.js';
     return false;
   }
 
-  export const recordHit = (row, column) => {
+  const recordHit = (row, column) => {
     let columnNumber = findY(column) - 1;
     let newBoard = createBoard(findX(row));
     newBoard.splice(columnNumber, 1, true);
     return newBoard;
   }
+  return {createBoard, placeShip, receiveAttack, recordHit};
+}
+
+  export default Gameboard;
