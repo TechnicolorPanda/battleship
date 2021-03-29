@@ -3,7 +3,7 @@ import Gameboard from '../factories/Gameboard.js';
 const board = Gameboard();
 
 test ('creates empty gameboard', () => {
-  expect (board.createBoard()).toStrictEqual([false, false, false, false, false, false, false, false, false, false]);
+  expect (board.createBoard(0)).toStrictEqual([false, false, false, false, false, false, false, false, false, false]);
 })
 
 test('places ship on coordinates', () => {

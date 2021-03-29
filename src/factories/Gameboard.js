@@ -18,8 +18,7 @@ const Gameboard = () => {
   const placeShip = (shipType, row, column) => {
     let shipCoordinates = [];
     const newShip = Ship();
-    let lengthOfShip = newShip.shipLength();
-    for (let i = 0; i < lengthOfShip(shipType); i++) {
+    for (let i = 0; i < newShip.shipLength(shipType); i++) {
       shipCoordinates = shipCoordinates.concat([
         [findX(row),
          findY(column) + i
