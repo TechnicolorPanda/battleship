@@ -2,17 +2,35 @@ import Ship from './Ship.js';
 
 const Gameboard = () => {
 
+  let board = [];
+
   const findX = (rowLetter) => {
     return rowLetter.charCodeAt(0) - 65;
   }
 
   const findY = (columnNumber) => {
-    return columnNumber;
+    return columnNumber + 1;
   }
 
-  const createBoard = (row) => {
+  const createBoard = () => {
     let newBoard = Array(10).fill(0).map(row => new Array(10).fill(false));
-    return newBoard[row];
+    return newBoard;
+  }
+
+  const createRow = (row) => {
+    const board = createBoard();
+    return board[row];
+  }
+
+  const changeBoard = (row, column) => {
+    if (board === []) {
+      board = createBoard();
+    } 
+    let rowNumber = findX(row);
+    let newRow = recordHit(row, column);
+    board.splice(rowNumber, 1, newRow);
+    return board;
+
   }
 
   const placeShip = (shipType, row, column) => {
@@ -39,11 +57,12 @@ const Gameboard = () => {
 
   const recordHit = (row, column) => {
     let columnNumber = findY(column) - 1;
-    let newBoard = createBoard(findX(row));
+    let newBoard = createRow(findX(row));
     newBoard.splice(columnNumber, 1, true);
     return newBoard;
   }
-  return {createBoard, placeShip, receiveAttack, recordHit};
+
+  return {createRow, placeShip, receiveAttack, recordHit, changeBoard};
 }
 
   export default Gameboard;
