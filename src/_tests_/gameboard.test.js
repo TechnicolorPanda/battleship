@@ -3,7 +3,18 @@ import Gameboard from '../factories/Gameboard.js';
 const board = Gameboard();
 
 test ('creates empty gameboard', () => {
-  expect (board.createRow(0)).toStrictEqual([false, false, false, false, false, false, false, false, false, false]);
+  expect(board.createBoard()).toEqual([
+    [false, false, false, false, false, false, false, false, false, false],
+    [false, false, false, false, false, false, false, false, false, false],
+    [false, false, false, false, false, false, false, false, false, false],
+    [false, false, false, false, false, false, false, false, false, false],
+    [false, false, false, false, false, false, false, false, false, false],
+    [false, false, false, false, false, false, false, false, false, false],
+    [false, false, false, false, false, false, false, false, false, false],
+    [false, false, false, false, false, false, false, false, false, false],
+    [false, false, false, false, false, false, false, false, false, false],
+    [false, false, false, false, false, false, false, false, false, false],
+  ]);
 })
 
 test('places ship on coordinates', () => {
@@ -19,10 +30,30 @@ test('attack ship by coodinates', () => {
 })
 
 test('records hit location', () => {
-  expect (board.changeBoard('G', 8)).toEqual([[false, false, false, false, false, false, false, false, true, false]]);
+  expect (board.changeBoard('G', 8)).toEqual([
+    [false, false, false, false, false, false, false, false, false, false],
+    [false, false, false, false, false, false, false, false, false, false],
+    [false, false, false, false, false, false, false, false, false, false],
+    [false, false, false, false, false, false, false, false, false, false],
+    [false, false, false, false, false, false, false, false, false, false],
+    [false, false, false, false, false, false, false, false, false, false],
+    [false, false, false, false, false, false, false, true, false, false],
+    [false, false, false, false, false, false, false, false, false, false],
+    [false, false, false, false, false, false, false, false, false, false],
+    [false, false, false, false, false, false, false, false, false, false],
+  ]);
+  expect (board.changeBoard('G', 5)).toEqual([
+    [false, false, false, false, false, false, false, false, false, false],
+    [false, false, false, false, false, false, false, false, false, false],
+    [false, false, false, false, false, false, false, false, false, false],
+    [false, false, false, false, false, false, false, false, false, false],
+    [false, false, false, false, false, false, false, false, false, false],
+    [false, false, false, false, false, false, false, false, false, false],
+    [false, false, false, false, true, false, false, true, false, false],
+    [false, false, false, false, false, false, false, false, false, false],
+    [false, false, false, false, false, false, false, false, false, false],
+    [false, false, false, false, false, false, false, false, false, false],
+  ]);
 })
 
-test('changes board array', () => {
-  expect (board.changeBoard('C', 5)).toEqual([[false, false, false, false, false, true, false, false, false, false]]);
-})
 

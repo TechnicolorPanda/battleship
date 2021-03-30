@@ -9,7 +9,7 @@ const Gameboard = () => {
   }
 
   const findY = (columnNumber) => {
-    return columnNumber + 1;
+    return columnNumber;
   }
 
   const createBoard = () => {
@@ -17,20 +17,18 @@ const Gameboard = () => {
     return newBoard;
   }
 
-  const createRow = (row) => {
-    const board = createBoard();
+  const createRow = (row, board) => {
     return board[row];
   }
 
   const changeBoard = (row, column) => {
-    if (board === []) {
+    if (board.length === 0) {
       board = createBoard();
-    } 
+    }
     let rowNumber = findX(row);
-    let newRow = recordHit(row, column);
+    let newRow = recordHit(row, column, board);
     board.splice(rowNumber, 1, newRow);
     return board;
-
   }
 
   const placeShip = (shipType, row, column) => {
@@ -55,14 +53,14 @@ const Gameboard = () => {
     return false;
   }
 
-  const recordHit = (row, column) => {
+  const recordHit = (row, column, board) => {
     let columnNumber = findY(column) - 1;
-    let newBoard = createRow(findX(row));
+    let newBoard = createRow(findX(row), board);
     newBoard.splice(columnNumber, 1, true);
     return newBoard;
   }
 
-  return {createRow, placeShip, receiveAttack, recordHit, changeBoard};
+  return {createBoard, placeShip, receiveAttack, recordHit, changeBoard};
 }
 
   export default Gameboard;
