@@ -3,6 +3,7 @@ import Ship from './Ship.js';
 const Gameboard = () => {
 
   let board = [];
+  let shipLocations = [];
 
   const findX = (rowLetter) => {
     return rowLetter.charCodeAt(0) - 65;
@@ -60,7 +61,23 @@ const Gameboard = () => {
     return newBoard;
   }
 
-  return {createBoard, placeShip, receiveAttack, recordHit, changeBoard};
+  const shipPlacement = (shipType, row, column) => {
+    let placedShip = placeShip(shipType, row, column);
+    const newShip = {
+      ship: [
+        {name: shipType, coordinates: placedShip}
+      ]
+    }
+    shipLocations = shipLocations.concat(newShip);
+    return shipLocations;
+  }
+
+  const allShipsSunk = () => {
+    let sunk = true;
+    return sunk
+  }
+
+  return {createBoard, placeShip, receiveAttack, recordHit, changeBoard, allShipsSunk, shipPlacement};
 }
 
   export default Gameboard;

@@ -54,6 +54,32 @@ test('records hit location', () => {
     [false, false, false, false, false, false, false, false, false, false],
     [false, false, false, false, false, false, false, false, false, false],
   ]);
+  expect (board.changeBoard('C', 1)).toEqual([
+    [false, false, false, false, false, false, false, false, false, false],
+    [false, false, false, false, false, false, false, false, false, false],
+    [true, false, false, false, false, false, false, false, false, false],
+    [false, false, false, false, false, false, false, false, false, false],
+    [false, false, false, false, false, false, false, false, false, false],
+    [false, false, false, false, false, false, false, false, false, false],
+    [false, false, false, false, true, false, false, true, false, false],
+    [false, false, false, false, false, false, false, false, false, false],
+    [false, false, false, false, false, false, false, false, false, false],
+    [false, false, false, false, false, false, false, false, false, false],
+  ]);
 })
+
+test('places ship position in array', () => {
+  expect (board.shipPlacement('submarine', 'A', 2)).toEqual(
+    [{'ship': [{'coordinates': [[0, 2], [0, 3], [0, 4]], 'name': 'submarine'}]}]
+  )
+  expect (board.shipPlacement('patrol boat', 'D', 4)).toEqual(
+    [{'ship': [{'coordinates': [[0, 2], [0, 3], [0, 4]], 'name': 'submarine'}]},
+    {'ship': [{'coordinates': [[3, 4], [3, 5]], 'name': 'patrol boat'}]}],
+  )
+})
+
+test('records when ship sunk', () => {
+  expect (board.allShipsSunk()).toBeTruthy();
+}) 
 
 
