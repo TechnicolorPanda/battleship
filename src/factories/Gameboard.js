@@ -72,12 +72,32 @@ const Gameboard = () => {
     return shipLocations;
   }
 
-  const allShipsSunk = () => {
-    let sunk = true;
-    return sunk
+  // TODO: when ship is hit deduct hitpoints in isHit function
+
+  const shipSunk = (row, column) => {
+    let newCoordinates = [findX(row), findY(column)];
+    let shipInformation = shipLocations.map(ship => ship.ship);
+    for (let i = 0; i < shipInformation.length; i++) {
+      let thisShip = shipInformation[i][0].coordinates;
+      for (let j = 0; j < thisShip.length; j++) {
+        let thisCoordinates = thisShip[j];
+        if (thisCoordinates === newCoordinates) {
+          return true;
+        } 
+      }
+    }
+    return false;
   }
 
-  return {createBoard, placeShip, receiveAttack, recordHit, changeBoard, allShipsSunk, shipPlacement};
+  const allShipsSunk = () => {
+    // if (shipsSunk.length === 5) {
+    //   return true;
+    // } else {
+    //   return false;
+    // }
+  }
+
+  return {createBoard, placeShip, receiveAttack, recordHit, changeBoard, allShipsSunk, shipPlacement, shipSunk};
 }
 
   export default Gameboard;
