@@ -32,17 +32,36 @@ const Gameboard = () => {
     return board;
   }
 
-  const placeShip = (shipType, row, column) => {
+  const horizontalShip = (shipType, row, column) => {
     let shipCoordinates = [];
-    const newShip = Ship();
-    for (let i = 0; i < newShip.shipLength(shipType); i++) {
+    for (let i = 0; i < Ship().shipLength(shipType); i++) {
       shipCoordinates = shipCoordinates.concat([
         [findX(row),
          findY(column) + i
         ]
       ]);
     }
-    return shipCoordinates; 
+    return shipCoordinates;
+  }
+
+  const verticalShip = (shipType, row, column) => {
+    let shipCoordinates = [];
+    for (let i = 0; i < Ship().shipLength(shipType); i++) {
+      shipCoordinates = shipCoordinates.concat([
+        [findX(row) + i,
+         findY(column)
+        ]
+      ]);
+    }
+    return shipCoordinates;
+  }
+
+  const placeShip = (shipType, row, column, alignment) => {
+    if (alignment === 'horizontal') {
+      return horizontalShip(shipType, row, column);
+    } else {
+      return verticalShip(shipType, row, column);
+    }
   }
 
   const receiveAttack = (shipCoordinates, row, column) => {
@@ -61,8 +80,8 @@ const Gameboard = () => {
     return newBoard;
   }
 
-  const shipPlacement = (shipType, row, column) => {
-    let placedShip = placeShip(shipType, row, column);
+  const shipPlacement = (shipType, row, column, alignment) => {
+    let placedShip = placeShip(shipType, row, column, alignment);
     const newShip = {
       ship: [
         {name: shipType, coordinates: placedShip}

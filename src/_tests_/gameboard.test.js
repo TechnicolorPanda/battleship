@@ -18,7 +18,8 @@ test ('creates empty gameboard', () => {
 })
 
 test('places ship on coordinates', () => {
-  expect(board.placeShip('carrier', 'C', 4)).toContainEqual([2, 7]);
+  expect(board.placeShip('carrier', 'C', 4, 'horizontal')).toContainEqual([2, 7]);
+  expect(board.placeShip('destroyer', 'E', 6, 'vertical')).toContainEqual([6, 6]);
 })
 
 test('attacks ship at coordinates', () => {
@@ -69,10 +70,10 @@ test('records hit location', () => {
 })
 
 test('places ship position in array', () => {
-  expect (board.shipPlacement('submarine', 'A', 2)).toEqual(
+  expect (board.shipPlacement('submarine', 'A', 2, 'horizontal')).toEqual(
     [{'ship': [{'coordinates': [[0, 2], [0, 3], [0, 4]], 'name': 'submarine'}]}]
   )
-  expect (board.shipPlacement('patrol boat', 'D', 4)).toEqual(
+  expect (board.shipPlacement('patrol boat', 'D', 4, 'horizontal')).toEqual(
     [{'ship': [{'coordinates': [[0, 2], [0, 3], [0, 4]], 'name': 'submarine'}]},
     {'ship': [{'coordinates': [[3, 4], [3, 5]], 'name': 'patrol boat'}]}],
   )
