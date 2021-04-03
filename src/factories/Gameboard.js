@@ -114,14 +114,13 @@ const Gameboard = () => {
     }
   }
   
-  
-
   const allShipsSunk = () => {
-    // if (shipsSunk.length === 5) {
-    //   return true;
-    // } else {
-    //   return false;
-    // }
+    return (Ship('carrier').isSunk && 
+    Ship('battleship').isSunk && 
+    Ship('destroyer').isSunk && 
+    Ship('submarine').isSunk && 
+    Ship('patrol boat').inSunk 
+    ? true: false);
   }
 
   return {createBoard, placeShip, receiveAttack, recordHit, changeBoard, allShipsSunk, shipPlacement, shipHit};

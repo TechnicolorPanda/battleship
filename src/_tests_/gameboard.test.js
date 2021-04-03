@@ -1,4 +1,5 @@
 import Gameboard from '../factories/Gameboard.js';
+import Ship from '../factories/Ship.js';
 
 const board = Gameboard();
 
@@ -80,14 +81,11 @@ test('places ship position in array', () => {
 })
 
 test('records hits to ships', () => {
-  expect (board.shipHit('A', 2)).toBe('submarine');
+  expect (board.shipHit('A', 3)).toBe('submarine');
   expect (board.shipHit('D', 4)).toBe('patrol boat');
 })
 
-// test('records when ship sunk', () => {
-//   expect (board.allShipsSunk()).toBeFalsy();
-// }) 
-
-
-
+test('records when all ships not sunk', () => {
+  expect (board.allShipsSunk()).toBeFalsy();
+}) 
 
