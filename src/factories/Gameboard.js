@@ -73,6 +73,13 @@ const Gameboard = () => {
     return false;
   }
 
+  const deductHitPoints = (shipCoordinates, row, column) => {
+    if (receiveAttack(shipCoordinates, row, column)) {
+      let remaining = Ship().isHit(shipType);
+      return remaining;
+    }
+  }
+
   const recordHit = (row, column, board) => {
     let columnNumber = findY(column) - 1;
     let newBoard = createRow(findX(row), board);
@@ -90,23 +97,24 @@ const Gameboard = () => {
     shipLocations = shipLocations.concat(newShip);
     return shipLocations;
   }
+  const areCoordinatesEqual = (shipCoordinates, newCoordinates) => {
+    return (JSON.stringify(shipCoordinates) === JSON.stringify(newCoordinates));
 
-  // TODO: when ship is hit deduct hitpoints in isHit function
+  }
 
-  const shipSunk = (row, column) => {
+  const shipHit = (row, column) => {
     let newCoordinates = [findX(row), findY(column)];
-    let shipInformation = shipLocations.map(ship => ship.ship);
-    for (let i = 0; i < shipInformation.length; i++) {
-      let thisShip = shipInformation[i][0].coordinates;
-      for (let j = 0; j < thisShip.length; j++) {
-        let thisCoordinates = thisShip[j];
-        if (thisCoordinates === newCoordinates) {
-          return true;
-        } 
+    for (let i = 0; i < shipLocations.length; i++) {
+      let shipCoordinates = shipLocations[i].ship[0].coordinates;
+      for (let j = 0; j < shipCoordinates.length; j++) {
+        if (areCoordinatesEqual(shipCoordinates[j], newCoordinates)) {
+          return shipLocations[i].ship[0].name;
+        }
       }
     }
-    return false;
   }
+  
+  
 
   const allShipsSunk = () => {
     // if (shipsSunk.length === 5) {
@@ -116,7 +124,7 @@ const Gameboard = () => {
     // }
   }
 
-  return {createBoard, placeShip, receiveAttack, recordHit, changeBoard, allShipsSunk, shipPlacement, shipSunk};
+  return {createBoard, placeShip, receiveAttack, recordHit, changeBoard, allShipsSunk, shipPlacement, shipHit};
 }
 
   export default Gameboard;
