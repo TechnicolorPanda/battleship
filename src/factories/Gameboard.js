@@ -80,7 +80,7 @@ const Gameboard = () => {
     }
   }
 
-  const recordHit = (row, column, board) => {
+  const recordHit = (row, column) => {
     let columnNumber = findY(column) - 1;
     let newBoard = createRow(findX(row), board);
     newBoard.splice(columnNumber, 1, true);
@@ -97,9 +97,9 @@ const Gameboard = () => {
     shipLocations = shipLocations.concat(newShip);
     return shipLocations;
   }
+
   const areCoordinatesEqual = (shipCoordinates, newCoordinates) => {
     return (JSON.stringify(shipCoordinates) === JSON.stringify(newCoordinates));
-
   }
 
   const shipHit = (row, column) => {

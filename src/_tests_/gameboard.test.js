@@ -1,5 +1,4 @@
 import Gameboard from '../factories/Gameboard.js';
-import Ship from '../factories/Ship.js';
 
 const board = Gameboard();
 
