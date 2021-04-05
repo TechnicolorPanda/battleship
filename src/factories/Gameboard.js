@@ -6,11 +6,20 @@ const Gameboard = () => {
   let shipLocations = [];
 
   const findX = (rowLetter) => {
-    return rowLetter.charCodeAt(0) - 65;
+    let coordinateNumber = rowLetter.charCodeAt(0) - 65;
+    if ( coordinateNumber <= 9 && coordinateNumber >= 0) {
+      return coordinateNumber;
+    } else {
+      throw new Error ('off the board');;
+    }
   }
 
   const findY = (columnNumber) => {
-    return columnNumber;
+    if ( columnNumber <= 9 && columnNumber >= 0) {
+      return columnNumber;
+    } else {
+      throw new Error ('off the board');
+    }
   }
 
   const createBoard = () => {

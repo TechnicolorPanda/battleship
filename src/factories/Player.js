@@ -36,6 +36,8 @@ const Player = () => {
       return Gameboard().shipPlacement('patrol boat', row, column, alignment);
     }
 
+    // TODO: ensure that boat is only placed on empty spaces
+
     const computerPlacesBoat = () => {
       placeCarrier(randomRow(), randomColumn(), randomAlignment());
     }
