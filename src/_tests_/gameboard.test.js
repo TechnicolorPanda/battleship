@@ -22,9 +22,10 @@ test('places ship on coordinates', () => {
   expect(board.placeShip('destroyer', 'E', 6, 'vertical')).toContainEqual([6, 6]);
 })
 
-test('does not allow ship to be placed off of the board', () => {
-  expect(board.placeShip('battleship', 'D', 9, 'horizontal')).toThrow('off of board');
-  expect(board.placeShip('submarine', 'I', 2, 'vertical')).toThrow('off of board');
+test('checks validity of ship coordinates', () => {
+  expect(board.checkValidity('submarine', 'J', 9, 'horizontal')).toBeFalsy();
+  expect(board.checkValidity('battleship', 'I', 1, 'vertical')).toBeFalsy();
+  expect(board.checkValidity('patrol boat', 'C', 3, 'vertical')).toBeTruthy();
 })
 
 test('attacks ship at coordinates', () => {

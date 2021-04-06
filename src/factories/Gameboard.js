@@ -6,20 +6,23 @@ const Gameboard = () => {
   let shipLocations = [];
 
   const findX = (rowLetter) => {
-    let coordinateNumber = rowLetter.charCodeAt(0) - 65;
-    if ( coordinateNumber <= 9 && coordinateNumber >= 0) {
-      return coordinateNumber;
-    } else {
-      throw new Error ('off the board');;
-    }
+    return rowLetter.charCodeAt(0) - 65;
   }
 
   const findY = (columnNumber) => {
-    if ( columnNumber <= 9 && columnNumber >= 0) {
-      return columnNumber;
-    } else {
-      throw new Error ('off the board');
+    return columnNumber;
+  }
+
+  const checkValidity = (shipType, row, column, alignment) => {
+    let shipCoordinates = placeShip(shipType, row, column, alignment);
+    for (let i = 0; i < shipCoordinates.length; i++) {
+      let testedXCoordinate = shipCoordinates[i][0];
+      let testedYCoordinate = shipCoordinates[i][1];
+      if (testedXCoordinate < 0 || testedXCoordinate > 9 || testedYCoordinate < 0 || testedYCoordinate > 9) {
+        return false;
+      } 
     }
+    return true;
   }
 
   const createBoard = () => {
@@ -132,7 +135,7 @@ const Gameboard = () => {
     ? true: false);
   }
 
-  return {createBoard, placeShip, receiveAttack, recordHit, changeBoard, allShipsSunk, shipPlacement, shipHit};
+  return {createBoard, placeShip, receiveAttack, recordHit, changeBoard, allShipsSunk, shipPlacement, shipHit, checkValidity};
 }
 
   export default Gameboard;
