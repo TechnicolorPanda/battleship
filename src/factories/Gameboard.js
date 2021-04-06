@@ -21,9 +21,16 @@ const Gameboard = () => {
     }
   }
 
-  // TODO: check to see if hit coordinates have already been hit
-
-  // TODO: check to see if ship rests on other ship
+  const compareCoordinates= (newCoordinates) => {
+    for (let i = 0; i < shipLocations.length; i++) {
+      let shipCoordinates = shipLocations[i].ship[0].coordinates;
+      for (let j = 0; j < shipCoordinates.length; j++) {
+        if (areCoordinatesEqual(shipCoordinates[j], newCoordinates)) {
+          return shipLocations[i].ship[0].name;
+        }
+      }
+    }
+  }
 
   const checkValidity = (shipType, row, column, alignment) => {
     let shipCoordinates = placeShip(shipType, row, column, alignment);
@@ -110,6 +117,10 @@ const Gameboard = () => {
     }
   }
 
+  const checkHitValidity = (row, column) => {
+    return board[findX(row)][findY(column - 1)];
+  }
+
   const recordHit = (row, column) => {
     let columnNumber = findY(column) - 1;
     let newBoard = createRow(findX(row), board);
@@ -132,17 +143,6 @@ const Gameboard = () => {
     return (JSON.stringify(shipCoordinates) === JSON.stringify(newCoordinates));
   }
 
-  const compareCoordinates= (newCoordinates) => {
-    for (let i = 0; i < shipLocations.length; i++) {
-      let shipCoordinates = shipLocations[i].ship[0].coordinates;
-      for (let j = 0; j < shipCoordinates.length; j++) {
-        if (areCoordinatesEqual(shipCoordinates[j], newCoordinates)) {
-          return shipLocations[i].ship[0].name;
-        }
-      }
-    }
-  }
-
   const shipHit = (row, column) => {
     let newCoordinates = [findX(row), findY(column)];
     return compareCoordinates(newCoordinates);
@@ -157,7 +157,7 @@ const Gameboard = () => {
     ? true: false);
   }
 
-  return {checkOverlappingShips, createBoard, placeShip, receiveAttack, recordHit, changeBoard, allShipsSunk, shipPlacement, shipHit, checkValidity};
+  return {checkHitValidity, checkOverlappingShips, createBoard, placeShip, receiveAttack, recordHit, changeBoard, allShipsSunk, shipPlacement, shipHit, checkValidity};
 }
 
   export default Gameboard;

@@ -99,3 +99,8 @@ test ('ensure ships are not overlapping', () => {
   expect (board.checkOverlappingShips('carrier', 'G', 4, 'horizontal')).toBeFalsy();
 })
 
+test ('makes sure hit occurs in new location', () => {
+  expect (board.checkHitValidity('G', 5)).toBeTruthy();
+  expect (board.checkHitValidity('A', 1)).toBeFalsy();
+})
+
