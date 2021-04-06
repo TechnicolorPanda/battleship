@@ -94,3 +94,8 @@ test('records when all ships not sunk', () => {
   expect (board.allShipsSunk()).toBeFalsy();
 }) 
 
+test ('ensure ships are not overlapping', () => {
+  expect (board.checkOverlappingShips('battleship', 'A', 2, 'vertical')).toBeTruthy();
+  expect (board.checkOverlappingShips('carrier', 'G', 4, 'horizontal')).toBeFalsy();
+})
+

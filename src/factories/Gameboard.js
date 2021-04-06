@@ -13,16 +13,34 @@ const Gameboard = () => {
     return columnNumber;
   }
 
+  const testCoordinateValidity = (x, y) => {
+    if (x < 0 || x > 9 || y < 0 || y > 9) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  // TODO: check to see if hit coordinates have already been hit
+
+  // TODO: check to see if ship rests on other ship
+
   const checkValidity = (shipType, row, column, alignment) => {
     let shipCoordinates = placeShip(shipType, row, column, alignment);
     for (let i = 0; i < shipCoordinates.length; i++) {
-      let testedXCoordinate = shipCoordinates[i][0];
-      let testedYCoordinate = shipCoordinates[i][1];
-      if (testedXCoordinate < 0 || testedXCoordinate > 9 || testedYCoordinate < 0 || testedYCoordinate > 9) {
+      if (testCoordinateValidity(shipCoordinates[i][0], shipCoordinates[i][1]) === false) {
         return false;
-      } 
+      };
     }
     return true;
+  }
+
+  const checkOverlappingShips = (shipType, row, column, alignment) => {
+    let shipCoordinates = placeShip(shipType, row, column, alignment);
+    for (let i = 0; i < shipCoordinates.length; i++) {
+      if (compareCoordinates(shipCoordinates[i])) {return true};
+    }
+    return false;
   }
 
   const createBoard = () => {
@@ -114,8 +132,7 @@ const Gameboard = () => {
     return (JSON.stringify(shipCoordinates) === JSON.stringify(newCoordinates));
   }
 
-  const shipHit = (row, column) => {
-    let newCoordinates = [findX(row), findY(column)];
+  const compareCoordinates= (newCoordinates) => {
     for (let i = 0; i < shipLocations.length; i++) {
       let shipCoordinates = shipLocations[i].ship[0].coordinates;
       for (let j = 0; j < shipCoordinates.length; j++) {
@@ -124,6 +141,11 @@ const Gameboard = () => {
         }
       }
     }
+  }
+
+  const shipHit = (row, column) => {
+    let newCoordinates = [findX(row), findY(column)];
+    return compareCoordinates(newCoordinates);
   }
   
   const allShipsSunk = () => {
@@ -135,7 +157,7 @@ const Gameboard = () => {
     ? true: false);
   }
 
-  return {createBoard, placeShip, receiveAttack, recordHit, changeBoard, allShipsSunk, shipPlacement, shipHit, checkValidity};
+  return {checkOverlappingShips, createBoard, placeShip, receiveAttack, recordHit, changeBoard, allShipsSunk, shipPlacement, shipHit, checkValidity};
 }
 
   export default Gameboard;
