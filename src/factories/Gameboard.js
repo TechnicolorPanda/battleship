@@ -110,12 +110,12 @@ const Gameboard = () => {
     return false;
   }
 
-  const deductHitPoints = (shipCoordinates, row, column) => {
-    if (receiveAttack(shipCoordinates, row, column)) {
-      let remaining = Ship().isHit(shipType);
-      return remaining;
-    }
-  }
+  // const deductHitPoints = (shipCoordinates, row, column) => {
+  //   if (receiveAttack(shipCoordinates, row, column)) {
+  //     let remaining = Ship().isHit(shipType);
+  //     return remaining;
+  //   }
+  // }
 
   const checkHitValidity = (row, column) => {
     return board[findX(row)][findY(column - 1)];

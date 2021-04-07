@@ -36,8 +36,6 @@ const Player = () => {
       return Gameboard().shipPlacement('patrol boat', row, column, alignment);
     }
 
-    // TODO: ensure that boat is only placed on empty spaces
-
     const computerPlacesBoat = () => {
       placeCarrier(randomRow(), randomColumn(), randomAlignment());
     }
@@ -48,8 +46,6 @@ const Player = () => {
         Gameboard().deductHitPoints(row, column)
       }   
     }
-
-    // TODO: ensure that computer play hits space marked false;
 
     const computerPlay = () => {
       enterPlay(randomRow(), randomColumn());
