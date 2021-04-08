@@ -10,15 +10,10 @@ const GameLoop = () => {
     setNewBoard(Gameboard().createBoard());
   },[])
 
-  // TODO: determine target coordinates
-
   const initiateAttack = (event) => {
-    console.log('initiate attack');
     let coordinates = event.target.getAttribute('value');
-    console.log(coordinates);
     let column = parseFloat(coordinates.charAt(1)) + parseFloat(1);  // 3
     let row = coordinates.charAt(0); //A
-    console.log(column);
     setNewBoard(Gameboard().changeBoard(row, column));
   }
 

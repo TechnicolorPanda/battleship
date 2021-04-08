@@ -5,13 +5,13 @@ const Gameboard = () => {
   let board = [];
   let shipLocations = [];
 
-  const findX = (rowLetter) => {
-    return rowLetter.charCodeAt(0) - 65;
-  }
+  // const findX = (rowLetter) => {
+  //   return rowLetter.charCodeAt(0) - 65;
+  // }
 
-  const findY = (columnNumber) => {
-    return columnNumber;
-  }
+  // const findY = (columnNumber) => {
+  //   return columnNumber;
+  // }
 
   const testCoordinateValidity = (x, y) => {
     if (x < 0 || x > 9 || y < 0 || y > 9) {
@@ -32,8 +32,8 @@ const Gameboard = () => {
     }
   }
 
-  const checkValidity = (shipType, row, column, alignment) => {
-    let shipCoordinates = placeShip(shipType, row, column, alignment);
+  const checkValidity = (shipType, column, row, alignment) => {
+    let shipCoordinates = placeShip(shipType, column, row, alignment);
     for (let i = 0; i < shipCoordinates.length; i++) {
       if (testCoordinateValidity(shipCoordinates[i][0], shipCoordinates[i][1]) === false) {
         return false;
@@ -42,8 +42,8 @@ const Gameboard = () => {
     return true;
   }
 
-  const checkOverlappingShips = (shipType, row, column, alignment) => {
-    let shipCoordinates = placeShip(shipType, row, column, alignment);
+  const checkOverlappingShips = (shipType, column, row, alignment) => {
+    let shipCoordinates = placeShip(shipType, column, row, alignment);
     for (let i = 0; i < shipCoordinates.length; i++) {
       if (compareCoordinates(shipCoordinates[i])) {return true};
     }
@@ -68,41 +68,41 @@ const Gameboard = () => {
     return board;
   }
 
-  const horizontalShip = (shipType, row, column) => {
+  const horizontalShip = (shipType, column, row) => {
     let shipCoordinates = [];
     for (let i = 0; i < Ship().shipLength(shipType); i++) {
       shipCoordinates = shipCoordinates.concat([
-        [findX(row),
-         findY(column) + i
+        [column,
+         row + i
         ]
       ]);
     }
     return shipCoordinates;
   }
 
-  const verticalShip = (shipType, row, column) => {
+  const verticalShip = (shipType, column, row) => {
     let shipCoordinates = [];
     for (let i = 0; i < Ship().shipLength(shipType); i++) {
       shipCoordinates = shipCoordinates.concat([
-        [findX(row) + i,
-         findY(column)
+        [column + i,
+         row
         ]
       ]);
     }
     return shipCoordinates;
   }
 
-  const placeShip = (shipType, row, column, alignment) => {
+  const placeShip = (shipType, column, row, alignment) => {
     if (alignment === 'horizontal') {
-      return horizontalShip(shipType, row, column);
+      return horizontalShip(shipType, column, row);
     } else {
-      return verticalShip(shipType, row, column);
+      return verticalShip(shipType, column, row);
     }
   }
 
-  const receiveAttack = (shipCoordinates, row, column) => {
+  const receiveAttack = (shipCoordinates, column, row) => {
     for (let i = 0; i < shipCoordinates.length; i++) {
-      if (JSON.stringify(shipCoordinates[i]) === JSON.stringify([findX(row), findY(column)])) {
+      if (JSON.stringify(shipCoordinates[i]) === JSON.stringify([column, row])) {
         return true;
       }
     }
@@ -116,8 +116,8 @@ const Gameboard = () => {
   //   }
   // }
 
-  const checkHitValidity = (row, column) => {
-    return board[findX(row)][findY(column - 1)];
+  const checkHitValidity = (column, row) => {
+    return board[column][row];
   }
 
   const recordHit = (column, row, board) => {
@@ -126,8 +126,8 @@ const Gameboard = () => {
     return newBoard;
   }
 
-  const shipPlacement = (shipType, row, column, alignment) => {
-    let placedShip = placeShip(shipType, row, column, alignment);
+  const shipPlacement = (shipType, column, row, alignment) => {
+    let placedShip = placeShip(shipType, column, row, alignment);
     const newShip = {
       ship: [
         {name: shipType, coordinates: placedShip}
@@ -141,8 +141,8 @@ const Gameboard = () => {
     return (JSON.stringify(shipCoordinates) === JSON.stringify(newCoordinates));
   }
 
-  const shipHit = (row, column) => {
-    let newCoordinates = [findX(row), findY(column)];
+  const shipHit = (column, row) => {
+    let newCoordinates = [column, row];
     return compareCoordinates(newCoordinates);
   }
   
