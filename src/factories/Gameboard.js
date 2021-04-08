@@ -55,17 +55,16 @@ const Gameboard = () => {
     return newBoard;
   }
 
-  const createRow = (row, board) => {
-    return board[row];
+  const createRow = (column, board) => {
+    return board[column];
   }
 
   const changeBoard = (row, column) => {
     if (board.length === 0) {
       board = createBoard();
     }
-    let rowNumber = findX(row);
-    let newRow = recordHit(row, column, board);
-    board.splice(rowNumber, 1, newRow);
+    let newColumn = recordHit(column, row, board);
+    board.splice(column, 1, newColumn);
     return board;
   }
 
@@ -121,10 +120,9 @@ const Gameboard = () => {
     return board[findX(row)][findY(column - 1)];
   }
 
-  const recordHit = (row, column) => {
-    let columnNumber = findY(column) - 1;
-    let newBoard = createRow(findX(row), board);
-    newBoard.splice(columnNumber, 1, true);
+  const recordHit = (column, row, board) => {
+    let newBoard = createRow(column, board);
+    newBoard.splice(row, 1, true);
     return newBoard;
   }
 
