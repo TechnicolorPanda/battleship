@@ -7,7 +7,10 @@ const GameLoop = () => {
   const [newBoard, setNewBoard] = useState([]);
   const [computerBoard, setComputerBoard] = useState([]);
 
+  // TODO: render gameboard from local storage
+
   useEffect(() => {
+    Gameboard().testLocalStorage();
     setNewBoard(Gameboard().createBoard());
     setComputerBoard(Gameboard().createBoard());
   },[])
@@ -25,8 +28,8 @@ const GameLoop = () => {
     <div className={`game-board`}>
       <h1>Battleship</h1>
         <div>
-          <table className = 'player'>
           <h2>Player</h2>
+          <table className = 'player'>
             {newBoard.slice(1, newBoard.length).map((column, index) => {
               return (
                 <tbody key = {uniqid()}>
@@ -98,8 +101,8 @@ const GameLoop = () => {
           </table>
       </div>
       <div>
+        <h2>Computer</h2>
           <table className = 'computer'>
-            <h2>Computer</h2>
             {computerBoard.slice(1, computerBoard.length).map((column, index) => {
               return (
                 <tbody key = {uniqid()}>

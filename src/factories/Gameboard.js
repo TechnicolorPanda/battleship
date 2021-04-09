@@ -3,15 +3,8 @@ import Ship from './Ship.js';
 const Gameboard = () => {
 
   let board = [];
+  let mySavedBoard = [];
   let shipLocations = [];
-
-  // const findX = (rowLetter) => {
-  //   return rowLetter.charCodeAt(0) - 65;
-  // }
-
-  // const findY = (columnNumber) => {
-  //   return columnNumber;
-  // }
 
   const testCoordinateValidity = (x, y) => {
     if (x < 0 || x > 9 || y < 0 || y > 9) {
@@ -60,11 +53,13 @@ const Gameboard = () => {
   }
 
   const changeBoard = (row, column) => {
+    // let board = retrieveStorage(board);
     if (board.length === 0) {
       board = createBoard();
     }
     let newColumn = recordHit(column, row, board);
     board.splice(column, 1, newColumn);
+    localStorage.setItem('mySavedBoard', JSON.stringify(board));
     return board;
   }
 
@@ -155,7 +150,54 @@ const Gameboard = () => {
     ? true: false);
   }
 
-  return {checkHitValidity, checkOverlappingShips, createBoard, placeShip, receiveAttack, recordHit, changeBoard, allShipsSunk, shipPlacement, shipHit, checkValidity};
+  // directs storage options
+
+const testLocalStorage = (board, mySavedBoard) => {
+  if (storageAvailable('localStorage')) {
+    if (!localStorage.getItem('mySavedBoard')) {
+      populateStorage(mySavedBoard);
+    } else {
+      retrieveStorage(board);
+    }
+  } else {
+    alert('Storage unavailable');
+  }
+}
+
+  function storageAvailable(type) {
+    let storage;
+    try {
+      storage = window[type];
+      const x = '__storage_test__';
+      storage.setItem(x, x);
+      storage.removeItem(x);
+      return true;
+    } catch (e) {
+      return (
+        e instanceof DOMException
+        && (e.code === 22
+          || e.code === 1014
+          || e.name === 'QuotaExceededError'
+          || e.name === 'NS_ERROR_DOM_QUOTA_REACHED')
+        && storage
+        && storage.length !== 0
+      );
+    }
+  }
+  
+  // creates local storage for the first time
+  
+  function populateStorage(mySavedBoard) {
+    localStorage.setItem('mySavedBoard', mySavedBoard);
+  }
+  
+  // retrieves existing local storage
+  
+  function retrieveStorage(board) {
+    let mySavedBoard = JSON.parse(localStorage.getItem('mySavedBoard'));
+  }
+
+  return {testLocalStorage, checkHitValidity, checkOverlappingShips, createBoard, placeShip, receiveAttack, recordHit, changeBoard, allShipsSunk, shipPlacement, shipHit, checkValidity};
 }
 
   export default Gameboard;
