@@ -100,7 +100,7 @@ test ('ensure ships are not overlapping', () => {
 })
 
 test ('makes sure hit occurs in new location', () => {
-  expect (board.checkHitValidity(6, 5)).toBeTruthy();
+  expect (board.checkHitValidity(5, 6)).toBeTruthy();
   expect (board.checkHitValidity(1, 1)).toBeFalsy();
 })
 
