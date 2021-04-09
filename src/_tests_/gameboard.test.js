@@ -55,22 +55,22 @@ test('records hit location', () => {
     [false, false, false, false, false, false, false, false, false, false],
     [false, false, false, false, false, false, false, false, false, false],
     [false, false, false, false, false, false, false, false, false, false],
+    [false, false, false, false, false, false, true, false, false, false],
     [false, false, false, false, false, false, false, false, false, false],
-    [false, false, false, false, true, false, false, true, false, false],
     [false, false, false, false, false, false, false, false, false, false],
-    [false, false, false, false, false, false, false, false, false, false],
+    [false, false, false, false, false, false, true, false, false, false],
     [false, false, false, false, false, false, false, false, false, false],
   ]);
   expect (board.changeBoard(2, 1)).toEqual([
     [false, false, false, false, false, false, false, false, false, false],
-    [false, false, false, false, false, false, false, false, false, false],
-    [true, false, false, false, false, false, false, false, false, false],
-    [false, false, false, false, false, false, false, false, false, false],
+    [false, false, true, false, false, false, false, false, false, false],
     [false, false, false, false, false, false, false, false, false, false],
     [false, false, false, false, false, false, false, false, false, false],
-    [false, false, false, false, true, false, false, true, false, false],
+    [false, false, false, false, false, false, false, false, false, false],
+    [false, false, false, false, false, false, true, false, false, false],
     [false, false, false, false, false, false, false, false, false, false],
     [false, false, false, false, false, false, false, false, false, false],
+    [false, false, false, false, false, false, true, false, false, false],
     [false, false, false, false, false, false, false, false, false, false],
   ]);
 })
