@@ -8,22 +8,34 @@ const GameLoop = () => {
   const [newBoard, setNewBoard] = useState(
     JSON.parse(localStorage.getItem('mySavedBoard')) || []
   );
+  const [shipLocations, setShipLocations] = useState(    
+    [{'ship': [{'coordinates': [[0, 2], [0, 3], [0, 4]], 'name': 'submarine'}]},
+    {'ship': [{'coordinates': [[3, 4], [3, 5]], 'name': 'patrol boat'}]},
+    {'ship': [{'coordinates': [[3, 0], [4, 0], [5, 0], [6, 0], [7, 0]], 'name': 'carrier'}]},
+    {'ship': [{'coordinates': [[4, 8], [5, 8], [6, 8], [7, 8]], 'name': 'battleship'}]},
+    {'ship': [{'coordinates': [[8, 2], [8, 3], [8, 4]], 'name': 'destroyer'}]},
+    ])
 
   useEffect(() => {
     setNewBoard(Gameboard().createBoard());
     setComputerBoard(Gameboard().createBoard());
   },[])
 
+  // TODO: place ships on board
+
   useEffect(() => {
     localStorage.setItem('mySavedBoard', JSON.stringify(newBoard));
   }, [newBoard])
 
+  // TODO: receive attack on board to determine if a ship is hit
+
   const initiateAttack = (event) => {
     let coordinates = event.target.getAttribute('value');
-    let column = coordinates.charAt(1);
-    let row = coordinates.charAt(0);
     let board = JSON.parse(localStorage.getItem('mySavedBoard'));
-    setNewBoard (Gameboard().changeBoard(row, column, board));
+    setNewBoard (Gameboard().changeBoard(coordinates.charAt(0), coordinates.charAt(1), board));
+    let returnCoordinates = Gameboard().getCoordinates(shipLocations);
+    let isHit = (Gameboard().receiveAttack(returnCoordinates, parseInt(coordinates.charAt(1)), parseInt(coordinates.charAt(0))));
+    console.log(isHit);
   }
 
   return (

@@ -23,6 +23,11 @@ const Gameboard = () => {
     }
   }
 
+  const getCoordinates = (shipLocations, column, row) => {
+    let shipCordinates = shipLocations[0].ship[0].coordinates;
+    return (shipCordinates);
+  }
+
   const checkValidity = (shipType, column, row, alignment) => {
     let shipCoordinates = placeShip(shipType, column, row, alignment);
     for (let i = 0; i < shipCoordinates.length; i++) {
@@ -147,7 +152,19 @@ const Gameboard = () => {
     ? true: false);
   }
 
-  return {checkHitValidity, checkOverlappingShips, createBoard, placeShip, receiveAttack, recordHit, changeBoard, allShipsSunk, shipPlacement, shipHit, checkValidity};
+  return {
+    getCoordinates,
+    checkHitValidity, 
+    checkOverlappingShips, 
+    createBoard, 
+    placeShip, 
+    receiveAttack, 
+    recordHit, changeBoard, 
+    allShipsSunk, 
+    shipPlacement, 
+    shipHit, 
+    checkValidity
+  };
 }
 
   export default Gameboard;
