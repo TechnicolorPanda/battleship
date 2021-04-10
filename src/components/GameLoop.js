@@ -9,8 +9,6 @@ const GameLoop = () => {
     JSON.parse(localStorage.getItem('mySavedBoard')) || []
   );
 
-  // TODO: render gameboard from local storage
-
   useEffect(() => {
     setNewBoard(Gameboard().createBoard());
     setComputerBoard(Gameboard().createBoard());
@@ -20,11 +18,9 @@ const GameLoop = () => {
     localStorage.setItem('mySavedBoard', JSON.stringify(newBoard));
   }, [newBoard])
 
-  // save board to local storage
-
   const initiateAttack = (event) => {
     let coordinates = event.target.getAttribute('value');
-    let column = parseFloat(coordinates.charAt(1)) + parseFloat(1);
+    let column = coordinates.charAt(1);
     let row = coordinates.charAt(0);
     let board = JSON.parse(localStorage.getItem('mySavedBoard'));
     setNewBoard (Gameboard().changeBoard(row, column, board));
@@ -36,14 +32,14 @@ const GameLoop = () => {
         <div>
           <h2>Player</h2>
           <table className = 'player'>
-            {newBoard.slice(1, newBoard.length).map((column, index) => {
+            {newBoard.slice(0, 10).map((column, index) => {
               return (
                 <tbody key = {uniqid()}>
                   <tr>
                     <td 
                       key = {uniqid()}
                       className = {column[0] ? 'background-red': 'background-blue'}
-                      value = {'0' + (index)}
+                      value = {'0' + index}
                       onClick = {initiateAttack}
                     ></td>
                     <td 
@@ -109,7 +105,7 @@ const GameLoop = () => {
       <div>
         <h2>Computer</h2>
           <table className = 'computer'>
-            {computerBoard.slice(1, computerBoard.length).map((column, index) => {
+            {computerBoard.slice(0, 10).map((column, index) => {
               return (
                 <tbody key = {uniqid()}>
                   <tr>
