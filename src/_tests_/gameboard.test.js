@@ -37,7 +37,7 @@ test('attack ship by coodinates', () => {
 })
 
 test('records hit location', () => {
-  expect (board.changeBoard(6, 8)).toEqual([
+  const board1 = [
     [false, false, false, false, false, false, false, false, false, false],
     [false, false, false, false, false, false, false, false, false, false],
     [false, false, false, false, false, false, false, false, false, false],
@@ -48,8 +48,9 @@ test('records hit location', () => {
     [false, false, false, false, false, false, false, false, false, false],
     [false, false, false, false, false, false, true, false, false, false],
     [false, false, false, false, false, false, false, false, false, false],
-  ]);
-  expect (board.changeBoard(6, 5)).toEqual([
+  ];
+
+  const board2 = [
     [false, false, false, false, false, false, false, false, false, false],
     [false, false, false, false, false, false, false, false, false, false],
     [false, false, false, false, false, false, false, false, false, false],
@@ -60,8 +61,9 @@ test('records hit location', () => {
     [false, false, false, false, false, false, false, false, false, false],
     [false, false, false, false, false, false, true, false, false, false],
     [false, false, false, false, false, false, false, false, false, false],
-  ]);
-  expect (board.changeBoard(2, 1)).toEqual([
+  ];
+
+  const board3 = [
     [false, false, false, false, false, false, false, false, false, false],
     [false, false, true, false, false, false, false, false, false, false],
     [false, false, false, false, false, false, false, false, false, false],
@@ -72,7 +74,10 @@ test('records hit location', () => {
     [false, false, false, false, false, false, false, false, false, false],
     [false, false, false, false, false, false, true, false, false, false],
     [false, false, false, false, false, false, false, false, false, false],
-  ]);
+  ];
+  expect (board.changeBoard(6, 8, [])).toEqual(board1);
+  expect (board.changeBoard(6, 5, board1)).toEqual(board2);
+  expect (board.changeBoard(2, 1, board2)).toEqual(board3);
 })
 
 test('places ship position in array', () => {
@@ -100,7 +105,19 @@ test ('ensure ships are not overlapping', () => {
 })
 
 test ('makes sure hit occurs in new location', () => {
-  expect (board.checkHitValidity(5, 6)).toBeTruthy();
-  expect (board.checkHitValidity(1, 1)).toBeFalsy();
+  const board3 = [
+    [false, false, false, false, false, false, false, false, false, false],
+    [false, false, true, false, false, false, false, false, false, false],
+    [false, false, false, false, false, false, false, false, false, false],
+    [false, false, false, false, false, false, false, false, false, false],
+    [false, false, false, false, false, false, false, false, false, false],
+    [false, false, false, false, false, false, true, false, false, false],
+    [false, false, false, false, false, false, false, false, false, false],
+    [false, false, false, false, false, false, false, false, false, false],
+    [false, false, false, false, false, false, true, false, false, false],
+    [false, false, false, false, false, false, false, false, false, false],
+  ];
+  expect (board.checkHitValidity(5, 6, board3)).toBeTruthy();
+  expect (board.checkHitValidity(1, 1, board3)).toBeFalsy();
 })
 

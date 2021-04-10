@@ -4,16 +4,21 @@ import uniqid from 'uniqid';
 import '../styles/gameboard.css';
 
 const GameLoop = () => {
-  const [newBoard, setNewBoard] = useState([]);
   const [computerBoard, setComputerBoard] = useState([]);
+  const [newBoard, setNewBoard] = useState(
+    JSON.parse(localStorage.getItem('mySavedBoard')) || []
+  );
 
   // TODO: render gameboard from local storage
 
   useEffect(() => {
-    Gameboard().testLocalStorage();
     setNewBoard(Gameboard().createBoard());
     setComputerBoard(Gameboard().createBoard());
   },[])
+
+  useEffect(() => {
+    localStorage.setItem('mySavedBoard', JSON.stringify(newBoard));
+  }, [newBoard])
 
   // save board to local storage
 
@@ -21,7 +26,8 @@ const GameLoop = () => {
     let coordinates = event.target.getAttribute('value');
     let column = parseFloat(coordinates.charAt(1)) + parseFloat(1);
     let row = coordinates.charAt(0);
-    setNewBoard (Gameboard().changeBoard(row, column));
+    let board = JSON.parse(localStorage.getItem('mySavedBoard'));
+    setNewBoard (Gameboard().changeBoard(row, column, board));
   }
 
   return (
