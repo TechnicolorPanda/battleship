@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Gameboard from '../factories/Gameboard.js'
 import uniqid from 'uniqid';
 import '../styles/gameboard.css';
+import Ship from '../factories/Ship.js';
 
 const GameLoop = () => {
   const [computerBoard, setComputerBoard] = useState([]);
@@ -15,10 +16,12 @@ const GameLoop = () => {
     {'ship': [{'coordinates': [[4, 8], [5, 8], [6, 8], [7, 8]], 'name': 'battleship'}]},
     {'ship': [{'coordinates': [[8, 2], [8, 3], [8, 4]], 'name': 'destroyer'}]},
     ])
+  const [getShipCoordinates, setGetShipCoordinates] = useState('')
 
   useEffect(() => {
     setNewBoard(Gameboard().createBoard());
     setComputerBoard(Gameboard().createBoard());
+    setGetShipCoordinates(Gameboard().getCoordinates(shipLocations));
   },[])
 
   // TODO: place ships on board
@@ -27,15 +30,24 @@ const GameLoop = () => {
     localStorage.setItem('mySavedBoard', JSON.stringify(newBoard));
   }, [newBoard])
 
-  // TODO: receive attack on board to determine if a ship is hit
+  // TODO: determine why shipHit always equals 'submarine'
 
   const initiateAttack = (event) => {
     let coordinates = event.target.getAttribute('value');
     let board = JSON.parse(localStorage.getItem('mySavedBoard'));
-    setNewBoard (Gameboard().changeBoard(coordinates.charAt(0), coordinates.charAt(1), board));
-    let returnCoordinates = Gameboard().getCoordinates(shipLocations);
-    let isHit = (Gameboard().receiveAttack(returnCoordinates, parseInt(coordinates.charAt(1)), parseInt(coordinates.charAt(0))));
-    console.log(isHit);
+    const column = parseInt(coordinates.charAt(0));
+    const row = parseInt(coordinates.charAt(1));
+
+    // updates board with hit information
+    setNewBoard (Gameboard().changeBoard(column, row, board));
+
+    // determines if ship is hit
+    let isHit = (Gameboard().receiveAttack(getShipCoordinates, row, column));
+    if (isHit) {
+      const getShipHit = Gameboard().shipHit(row, column, shipLocations);
+      console.log(getShipHit);
+      Ship().isHit(getShipHit);
+    };
   }
 
   return (

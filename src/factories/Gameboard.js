@@ -2,7 +2,7 @@ import Ship from './Ship.js';
 
 const Gameboard = () => {
 
-  let shipLocations = [];
+  // let shipLocations = [];
 
   const testCoordinateValidity = (x, y) => {
     if (x < 0 || x > 9 || y < 0 || y > 9) {
@@ -12,7 +12,7 @@ const Gameboard = () => {
     }
   }
 
-  const compareCoordinates= (newCoordinates) => {
+  const compareCoordinates= (newCoordinates, shipLocations) => {
     for (let i = 0; i < shipLocations.length; i++) {
       let shipCoordinates = shipLocations[i].ship[0].coordinates;
       for (let j = 0; j < shipCoordinates.length; j++) {
@@ -23,9 +23,14 @@ const Gameboard = () => {
     }
   }
 
-  const getCoordinates = (shipLocations, column, row) => {
-    let shipCordinates = shipLocations[0].ship[0].coordinates;
-    return (shipCordinates);
+  const getCoordinates = (shipLocations) => {
+    let shipCoordinates = shipLocations[0].ship[0].coordinates;
+    for (let i = 1; i < shipLocations.length; i++) {
+      for (let j = 0; j < shipLocations[i].ship[0].coordinates.length; j++) {
+        shipCoordinates.push(shipLocations[i].ship[0].coordinates[j]);
+      }
+    }
+    return shipCoordinates;
   }
 
   const checkValidity = (shipType, column, row, alignment) => {
@@ -123,24 +128,24 @@ const Gameboard = () => {
     return newBoard;
   }
 
-  const shipPlacement = (shipType, column, row, alignment) => {
-    let placedShip = placeShip(shipType, column, row, alignment);
-    const newShip = {
-      ship: [
-        {name: shipType, coordinates: placedShip}
-      ]
-    }
-    shipLocations = shipLocations.concat(newShip);
-    return shipLocations;
-  }
+  // const shipPlacement = (shipType, column, row, alignment) => {
+  //   let placedShip = placeShip(shipType, column, row, alignment);
+  //   const newShip = {
+  //     ship: [
+  //       {name: shipType, coordinates: placedShip}
+  //     ]
+  //   }
+  //   shipLocations = shipLocations.concat(newShip);
+  //   return shipLocations;
+  // }
 
   const areCoordinatesEqual = (shipCoordinates, newCoordinates) => {
     return (JSON.stringify(shipCoordinates) === JSON.stringify(newCoordinates));
   }
 
-  const shipHit = (column, row) => {
+  const shipHit = (column, row, shipLocations) => {
     let newCoordinates = [column, row];
-    return compareCoordinates(newCoordinates);
+    return compareCoordinates(newCoordinates, shipLocations);
   }
   
   const allShipsSunk = () => {
@@ -161,7 +166,7 @@ const Gameboard = () => {
     receiveAttack, 
     recordHit, changeBoard, 
     allShipsSunk, 
-    shipPlacement, 
+    // shipPlacement, 
     shipHit, 
     checkValidity
   };
