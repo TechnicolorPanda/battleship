@@ -3,11 +3,13 @@ import Gameboard from '../factories/Gameboard.js'
 import uniqid from 'uniqid';
 import '../styles/gameboard.css';
 import Ship from '../factories/Ship.js';
+import Player from '../factories/Player.js';
 
 const GameLoop = () => {
-  const [computerBoard, setComputerBoard] = useState([]);
-  const [newBoard, setNewBoard] = useState(
-    JSON.parse(localStorage.getItem('mySavedBoard')) || []
+  const [computerBoard, setComputerBoard] = useState(
+    JSON.parse(localStorage.getItem('savedComputerBoard')) || []);
+  const [playerBoard, setPlayerBoard] = useState(
+    JSON.parse(localStorage.getItem('savedPlayerBoard')) || []
   );
   const [shipLocations, setShipLocations] = useState(    
     [{'ship': [{'coordinates': [[0, 2], [0, 3], [0, 4]], 'name': 'submarine'}]},
@@ -15,31 +17,46 @@ const GameLoop = () => {
     {'ship': [{'coordinates': [[3, 0], [4, 0], [5, 0], [6, 0], [7, 0]], 'name': 'carrier'}]},
     {'ship': [{'coordinates': [[4, 8], [5, 8], [6, 8], [7, 8]], 'name': 'battleship'}]},
     {'ship': [{'coordinates': [[8, 2], [8, 3], [8, 4]], 'name': 'destroyer'}]},
-    ])
-  const [getShipCoordinates, setGetShipCoordinates] = useState('')
+    ]);
+  const [getShipCoordinates, setGetShipCoordinates] = useState('');
+  const [turn, setTurn] = useState(0);
 
   useEffect(() => {
-    setNewBoard(Gameboard().createBoard());
+    setPlayerBoard(Gameboard().createBoard());
     setComputerBoard(Gameboard().createBoard());
     setGetShipCoordinates(Gameboard().getCoordinates(shipLocations));
-  },[])
+  }, [shipLocations])
+
+  useEffect(() => {
+    if (Player().selectUser(turn).userName === 'computer') {
+      let column = Player().randomCoordinate();
+      let row = Player().randomCoordinate();
+      let board = JSON.parse(localStorage.getItem('savedComputerBoard'));
+      setComputerBoard(Gameboard().changeBoard(column, row, board));
+      setTurn(turn => turn + 1);
+    };
+  }, [turn])
 
   // TODO: place ships on board
 
   useEffect(() => {
-    localStorage.setItem('mySavedBoard', JSON.stringify(newBoard));
-  }, [newBoard])
+    localStorage.setItem('savedPlayerBoard', JSON.stringify(playerBoard));
+  }, [playerBoard])
+
+  useEffect(() => {
+    localStorage.setItem('savedComputerBoard', JSON.stringify(computerBoard));
+  }, [computerBoard])
 
   // TODO: determine why shipHit always equals 'submarine'
 
   const initiateAttack = (event) => {
     let coordinates = event.target.getAttribute('value');
-    let board = JSON.parse(localStorage.getItem('mySavedBoard'));
+    let board = JSON.parse(localStorage.getItem('savedPlayerBoard'));
     const column = parseInt(coordinates.charAt(0));
     const row = parseInt(coordinates.charAt(1));
 
     // updates board with hit information
-    setNewBoard (Gameboard().changeBoard(column, row, board));
+    setPlayerBoard (Gameboard().changeBoard(column, row, board));
 
     // determines if ship is hit
     let isHit = (Gameboard().receiveAttack(getShipCoordinates, row, column));
@@ -48,6 +65,7 @@ const GameLoop = () => {
       console.log(getShipHit);
       Ship().isHit(getShipHit);
     };
+    setTurn(turn => (turn + 1));
   }
 
   return (
@@ -56,7 +74,7 @@ const GameLoop = () => {
         <div>
           <h2>Player</h2>
           <table className = 'player'>
-            {newBoard.slice(0, 10).map((column, index) => {
+            {playerBoard.slice(0, 10).map((column, index) => {
               return (
                 <tbody key = {uniqid()}>
                   <tr>

@@ -61,9 +61,6 @@ const Gameboard = () => {
   }
 
   const changeBoard = (row, column, board) => {
-    if (board.length === 0) {
-      board = createBoard();
-    }
     let newColumn = recordHit(column, row, board);
     board.splice(column, 1, newColumn);
     localStorage.setItem('mySavedBoard', JSON.stringify(board));
