@@ -33,6 +33,12 @@ const GameLoop = () => {
       let row = Player().randomCoordinate();
       let board = JSON.parse(localStorage.getItem('savedComputerBoard'));
       setComputerBoard(Gameboard().changeBoard(column, row, board));
+      let isHit = (Gameboard().receiveAttack(getShipCoordinates, row, column));
+      if (isHit) {
+        const getShipHit = Gameboard().shipHit(row, column, shipLocations);
+        console.log('computer ' + getShipHit);
+        Ship().isHit(getShipHit);
+      };
       setTurn(turn => turn + 1);
     };
   }, [turn])
@@ -64,6 +70,7 @@ const GameLoop = () => {
       const getShipHit = Gameboard().shipHit(row, column, shipLocations);
       console.log(getShipHit);
       Ship().isHit(getShipHit);
+      return tdStyle;
     };
     setTurn(turn => (turn + 1));
   }
@@ -71,9 +78,9 @@ const GameLoop = () => {
   return (
     <div className={`game-board`}>
       <h1>Battleship</h1>
-        <div>
+        <div className = 'player'>
           <h2>Player</h2>
-          <table className = 'player'>
+          <table>
             {playerBoard.slice(0, 10).map((column, index) => {
               return (
                 <tbody key = {uniqid()}>
@@ -144,9 +151,9 @@ const GameLoop = () => {
             })}
           </table>
       </div>
-      <div>
+      <div className = 'computer'>
         <h2>Computer</h2>
-          <table className = 'computer'>
+          <table>
             {computerBoard.slice(0, 10).map((column, index) => {
               return (
                 <tbody key = {uniqid()}>
