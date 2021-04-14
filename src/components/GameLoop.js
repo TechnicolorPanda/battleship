@@ -20,6 +20,7 @@ const GameLoop = () => {
     ]);
   const [getShipCoordinates, setGetShipCoordinates] = useState('');
   const [turn, setTurn] = useState(0);
+  const [hit, setHit] = useState(false);
 
   useEffect(() => {
     setPlayerBoard(Gameboard().createBoard());
@@ -57,6 +58,7 @@ const GameLoop = () => {
 
   const initiateAttack = (event) => {
     let coordinates = event.target.getAttribute('value');
+    console.log(coordinates);
     let board = JSON.parse(localStorage.getItem('savedPlayerBoard'));
     const column = parseInt(coordinates.charAt(0));
     const row = parseInt(coordinates.charAt(1));
@@ -70,7 +72,7 @@ const GameLoop = () => {
       const getShipHit = Gameboard().shipHit(row, column, shipLocations);
       console.log(getShipHit);
       Ship().isHit(getShipHit);
-      return tdStyle;
+      setHit(true);
     };
     setTurn(turn => (turn + 1));
   }
@@ -90,13 +92,13 @@ const GameLoop = () => {
                       className = {column[0] ? 'background-red': 'background-blue'}
                       value = {'0' + index}
                       onClick = {initiateAttack}
-                    ></td>
+                    >{hit? 'x': ''}</td>
                     <td 
                       key = {uniqid()}
                       className = {column[1] ? 'background-red': 'background-blue'}
                       value = {'1' + index}
                       onClick = {initiateAttack}
-                    ></td>
+                    >{hit? 'x': ''}</td>
                     <td 
                       key = {uniqid()}
                       className = {column[2] ? 'background-red': 'background-blue'}
