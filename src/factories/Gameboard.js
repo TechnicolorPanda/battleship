@@ -12,6 +12,11 @@ const Gameboard = () => {
     }
   }
 
+
+  const areCoordinatesEqual = (shipCoordinates, newCoordinates) => {
+    return (JSON.stringify(shipCoordinates) === JSON.stringify(newCoordinates));
+  }
+
   const compareCoordinates= (newCoordinates, shipLocations) => {
     for (let i = 0; i < shipLocations.length; i++) {
       let shipCoordinates = shipLocations[i].ship[0].coordinates;
@@ -101,8 +106,11 @@ const Gameboard = () => {
 
   const receiveAttack = (shipCoordinates, column, row) => {
     for (let i = 0; i < shipCoordinates.length; i++) {
-      if (JSON.stringify(shipCoordinates[i]) === JSON.stringify([column, row])) {
-        return true;
+      let eachShip = shipCoordinates[i].ship[0].coordinates;
+      for (let j = 0; j < eachShip.length; j++) {
+        if (JSON.stringify(eachShip[j]) === JSON.stringify([column, row])) {
+          return true;
+        }
       }
     }
     return false;
@@ -135,10 +143,6 @@ const Gameboard = () => {
   //   shipLocations = shipLocations.concat(newShip);
   //   return shipLocations;
   // }
-
-  const areCoordinatesEqual = (shipCoordinates, newCoordinates) => {
-    return (JSON.stringify(shipCoordinates) === JSON.stringify(newCoordinates));
-  }
 
   const shipHit = (column, row, shipLocations) => {
     let newCoordinates = [column, row];

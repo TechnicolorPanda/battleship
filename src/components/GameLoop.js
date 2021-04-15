@@ -18,14 +18,14 @@ const GameLoop = () => {
     {'ship': [{'coordinates': [[4, 8], [5, 8], [6, 8], [7, 8]], 'name': 'battleship'}]},
     {'ship': [{'coordinates': [[8, 2], [8, 3], [8, 4]], 'name': 'destroyer'}]},
     ]);
-  const [getShipCoordinates, setGetShipCoordinates] = useState('');
+//   const [getShipCoordinates, setGetShipCoordinates] = useState('');
   const [turn, setTurn] = useState(0);
   const [hit, setHit] = useState(false);
 
   useEffect(() => {
     setPlayerBoard(Gameboard().createBoard());
     setComputerBoard(Gameboard().createBoard());
-    setGetShipCoordinates(Gameboard().getCoordinates(shipLocations));
+    // setGetShipCoordinates(Gameboard().getCoordinates(shipLocations));
   }, [shipLocations])
 
   useEffect(() => {
@@ -34,7 +34,7 @@ const GameLoop = () => {
       let row = Player().randomCoordinate();
       let board = JSON.parse(localStorage.getItem('savedComputerBoard'));
       setComputerBoard(Gameboard().changeBoard(column, row, board));
-      let isHit = (Gameboard().receiveAttack(getShipCoordinates, row, column));
+      let isHit = (Gameboard().receiveAttack(shipLocations, row, column));
       if (isHit) {
         const getShipHit = Gameboard().shipHit(row, column, shipLocations);
         console.log('computer ' + getShipHit);
@@ -57,6 +57,7 @@ const GameLoop = () => {
   // TODO: determine why shipHit always equals 'submarine'
 
   const initiateAttack = (event) => {
+    event.preventDefault();
     let coordinates = event.target.getAttribute('value');
     console.log(coordinates);
     let board = JSON.parse(localStorage.getItem('savedPlayerBoard'));
@@ -67,7 +68,7 @@ const GameLoop = () => {
     setPlayerBoard (Gameboard().changeBoard(column, row, board));
 
     // determines if ship is hit
-    let isHit = (Gameboard().receiveAttack(getShipCoordinates, row, column));
+    let isHit = (Gameboard().receiveAttack(shipLocations, row, column));
     if (isHit) {
       const getShipHit = Gameboard().shipHit(row, column, shipLocations);
       console.log(getShipHit);
