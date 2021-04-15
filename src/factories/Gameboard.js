@@ -28,15 +28,15 @@ const Gameboard = () => {
     }
   }
 
-  const getCoordinates = (shipLocations) => {
-    let shipCoordinates = shipLocations[0].ship[0].coordinates;
-    for (let i = 1; i < shipLocations.length; i++) {
-      for (let j = 0; j < shipLocations[i].ship[0].coordinates.length; j++) {
-        shipCoordinates.push(shipLocations[i].ship[0].coordinates[j]);
-      }
-    }
-    return shipCoordinates;
-  }
+  // const getCoordinates = (shipLocations) => {
+  //   let shipCoordinates = shipLocations[0].ship[0].coordinates;
+  //   for (let i = 1; i < shipLocations.length; i++) {
+  //     for (let j = 0; j < shipLocations[i].ship[0].coordinates.length; j++) {
+  //       shipCoordinates.push(shipLocations[i].ship[0].coordinates[j]);
+  //     }
+  //   }
+  //   return shipCoordinates;
+  // }
 
   const checkValidity = (shipType, column, row, alignment) => {
     let shipCoordinates = placeShip(shipType, column, row, alignment);
@@ -57,7 +57,7 @@ const Gameboard = () => {
   }
 
   const createBoard = () => {
-    let newBoard = Array(10).fill(0).map(row => new Array(10).fill(false));
+    let newBoard = Array(10).fill(0).map(row => new Array(10).fill('background-blue'));
     return newBoard;
   }
 
@@ -129,7 +129,7 @@ const Gameboard = () => {
 
   const recordHit = (column, row, board) => {
     let newBoard = createRow(column, board);
-    newBoard.splice(row, 1, true);
+    newBoard.splice(row, 1, 'background-yellow');
     return newBoard;
   }
 
@@ -159,7 +159,7 @@ const Gameboard = () => {
   }
 
   return {
-    getCoordinates,
+    // getCoordinates,
     checkHitValidity, 
     checkOverlappingShips, 
     createBoard, 
@@ -169,7 +169,7 @@ const Gameboard = () => {
     allShipsSunk, 
     // shipPlacement, 
     shipHit, 
-    checkValidity
+    checkValidity,
   };
 }
 
