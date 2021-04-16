@@ -18,30 +18,12 @@ const GameLoop = () => {
     {'ship': [{'coordinates': [[4, 8], [5, 8], [6, 8], [7, 8]], 'name': 'battleship'}]},
     {'ship': [{'coordinates': [[8, 2], [8, 3], [8, 4]], 'name': 'destroyer'}]},
     ]);
-//   const [getShipCoordinates, setGetShipCoordinates] = useState('');
   const [turn, setTurn] = useState(0);
-  const [hit, setHit] = useState(false);
 
   useEffect(() => {
     setPlayerBoard(Gameboard().createBoard());
     setComputerBoard(Gameboard().createBoard());
   }, [shipLocations])
-
-  useEffect(() => {
-    if (Player().selectUser(turn).userName === 'computer') {
-      let column = Player().randomCoordinate();
-      let row = Player().randomCoordinate();
-      let board = JSON.parse(localStorage.getItem('savedComputerBoard'));
-      setComputerBoard(Gameboard().changeBoard(column, row, board));
-      let isHit = (Gameboard().receiveAttack(shipLocations, row, column));
-      if (isHit) {
-        const getShipHit = Gameboard().shipHit(row, column, shipLocations);
-        console.log('computer ' + getShipHit);
-        Ship().isHit(getShipHit);
-      };
-      setTurn(turn => turn + 1);
-    };
-  }, [turn])
 
   // TODO: place ships on board
 
@@ -53,31 +35,40 @@ const GameLoop = () => {
     localStorage.setItem('savedComputerBoard', JSON.stringify(computerBoard));
   }, [computerBoard])
 
-  // TODO: determine why shipHit always equals 'submarine'
-
   const initiateAttack = (event) => {
     event.preventDefault();
     let coordinates = event.target.getAttribute('value');
-    console.log(coordinates);
     let board = JSON.parse(localStorage.getItem('savedPlayerBoard'));
     const column = parseInt(coordinates.charAt(0));
     const row = parseInt(coordinates.charAt(1));
-
-    // updates board with hit information
-    setPlayerBoard (Gameboard().changeBoard(column, row, board));
-
-    // determines if ship is hit
     let isHit = (Gameboard().receiveAttack(shipLocations, row, column));
     if (isHit) {
-      const getShipHit = Gameboard().shipHit(row, column, shipLocations);
-      console.log(getShipHit);
-      Ship().isHit(getShipHit);
-      setHit(true);
-    } else {
-      setHit(false);
-    };
+        const getShipHit = Gameboard().shipHit(row, column, shipLocations);
+        setPlayerBoard(Gameboard().changeBoard(column, row, board, true));
+        Ship().isHit(getShipHit);
+      } else {
+        setPlayerBoard (Gameboard().changeBoard(column, row, board, false));
+      }
     setTurn(turn => (turn + 1));
   }
+
+  useEffect(() => {
+    if (Player().selectUser(turn).userName === 'computer') {
+      let column = Player().randomCoordinate();
+      let row = Player().randomCoordinate();
+      let board = JSON.parse(localStorage.getItem('savedComputerBoard'));
+      setComputerBoard(Gameboard().changeBoard(column, row, board));
+      let isHit = (Gameboard().receiveAttack(shipLocations, row, column));
+      if (isHit) {
+        const getShipHit = Gameboard().shipHit(row, column, shipLocations);
+        setComputerBoard(Gameboard().changeBoard(column, row, board, true));
+        Ship().isHit(getShipHit);
+      } else {
+        setComputerBoard (Gameboard().changeBoard(column, row, board, false));
+      }
+      setTurn(turn => turn + 1);
+    };
+  }, [turn])
 
   return (
     <div className={`game-board`}>

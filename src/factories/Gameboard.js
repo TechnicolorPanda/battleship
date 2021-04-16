@@ -65,10 +65,22 @@ const Gameboard = () => {
     return board[column];
   }
 
-  const changeBoard = (row, column, board) => {
-    let newColumn = recordHit(column, row, board);
-    board.splice(column, 1, newColumn);
-    localStorage.setItem('mySavedBoard', JSON.stringify(board));
+
+  const shipHit = (column, row, shipLocations) => {
+    let newCoordinates = [column, row];
+    return compareCoordinates(newCoordinates, shipLocations);
+  }
+
+  const recordHit = (column, row, board, shipHit) => {
+    let newBoard = createRow(column, board);
+    let marker = shipHit ? 'background-red': 'background-yellow';
+    newBoard.splice(row, 1, marker);
+    return newBoard;
+  }
+
+  const changeBoard = (row, column, board, shipHit) => {
+    board.splice(column, 1, recordHit(column, row, board, shipHit));
+    // localStorage.setItem('mySavedBoard', JSON.stringify(board));
     return board;
   }
 
@@ -127,11 +139,7 @@ const Gameboard = () => {
     return board[column][row];
   }
 
-  const recordHit = (column, row, board) => {
-    let newBoard = createRow(column, board);
-    newBoard.splice(row, 1, 'background-yellow');
-    return newBoard;
-  }
+
 
   // const shipPlacement = (shipType, column, row, alignment) => {
   //   let placedShip = placeShip(shipType, column, row, alignment);
@@ -144,10 +152,9 @@ const Gameboard = () => {
   //   return shipLocations;
   // }
 
-  const shipHit = (column, row, shipLocations) => {
-    let newCoordinates = [column, row];
-    return compareCoordinates(newCoordinates, shipLocations);
-  }
+
+
+
   
   const allShipsSunk = () => {
     return (Ship('carrier').isSunk && 
@@ -165,7 +172,8 @@ const Gameboard = () => {
     createBoard, 
     placeShip, 
     receiveAttack, 
-    recordHit, changeBoard, 
+    recordHit, 
+    changeBoard, 
     allShipsSunk, 
     // shipPlacement, 
     shipHit, 
