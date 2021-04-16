@@ -155,52 +155,52 @@ const GameLoop = () => {
                   <tr>
                     <td 
                       key = {uniqid()}
-                      className = {column[0] ? 'background-red': 'background-blue'}
+                      className = {column[0]}
                       value = {'0' + (index)}
                     ></td>
                     <td 
                       key = {uniqid()}
-                      className = {column[1] ? 'background-red': 'background-blue'}
+                      className = {column[1]}
                       value = {'1' + index}
                     ></td>
                     <td 
                       key = {uniqid()}
-                      className = {column[2] ? 'background-red': 'background-blue'}
+                      className = {column[2]}
                       value = {'2' + index}
                     ></td>
                     <td 
                       key = {uniqid()}
-                      className = {column[3] ? 'background-red': 'background-blue'}
+                      className = {column[3]}
                       value = {'3' + index}
                     ></td>
                     <td 
                       key = {uniqid()}
-                      className = {column[4] ? 'background-red': 'background-blue'}
+                      className = {column[4]}
                       value = {'4' + index}
                     ></td>
                     <td                   
                       key = {uniqid()}
-                      className = {column[5] ? 'background-red': 'background-blue'}
+                      className = {column[5]}
                       value = {'5' + index}
                     ></td>
                     <td 
                       key = {uniqid()}
-                      className = {column[6] ? 'background-red': 'background-blue'}
+                      className = {column[6]}
                       value = {'6' + index}
                     ></td>
                     <td 
                       key = {uniqid()}
-                      className = {column[7] ? 'background-red': 'background-blue'}
+                      className = {column[7]}
                       value = {'7' + index}
                     ></td>
                     <td 
                       key = {uniqid()}
-                      className = {column[8] ? 'background-red': 'background-blue'}
+                      className = {column[8]}
                       value = {'8' + index}
                     ></td>
                     <td 
                       key = {uniqid()}
-                      className = {column[9] ? 'background-red': 'background-blue'}
+                      className = {column[9]}
                       value = {'9' + index}
                     ></td>
                   </tr>
