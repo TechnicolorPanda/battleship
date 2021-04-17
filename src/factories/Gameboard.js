@@ -12,7 +12,6 @@ const Gameboard = () => {
     }
   }
 
-
   const areCoordinatesEqual = (shipCoordinates, newCoordinates) => {
     return (JSON.stringify(shipCoordinates) === JSON.stringify(newCoordinates));
   }
@@ -73,14 +72,14 @@ const Gameboard = () => {
 
   const recordHit = (column, row, board, shipHit) => {
     let newBoard = createRow(column, board);
-    let marker = shipHit ? 'background-red': 'background-yellow';
+    let marker = shipHit ? 'hit': 'miss';
     newBoard.splice(row, 1, marker);
     return newBoard;
   }
 
   const changeBoard = (row, column, board, shipHit) => {
+    console.log(board[column][row]);
     board.splice(column, 1, recordHit(column, row, board, shipHit));
-    // localStorage.setItem('mySavedBoard', JSON.stringify(board));
     return board;
   }
 
@@ -152,10 +151,6 @@ const Gameboard = () => {
   //   return shipLocations;
   // }
 
-
-
-
-  
   const allShipsSunk = () => {
     return (Ship('carrier').isSunk && 
     Ship('battleship').isSunk && 

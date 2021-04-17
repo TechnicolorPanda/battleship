@@ -15,6 +15,7 @@ table {
 
 tbody {
     box-shadow: 0 0 0 1px black;
+    background-color: blue;
 }
 
 td {
@@ -26,23 +27,42 @@ td {
 
 .computer {
   float: right;
-  margin-right: 10%;
+  margin-right: 20%;
 }
 
 .player {
     float: left;
-    margin-left: 10%;
+    margin-left: 20%;
 }
 
-.background-red {
-    background-color: red;
+.hit {
+  height: 12px;
+  width: 12px;
+  background-color: red;
+  border-radius: 50%;
+  display: inline-block;
 }
-  
+
 .background-blue {
     background-color: blue;
 }
 
-.background-yellow {
-  background-color: yellow;
+.miss {
+  height: 12px;
+  width: 12px;
+  background-color: white;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.dialogue {
+  background: lightblue;
+  width: 30%;
+  height: 5rem;
+  margin-right: 35%;
+  margin-left: 35%;
+  margin-bottom: 10px;
+  border-radius: 3px;
+  box-shadow: 0 0 0 1px black;
 }
 

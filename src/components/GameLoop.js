@@ -19,6 +19,7 @@ const GameLoop = () => {
     {'ship': [{'coordinates': [[8, 2], [8, 3], [8, 4]], 'name': 'destroyer'}]},
     ]);
   const [turn, setTurn] = useState(0);
+  const [text, setText] = useState('');
 
   useEffect(() => {
     setPlayerBoard(Gameboard().createBoard());
@@ -73,6 +74,11 @@ const GameLoop = () => {
   return (
     <div className={`game-board`}>
       <h1>Battleship</h1>
+
+      <div className = 'dialogue'>
+       {text}
+      </div>
+
         <div className = 'player'>
           <h2>Player</h2>
           <table>
@@ -146,6 +152,7 @@ const GameLoop = () => {
             })}
           </table>
       </div>
+
       <div className = 'computer'>
         <h2>Computer</h2>
           <table>
