@@ -56,7 +56,7 @@ const Gameboard = () => {
   }
 
   const createBoard = () => {
-    let newBoard = Array(10).fill(0).map(row => new Array(10).fill('background-blue'));
+    let newBoard = Array(10).fill(0).map(row => new Array(10).fill('water'));
     return newBoard;
   }
 
@@ -78,7 +78,6 @@ const Gameboard = () => {
   }
 
   const changeBoard = (row, column, board, shipHit) => {
-    console.log(board[column][row]);
     board.splice(column, 1, recordHit(column, row, board, shipHit));
     return board;
   }
@@ -135,7 +134,11 @@ const Gameboard = () => {
   // }
 
   const checkHitValidity = (column, row, board) => {
-    return board[column][row];
+    if (board[column][row] === 'water') {
+      return true;
+    } else {
+      return false;
+    };
   }
 
 

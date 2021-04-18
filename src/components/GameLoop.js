@@ -36,6 +36,14 @@ const GameLoop = () => {
     localStorage.setItem('savedComputerBoard', JSON.stringify(computerBoard));
   }, [computerBoard])
 
+  // TODO: prevent duplicate attacks
+
+  // TODO: determine when ship is sunk
+
+  // TODO: declare a winner
+
+  // TODO: fix bug where multiple grid items are placed in one square
+  
   const initiateAttack = (event) => {
     event.preventDefault();
     let coordinates = event.target.getAttribute('value');

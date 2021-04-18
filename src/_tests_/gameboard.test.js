@@ -4,16 +4,16 @@ const board = Gameboard();
 
 test ('creates empty gameboard', () => {
   expect(board.createBoard()).toEqual([
-    [false, false, false, false, false, false, false, false, false, false],
-    [false, false, false, false, false, false, false, false, false, false],
-    [false, false, false, false, false, false, false, false, false, false],
-    [false, false, false, false, false, false, false, false, false, false],
-    [false, false, false, false, false, false, false, false, false, false],
-    [false, false, false, false, false, false, false, false, false, false],
-    [false, false, false, false, false, false, false, false, false, false],
-    [false, false, false, false, false, false, false, false, false, false],
-    [false, false, false, false, false, false, false, false, false, false],
-    [false, false, false, false, false, false, false, false, false, false],
+    ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+    ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+    ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+    ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+    ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+    ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+    ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+    ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+    ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+    ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
   ]);
 })
 
@@ -29,55 +29,65 @@ test('checks validity of ship coordinates', () => {
 })
 
 test('attacks ship at coordinates', () => {
-  expect (board.receiveAttack([[2, 3], [2, 4], [2, 5]], 2, 4)).toBeTruthy();
-})
-
-test('attack ship by coodinates', () => {
-  expect (board.receiveAttack([[1, 2], [2, 2], [3, 2], [4, 2]], 6, 8)).toBeFalsy();
+  expect (board.receiveAttack([{'ship': [{'coordinates': [[2, 3], [2, 4], [2, 5]], 'name': 'submarine'}]}], 2, 4)).toBeTruthy();
+  expect (board.receiveAttack([{'ship': [{'coordinates': [[1, 2], [2, 2], [3, 2], [4, 2]], 'name': 'battleship'}]}], 6, 8)).toBeFalsy();
 })
 
 test('records hit location', () => {
+  const board0 = [
+    ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+    ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+    ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+    ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+    ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+    ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+    ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+    ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+    ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+    ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+  ];
+
   const board1 = [
-    [false, false, false, false, false, false, false, false, false, false],
-    [false, false, false, false, false, false, false, false, false, false],
-    [false, false, false, false, false, false, false, false, false, false],
-    [false, false, false, false, false, false, false, false, false, false],
-    [false, false, false, false, false, false, false, false, false, false],
-    [false, false, false, false, false, false, false, false, false, false],
-    [false, false, false, false, false, false, false, false, false, false],
-    [false, false, false, false, false, false, false, false, false, false],
-    [false, false, false, false, false, false, true, false, false, false],
-    [false, false, false, false, false, false, false, false, false, false],
+    ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+    ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+    ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+    ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+    ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+    ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+    ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+    ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+    ['water', 'water', 'water', 'water', 'water', 'water', 'miss', 'water', 'water', 'water'],
+    ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
   ];
 
   const board2 = [
-    [false, false, false, false, false, false, false, false, false, false],
-    [false, false, false, false, false, false, false, false, false, false],
-    [false, false, false, false, false, false, false, false, false, false],
-    [false, false, false, false, false, false, false, false, false, false],
-    [false, false, false, false, false, false, false, false, false, false],
-    [false, false, false, false, false, false, true, false, false, false],
-    [false, false, false, false, false, false, false, false, false, false],
-    [false, false, false, false, false, false, false, false, false, false],
-    [false, false, false, false, false, false, true, false, false, false],
-    [false, false, false, false, false, false, false, false, false, false],
+    ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+    ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+    ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+    ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+    ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+    ['water', 'water', 'water', 'water', 'water', 'water', 'miss', 'water', 'water', 'water'],
+    ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+    ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+    ['water', 'water', 'water', 'water', 'water', 'water', 'miss', 'water', 'water', 'water'],
+    ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
   ];
 
   const board3 = [
-    [false, false, false, false, false, false, false, false, false, false],
-    [false, false, true, false, false, false, false, false, false, false],
-    [false, false, false, false, false, false, false, false, false, false],
-    [false, false, false, false, false, false, false, false, false, false],
-    [false, false, false, false, false, false, false, false, false, false],
-    [false, false, false, false, false, false, true, false, false, false],
-    [false, false, false, false, false, false, false, false, false, false],
-    [false, false, false, false, false, false, false, false, false, false],
-    [false, false, false, false, false, false, true, false, false, false],
-    [false, false, false, false, false, false, false, false, false, false],
+    ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+    ['water', 'water', 'miss', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+    ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+    ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+    ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+    ['water', 'water', 'water', 'water', 'water', 'water', 'miss', 'water', 'water', 'water'],
+    ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+    ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+    ['water', 'water', 'water', 'water', 'water', 'water', 'miss', 'water', 'water', 'water'],
+    ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
   ];
-  expect (board.changeBoard(6, 8, [])).toEqual(board1);
-  expect (board.changeBoard(6, 5, board1)).toEqual(board2);
-  expect (board.changeBoard(2, 1, board2)).toEqual(board3);
+  expect (board.changeBoard(6, 8, board0, false)).toEqual(board1);
+  expect (board.changeBoard(6, 5, board1, false)).toEqual(board2);
+  expect (board.changeBoard(2, 1, board2, false)).toEqual(board3);
 })
 
 test('places ship position in array', () => {
@@ -106,18 +116,18 @@ test ('ensure ships are not overlapping', () => {
 
 test ('makes sure hit occurs in new location', () => {
   const board3 = [
-    [false, false, false, false, false, false, false, false, false, false],
-    [false, false, true, false, false, false, false, false, false, false],
-    [false, false, false, false, false, false, false, false, false, false],
-    [false, false, false, false, false, false, false, false, false, false],
-    [false, false, false, false, false, false, false, false, false, false],
-    [false, false, false, false, false, false, true, false, false, false],
-    [false, false, false, false, false, false, false, false, false, false],
-    [false, false, false, false, false, false, false, false, false, false],
-    [false, false, false, false, false, false, true, false, false, false],
-    [false, false, false, false, false, false, false, false, false, false],
+    ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+    ['water', 'water', 'miss', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+    ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+    ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+    ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+    ['water', 'water', 'water', 'water', 'water', 'water', 'miss', 'water', 'water', 'water'],
+    ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+    ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
+    ['water', 'water', 'water', 'water', 'water', 'water', 'miss', 'water', 'water', 'water'],
+    ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
   ];
-  expect (board.checkHitValidity(5, 6, board3)).toBeTruthy();
-  expect (board.checkHitValidity(1, 1, board3)).toBeFalsy();
+  expect (board.checkHitValidity(5, 6, board3)).toBeFalsy();
+  expect (board.checkHitValidity(1, 1, board3)).toBeTruthy();
 })
 
