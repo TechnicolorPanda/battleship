@@ -42,8 +42,6 @@ const GameLoop = () => {
 
   // TODO: declare a winner
 
-  // TODO: fix bug where multiple grid items are placed in one square
-  
   const initiateAttack = (event) => {
     event.preventDefault();
     let coordinates = event.target.getAttribute('value');
