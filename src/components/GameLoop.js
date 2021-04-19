@@ -20,10 +20,14 @@ const GameLoop = () => {
     ]);
   const [turn, setTurn] = useState(0);
   const [text, setText] = useState('');
+  const [shipStatus, setShipStatus] = useState(
+    JSON.parse(localStorage.getItem('savedShipStatus')) || []
+  );
 
   useEffect(() => {
     setPlayerBoard(Gameboard().createBoard());
     setComputerBoard(Gameboard().createBoard());
+    setShipStatus(Ship().shipDescriptions());
   }, [shipLocations])
 
   // TODO: place ships on board
@@ -35,6 +39,10 @@ const GameLoop = () => {
   useEffect(() => {
     localStorage.setItem('savedComputerBoard', JSON.stringify(computerBoard));
   }, [computerBoard])
+
+  useEffect(() => {
+    localStorage.setItem('savedShipStatus', JSON.stringify(shipStatus));
+  }, [shipStatus])
 
   // TODO: prevent duplicate attacks
 
@@ -52,9 +60,14 @@ const GameLoop = () => {
     if (isHit) {
         const getShipHit = Gameboard().shipHit(row, column, shipLocations);
         setPlayerBoard(Gameboard().changeBoard(column, row, board, true));
-        Ship().isHit(getShipHit);
+        setText(' Your attack hit a ship!  ');
+        const shipHit = Ship().isHit(getShipHit, shipStatus);
+        setShipStatus(shipHit);
+        if (Ship().isSunk(getShipHit, shipStatus)) {
+          setText(getShipHit + ' is sunk!')};
       } else {
         setPlayerBoard (Gameboard().changeBoard(column, row, board, false));
+        setText(' Your attack missed. ');
       }
     setTurn(turn => (turn + 1));
   }
@@ -69,9 +82,11 @@ const GameLoop = () => {
       if (isHit) {
         const getShipHit = Gameboard().shipHit(row, column, shipLocations);
         setComputerBoard(Gameboard().changeBoard(column, row, board, true));
+        setText(text + ' Your ship was hit! ')
         Ship().isHit(getShipHit);
       } else {
         setComputerBoard (Gameboard().changeBoard(column, row, board, false));
+        setText(text + ' Computer attack missed. ');
       }
       setTurn(turn => turn + 1);
     };

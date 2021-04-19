@@ -11,7 +11,9 @@ const Ship = () => {
     ]
   }
 
-  const shipStatus = shipType;
+  const shipDescriptions = () => {
+    return shipType;
+  }
 
   const shipLength = (newShip) => {
     let matchingShip = shipType.ship.find((element) => {
@@ -20,16 +22,17 @@ const Ship = () => {
     return matchingShip.length;
   };
 
-  const isHit = (shipName) => {
+  const isHit = (shipName, shipStatus) => {
+    console.log(shipStatus);
     for (let i = 0; i < 5; i++) {
       if (shipStatus.ship[i].name === shipName) {
         shipStatus.ship[i].length--;
-        return shipStatus.ship[i].length;
       }
     }
+    return shipStatus;
   }
 
-  const isSunk = (shipName) => {
+  const isSunk = (shipName, shipStatus) => {
     for (let i = 0; i < 5; i++) {
       if (shipStatus.ship[i].name === shipName) {
         return (shipStatus.ship[i].length === 0) ? true: false;
@@ -37,7 +40,7 @@ const Ship = () => {
     }
   }
 
-  return { shipLength, isHit, isSunk };
+  return { shipLength, isHit, isSunk, shipDescriptions };
 
 }
 
