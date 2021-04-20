@@ -83,7 +83,7 @@ const GameLoop = () => {
         const getShipHit = Gameboard().shipHit(row, column, shipLocations);
         setComputerBoard(Gameboard().changeBoard(column, row, board, true));
         setText(text + ' Your ship was hit! ')
-        Ship().isHit(getShipHit);
+        Ship().isHit(getShipHit, shipStatus);
       } else {
         setComputerBoard (Gameboard().changeBoard(column, row, board, false));
         setText(text + ' Computer attack missed. ');
