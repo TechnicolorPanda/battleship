@@ -50,6 +50,9 @@ const GameLoop = () => {
 
   // TODO: declare a winner
 
+          // const displayResult = Ship().attackResult(getShipHit, shipStatus);
+        // setText(displayResult);
+
   const initiateAttack = (event) => {
     event.preventDefault();
     let coordinates = event.target.getAttribute('value');

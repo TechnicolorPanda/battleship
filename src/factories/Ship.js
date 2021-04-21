@@ -40,7 +40,16 @@ const Ship = () => {
     }
   }
 
-  return { shipLength, isHit, isSunk, shipDescriptions };
+  const attackResult = (getShipHit, shipStatus) => {
+    const newShipStatus = isHit(getShipHit, shipStatus);
+    if (isSunk(getShipHit, newShipStatus)) {
+      return (getShipHit + ' is sunk!');
+    } else {
+      return (' Your attack hit a ship!  ');
+    }
+  }
+
+  return { shipLength, isHit, isSunk, shipDescriptions, attackResult };
 
 }
 
