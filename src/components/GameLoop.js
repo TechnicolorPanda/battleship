@@ -50,9 +50,6 @@ const GameLoop = () => {
 
   // TODO: declare a winner
 
-          // const displayResult = Ship().attackResult(getShipHit, shipStatus);
-        // setText(displayResult);
-
   const initiateAttack = (event) => {
     event.preventDefault();
     let coordinates = event.target.getAttribute('value');
@@ -63,15 +60,12 @@ const GameLoop = () => {
     if (isHit) {
         const getShipHit = Gameboard().shipHit(row, column, shipLocations);
         setPlayerBoard(Gameboard().changeBoard(column, row, board, true));
-        setText(' Your attack hit a ship!  ');
-        const shipHit = Ship().isHit(getShipHit, shipStatus);
-        setShipStatus(shipHit);
-        if (Ship().isSunk(getShipHit, shipStatus)) {
-          setText(getShipHit + ' is sunk!')};
-      } else {
-        setPlayerBoard (Gameboard().changeBoard(column, row, board, false));
-        setText(' Your attack missed. ');
-      }
+        const displayResult = Ship().attackResult(getShipHit, shipStatus);
+        setText(displayResult);
+    } else {
+      setPlayerBoard (Gameboard().changeBoard(column, row, board, false));
+      setText(' Your attack missed. ');
+    }
     setTurn(turn => (turn + 1));
   }
 

@@ -1,3 +1,4 @@
+import Gameboard from "./Gameboard";
 
 const Ship = () => {
 
@@ -23,12 +24,15 @@ const Ship = () => {
   };
 
   const isHit = (shipName, shipStatus) => {
-    console.log(shipStatus);
     for (let i = 0; i < 5; i++) {
       if (shipStatus.ship[i].name === shipName) {
-        shipStatus.ship[i].length--;
+        let size = shipStatus.ship[i].length;
+        size = size - 1;
+        console.log(size);
+        shipStatus.ship[i].length = size;
       }
     }
+    console.log(shipStatus);
     return shipStatus;
   }
 
@@ -43,7 +47,11 @@ const Ship = () => {
   const attackResult = (getShipHit, shipStatus) => {
     const newShipStatus = isHit(getShipHit, shipStatus);
     if (isSunk(getShipHit, newShipStatus)) {
-      return (getShipHit + ' is sunk!');
+      if (Gameboard().allShipsSunk()) {
+        return ('All ships have been sunk. You win!')
+      } else {
+        return (getShipHit + ' is sunk!');
+      }
     } else {
       return (' Your attack hit a ship!  ');
     }
