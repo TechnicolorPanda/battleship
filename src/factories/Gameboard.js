@@ -154,7 +154,7 @@ const Gameboard = () => {
   //   return shipLocations;
   // }
 
-  const allShipsSunk = () => {
+  const allShipsSunk = (shipStatus) => {
     return (Ship('carrier').isSunk && 
     Ship('battleship').isSunk && 
     Ship('destroyer').isSunk && 

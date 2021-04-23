@@ -20,14 +20,18 @@ const GameLoop = () => {
     ]);
   const [turn, setTurn] = useState(0);
   const [text, setText] = useState('');
-  const [shipStatus, setShipStatus] = useState(
-    JSON.parse(localStorage.getItem('savedShipStatus')) || []
+  const [playerShipStatus, setPlayerShipStatus] = useState(
+    JSON.parse(localStorage.getItem('savedPlayerShipStatus')) || []
+  );
+  const [computerShipStatus, setComputerShipStatus] = useState(
+    JSON.parse(localStorage.getItem('savedComputerShipStatus')) || []
   );
 
   useEffect(() => {
     setPlayerBoard(Gameboard().createBoard());
     setComputerBoard(Gameboard().createBoard());
-    setShipStatus(Ship().shipDescriptions());
+    setPlayerShipStatus(Ship().shipDescriptions());
+    setComputerShipStatus(Ship().shipDescriptions());
   }, [shipLocations])
 
   // TODO: place ships on board
@@ -41,8 +45,36 @@ const GameLoop = () => {
   }, [computerBoard])
 
   useEffect(() => {
-    localStorage.setItem('savedShipStatus', JSON.stringify(shipStatus));
-  }, [shipStatus])
+    localStorage.setItem('savedPlayerShipStatus', JSON.stringify(playerShipStatus));
+  }, [playerShipStatus])
+
+  const attackResult = (getShipHit, playerShipStatus) => {
+    const newShipStatus = Ship().isHit(getShipHit, playerShipStatus);
+    setPlayerShipStatus(newShipStatus);
+    if (Ship().isSunk(getShipHit, newShipStatus)) {
+      if (Gameboard().allShipsSunk(newShipStatus)) {
+        return ('All ships have been sunk. You win!')
+      } else {
+        return (getShipHit + ' is sunk!');
+      }
+    } else {
+      return (' Your attack hit a ship!  ');
+    }
+  }
+
+  const computerResult = (getShipHit, computerShipStatus) => {
+    const newShipStatus = Ship().isHit(getShipHit, computerShipStatus);
+    setComputerShipStatus(newShipStatus);
+    if (Ship().isSunk(getShipHit, newShipStatus)) {
+      if (Gameboard().allShipsSunk(newShipStatus)) {
+        return ('All ships have been sunk. Computer wins!')
+      } else {
+        return ('Your' + getShipHit + ' is sunk!');
+      }
+    } else {
+      return (' Computer\'s attack hit a ship!  ');
+    }
+  }
 
   // TODO: prevent duplicate attacks
 
@@ -50,17 +82,19 @@ const GameLoop = () => {
 
   // TODO: declare a winner
 
+  // TODO: change ship status upon changing length of each ship
+
   const initiateAttack = (event) => {
     event.preventDefault();
     let coordinates = event.target.getAttribute('value');
     let board = JSON.parse(localStorage.getItem('savedPlayerBoard'));
     const column = parseInt(coordinates.charAt(0));
     const row = parseInt(coordinates.charAt(1));
-    let isHit = (Gameboard().receiveAttack(shipLocations, row, column));
-    if (isHit) {
+    let isShipHit = (Gameboard().receiveAttack(shipLocations, row, column));
+    if (isShipHit) {
         const getShipHit = Gameboard().shipHit(row, column, shipLocations);
         setPlayerBoard(Gameboard().changeBoard(column, row, board, true));
-        const displayResult = Ship().attackResult(getShipHit, shipStatus);
+        const displayResult = attackResult(getShipHit, playerShipStatus);
         setText(displayResult);
     } else {
       setPlayerBoard (Gameboard().changeBoard(column, row, board, false));
@@ -79,8 +113,8 @@ const GameLoop = () => {
       if (isHit) {
         const getShipHit = Gameboard().shipHit(row, column, shipLocations);
         setComputerBoard(Gameboard().changeBoard(column, row, board, true));
-        setText(text + ' Your ship was hit! ')
-        Ship().isHit(getShipHit, shipStatus);
+        const displayResult = computerResult(getShipHit, computerShipStatus);
+        setText(displayResult);
       } else {
         setComputerBoard (Gameboard().changeBoard(column, row, board, false));
         setText(text + ' Computer attack missed. ');

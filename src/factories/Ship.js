@@ -26,10 +26,7 @@ const Ship = () => {
   const isHit = (shipName, shipStatus) => {
     for (let i = 0; i < 5; i++) {
       if (shipStatus.ship[i].name === shipName) {
-        let size = shipStatus.ship[i].length;
-        size = size - 1;
-        console.log(size);
-        shipStatus.ship[i].length = size;
+        shipStatus.ship[i].length--;
       }
     }
     console.log(shipStatus);
@@ -44,20 +41,7 @@ const Ship = () => {
     }
   }
 
-  const attackResult = (getShipHit, shipStatus) => {
-    const newShipStatus = isHit(getShipHit, shipStatus);
-    if (isSunk(getShipHit, newShipStatus)) {
-      if (Gameboard().allShipsSunk()) {
-        return ('All ships have been sunk. You win!')
-      } else {
-        return (getShipHit + ' is sunk!');
-      }
-    } else {
-      return (' Your attack hit a ship!  ');
-    }
-  }
-
-  return { shipLength, isHit, isSunk, shipDescriptions, attackResult };
+  return { shipLength, isHit, isSunk, shipDescriptions };
 
 }
 
