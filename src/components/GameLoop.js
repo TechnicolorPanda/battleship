@@ -55,7 +55,7 @@ const GameLoop = () => {
       if (Gameboard().allShipsSunk(newShipStatus)) {
         return ('All ships have been sunk. You win!')
       } else {
-        return (getShipHit + ' is sunk!');
+        return ('Computer\'s ' + getShipHit + ' is sunk!');
       }
     } else {
       return (' Your attack hit a ship!  ');
@@ -69,7 +69,7 @@ const GameLoop = () => {
       if (Gameboard().allShipsSunk(newShipStatus)) {
         return ('All ships have been sunk. Computer wins!')
       } else {
-        return ('Your' + getShipHit + ' is sunk!');
+        return ('Your ' + getShipHit + ' is sunk!');
       }
     } else {
       return (' Computer\'s attack hit a ship!  ');
@@ -78,11 +78,7 @@ const GameLoop = () => {
 
   // TODO: prevent duplicate attacks
 
-  // TODO: determine when ship is sunk
-
   // TODO: declare a winner
-
-  // TODO: change ship status upon changing length of each ship
 
   const initiateAttack = (event) => {
     event.preventDefault();

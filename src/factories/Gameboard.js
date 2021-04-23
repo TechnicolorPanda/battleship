@@ -155,11 +155,11 @@ const Gameboard = () => {
   // }
 
   const allShipsSunk = (shipStatus) => {
-    return (Ship('carrier').isSunk && 
-    Ship('battleship').isSunk && 
-    Ship('destroyer').isSunk && 
-    Ship('submarine').isSunk && 
-    Ship('patrol boat').inSunk 
+    return (Ship().isSunk('carrier', shipStatus) && 
+    Ship().isSunk('battleship', shipStatus) && 
+    Ship().isSunk('destroyer', shipStatus) && 
+    Ship().isSunk('submarine', shipStatus) && 
+    Ship().isSunk ('patrol boat', shipStatus)
     ? true: false);
   }
 
