@@ -11,6 +11,7 @@ const GameLoop = () => {
   const [playerBoard, setPlayerBoard] = useState(
     JSON.parse(localStorage.getItem('savedPlayerBoard')) || []
   );
+  const [playerShips, setPlayerShips] = useState([]);
   const [shipLocations, setShipLocations] = useState(    
     [{'ship': [{'coordinates': [[0, 2], [0, 3], [0, 4]], 'name': 'submarine'}]},
     {'ship': [{'coordinates': [[3, 4], [3, 5]], 'name': 'patrol boat'}]},
@@ -26,6 +27,7 @@ const GameLoop = () => {
   const [computerShipStatus, setComputerShipStatus] = useState(
     JSON.parse(localStorage.getItem('savedComputerShipStatus')) || []
   );
+  const [placeShips, setPlaceShips] = useState(true);
 
   useEffect(() => {
     setPlayerBoard(Gameboard().createBoard());
@@ -33,8 +35,6 @@ const GameLoop = () => {
     setPlayerShipStatus(Ship().shipDescriptions());
     setComputerShipStatus(Ship().shipDescriptions());
   }, [shipLocations])
-
-  // TODO: place ships on board
 
   useEffect(() => {
     localStorage.setItem('savedPlayerBoard', JSON.stringify(playerBoard));
@@ -47,6 +47,20 @@ const GameLoop = () => {
   useEffect(() => {
     localStorage.setItem('savedPlayerShipStatus', JSON.stringify(playerShipStatus));
   }, [playerShipStatus])
+
+  const placePlayerShips = (event) => {
+    event.preventDefault();
+    let coordinates = event.target.getAttribute('value');
+    const column = parseInt(coordinates.charAt(0));
+    const row = parseInt(coordinates.charAt(1));
+    const alignment = 'horizontal';
+    const shipType = 'carrier';
+    const newShipLocations = ([]);
+    setText('Click square to place ' + shipType + ' on the board.')
+    const newShip = Gameboard().shipPlacement(shipType, column, row, alignment, newShipLocations);
+    // const carrier = Player().placeCarrier(row, column, alignment);
+    console.log(newShip);
+  }
 
   const attackResult = (getShipHit, playerShipStatus) => {
     const newShipStatus = Ship().isHit(getShipHit, playerShipStatus);
@@ -75,8 +89,6 @@ const GameLoop = () => {
       return (' Computer\'s attack hit a ship!  ');
     }
   }
-
-  // TODO: prevent duplicate attacks
 
   const initiateAttack = (event) => {
     event.preventDefault();
@@ -218,51 +230,61 @@ const GameLoop = () => {
                       key = {uniqid()}
                       className = {column[0]}
                       value = {'0' + (index)}
+                      onClick = {placeShips ? placePlayerShips: null}
                     ></td>
                     <td 
                       key = {uniqid()}
                       className = {column[1]}
                       value = {'1' + index}
+                      onClick = {placeShips ? placePlayerShips: null}
                     ></td>
                     <td 
                       key = {uniqid()}
                       className = {column[2]}
                       value = {'2' + index}
+                      onClick = {placeShips ? placePlayerShips: null}
                     ></td>
                     <td 
                       key = {uniqid()}
                       className = {column[3]}
                       value = {'3' + index}
+                      onClick = {placeShips ? placePlayerShips: null}
                     ></td>
                     <td 
                       key = {uniqid()}
                       className = {column[4]}
                       value = {'4' + index}
+                      onClick = {placeShips ? placePlayerShips: null}
                     ></td>
                     <td                   
                       key = {uniqid()}
                       className = {column[5]}
                       value = {'5' + index}
+                      onClick = {placeShips ? placePlayerShips: null}
                     ></td>
                     <td 
                       key = {uniqid()}
                       className = {column[6]}
                       value = {'6' + index}
+                      onClick = {placeShips ? placePlayerShips: null}
                     ></td>
                     <td 
                       key = {uniqid()}
                       className = {column[7]}
                       value = {'7' + index}
+                      onClick = {placeShips ? placePlayerShips: null}
                     ></td>
                     <td 
                       key = {uniqid()}
                       className = {column[8]}
                       value = {'8' + index}
+                      onClick = {placeShips ? placePlayerShips: null}
                     ></td>
                     <td 
                       key = {uniqid()}
                       className = {column[9]}
                       value = {'9' + index}
+                      onClick = {placeShips ? placePlayerShips: null}
                     ></td>
                   </tr>
                 </tbody>

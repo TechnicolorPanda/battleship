@@ -41,9 +41,9 @@ const Player = () => {
     return Gameboard().shipPlacement('patrol boat', row, column, alignment);
   }
 
-  // const computerPlacesBoat = () => {
-  //   placeCarrier(randomRow(), randomColumn(), randomAlignment());
-  // }
+  const computerPlacesBoat = () => {
+    placeCarrier(randomCoordinate(), randomCoordinate(), randomAlignment());
+  }
 
   const enterPlay = (row, column) => {
     Gameboard().recordHit(row, column);
@@ -51,11 +51,6 @@ const Player = () => {
       Gameboard().deductHitPoints(row, column)
     }   
   }
-
-  // const computerPlay = () => {
-  //   console.log(randomRow(), randomColumn());
-  //   return enterPlay(randomRow(), randomColumn());
-  // }
 
   return { placeCarrier, enterPlay, selectUser, randomCoordinate };
 }

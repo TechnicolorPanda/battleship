@@ -141,18 +141,16 @@ const Gameboard = () => {
     };
   }
 
-
-
-  // const shipPlacement = (shipType, column, row, alignment) => {
-  //   let placedShip = placeShip(shipType, column, row, alignment);
-  //   const newShip = {
-  //     ship: [
-  //       {name: shipType, coordinates: placedShip}
-  //     ]
-  //   }
-  //   shipLocations = shipLocations.concat(newShip);
-  //   return shipLocations;
-  // }
+  const shipPlacement = (shipType, column, row, alignment, shipLocations) => {
+    let placedShip = placeShip(shipType, column, row, alignment);
+    const newShip = {
+      ship: [
+        {name: shipType, coordinates: placedShip}
+      ]
+    }
+    shipLocations = shipLocations.concat(newShip);
+    return shipLocations;
+  }
 
   const allShipsSunk = (shipStatus) => {
     return (Ship().isSunk('carrier', shipStatus) && 
@@ -173,7 +171,7 @@ const Gameboard = () => {
     recordHit, 
     changeBoard, 
     allShipsSunk, 
-    // shipPlacement, 
+    shipPlacement, 
     shipHit, 
     checkValidity,
   };
