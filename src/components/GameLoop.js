@@ -106,18 +106,22 @@ const GameLoop = () => {
       let column = Player().randomCoordinate();
       let row = Player().randomCoordinate();
       let board = JSON.parse(localStorage.getItem('savedComputerBoard'));
-      setComputerBoard(Gameboard().changeBoard(column, row, board));
-      let isHit = (Gameboard().receiveAttack(shipLocations, row, column));
-      if (isHit) {
-        const getShipHit = Gameboard().shipHit(row, column, shipLocations);
-        setComputerBoard(Gameboard().changeBoard(column, row, board, true));
-        const displayResult = computerResult(getShipHit, computerShipStatus);
-        setText(displayResult);
+      if (Gameboard().checkHitValidity(row, column, board)) {
+        setComputerBoard(Gameboard().changeBoard(column, row, board));
+        let isHit = (Gameboard().receiveAttack(shipLocations, row, column));
+        if (isHit) {
+          const getShipHit = Gameboard().shipHit(row, column, shipLocations);
+          setComputerBoard(Gameboard().changeBoard(column, row, board, true));
+          const displayResult = computerResult(getShipHit, computerShipStatus);
+          setText(displayResult);
+        } else {
+          setComputerBoard (Gameboard().changeBoard(column, row, board, false));
+          setText(text + ' Computer attack missed. ');
+        }
+        setTurn(turn => turn + 1);
       } else {
-        setComputerBoard (Gameboard().changeBoard(column, row, board, false));
-        setText(text + ' Computer attack missed. ');
+        setTurn(turn => turn + 2);
       }
-      setTurn(turn => turn + 1);
     };
   }, [turn])
 
