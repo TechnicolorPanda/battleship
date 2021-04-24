@@ -19,6 +19,7 @@ const GameLoop = () => {
     {'ship': [{'coordinates': [[4, 8], [5, 8], [6, 8], [7, 8]], 'name': 'battleship'}]},
     {'ship': [{'coordinates': [[8, 2], [8, 3], [8, 4]], 'name': 'destroyer'}]},
     ]);
+  const [playerShipLocations, setPlayerShipLocations] = useState([]);
   const [turn, setTurn] = useState(0);
   const [text, setText] = useState('');
   const [playerShipStatus, setPlayerShipStatus] = useState(
@@ -28,12 +29,14 @@ const GameLoop = () => {
     JSON.parse(localStorage.getItem('savedComputerShipStatus')) || []
   );
   const [placeShips, setPlaceShips] = useState(true);
+  const [shipNumber, setShipNumber] = useState(0);
 
   useEffect(() => {
     setPlayerBoard(Gameboard().createBoard());
     setComputerBoard(Gameboard().createBoard());
     setPlayerShipStatus(Ship().shipDescriptions());
     setComputerShipStatus(Ship().shipDescriptions());
+    setText('Click square to place carrier on the board.')
   }, [shipLocations])
 
   useEffect(() => {
@@ -51,15 +54,20 @@ const GameLoop = () => {
   const placePlayerShips = (event) => {
     event.preventDefault();
     let coordinates = event.target.getAttribute('value');
+    const shipTypes = ['carrier', 'battleship', 'destroyer', 'submarine', 'patrol boat'];
     const column = parseInt(coordinates.charAt(0));
     const row = parseInt(coordinates.charAt(1));
     const alignment = 'horizontal';
-    const shipType = 'carrier';
     const newShipLocations = ([]);
-    setText('Click square to place ' + shipType + ' on the board.')
-    const newShip = Gameboard().shipPlacement(shipType, column, row, alignment, newShipLocations);
-    // const carrier = Player().placeCarrier(row, column, alignment);
-    console.log(newShip);
+    const newShip = Gameboard().shipPlacement(shipTypes[shipNumber], column, row, alignment, newShipLocations);
+    setPlayerShipLocations(playerShipLocations => playerShipLocations.concat(newShip));
+    if (shipNumber < 4) {
+      setText('Click square to place ' + shipTypes[shipNumber + 1] + ' on the board.')
+      setShipNumber(shipNumber => shipNumber + 1);
+    } else {
+      setText('The battle begins! Attack your opponents board.')
+      setPlaceShips(false);
+    }
   }
 
   const attackResult = (getShipHit, playerShipStatus) => {
@@ -120,7 +128,7 @@ const GameLoop = () => {
       let board = JSON.parse(localStorage.getItem('savedComputerBoard'));
       if (Gameboard().checkHitValidity(row, column, board)) {
         setComputerBoard(Gameboard().changeBoard(column, row, board));
-        let isHit = (Gameboard().receiveAttack(shipLocations, row, column));
+        let isHit = (Gameboard().receiveAttack(playerShipLocations, row, column));
         if (isHit) {
           const getShipHit = Gameboard().shipHit(row, column, shipLocations);
           setComputerBoard(Gameboard().changeBoard(column, row, board, true));
