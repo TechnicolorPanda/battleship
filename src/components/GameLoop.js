@@ -78,25 +78,27 @@ const GameLoop = () => {
 
   // TODO: prevent duplicate attacks
 
-  // TODO: declare a winner
-
   const initiateAttack = (event) => {
     event.preventDefault();
     let coordinates = event.target.getAttribute('value');
     let board = JSON.parse(localStorage.getItem('savedPlayerBoard'));
     const column = parseInt(coordinates.charAt(0));
     const row = parseInt(coordinates.charAt(1));
-    let isShipHit = (Gameboard().receiveAttack(shipLocations, row, column));
-    if (isShipHit) {
-        const getShipHit = Gameboard().shipHit(row, column, shipLocations);
-        setPlayerBoard(Gameboard().changeBoard(column, row, board, true));
-        const displayResult = attackResult(getShipHit, playerShipStatus);
-        setText(displayResult);
+    if (Gameboard().checkHitValidity(row, column, board)) {
+      let isShipHit = (Gameboard().receiveAttack(shipLocations, row, column));
+      if (isShipHit) {
+          const getShipHit = Gameboard().shipHit(row, column, shipLocations);
+          setPlayerBoard(Gameboard().changeBoard(column, row, board, true));
+          const displayResult = attackResult(getShipHit, playerShipStatus);
+          setText(displayResult);
+      } else {
+        setPlayerBoard (Gameboard().changeBoard(column, row, board, false));
+        setText(' Your attack missed. ');
+      }
+      setTurn(turn => (turn + 1));
     } else {
-      setPlayerBoard (Gameboard().changeBoard(column, row, board, false));
-      setText(' Your attack missed. ');
+      setText('Coordinate has already been hit. Try again.')
     }
-    setTurn(turn => (turn + 1));
   }
 
   useEffect(() => {

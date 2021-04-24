@@ -29,7 +29,6 @@ const Ship = () => {
         shipStatus.ship[i].length--;
       }
     }
-    console.log(shipStatus);
     return shipStatus;
   }
 

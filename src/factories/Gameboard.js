@@ -133,8 +133,8 @@ const Gameboard = () => {
   //   }
   // }
 
-  const checkHitValidity = (column, row, board) => {
-    if (board[column][row] === 'water') {
+  const checkHitValidity = (row, column, board) => {
+    if (board[row][column] === 'water') {
       return true;
     } else {
       return false;
