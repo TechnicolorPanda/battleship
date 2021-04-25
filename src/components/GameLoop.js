@@ -12,13 +12,7 @@ const GameLoop = () => {
     JSON.parse(localStorage.getItem('savedPlayerBoard')) || []
   );
   const [playerShips, setPlayerShips] = useState([]);
-  const [shipLocations, setShipLocations] = useState(    
-    [{'ship': [{'coordinates': [[0, 2], [0, 3], [0, 4]], 'name': 'submarine'}]},
-    {'ship': [{'coordinates': [[3, 4], [3, 5]], 'name': 'patrol boat'}]},
-    {'ship': [{'coordinates': [[3, 0], [4, 0], [5, 0], [6, 0], [7, 0]], 'name': 'carrier'}]},
-    {'ship': [{'coordinates': [[4, 8], [5, 8], [6, 8], [7, 8]], 'name': 'battleship'}]},
-    {'ship': [{'coordinates': [[8, 2], [8, 3], [8, 4]], 'name': 'destroyer'}]},
-    ]);
+  const [computerShipLocations, setComputerShipLocations] = useState([]);
   const [playerShipLocations, setPlayerShipLocations] = useState([]);
   const [turn, setTurn] = useState(0);
   const [text, setText] = useState('');
@@ -36,8 +30,9 @@ const GameLoop = () => {
     setComputerBoard(Gameboard().createBoard());
     setPlayerShipStatus(Ship().shipDescriptions());
     setComputerShipStatus(Ship().shipDescriptions());
+    placeComputerShips();
     setText('Click square to place carrier on the board.')
-  }, [shipLocations])
+  }, [])
 
   useEffect(() => {
     localStorage.setItem('savedPlayerBoard', JSON.stringify(playerBoard));
@@ -50,6 +45,22 @@ const GameLoop = () => {
   useEffect(() => {
     localStorage.setItem('savedPlayerShipStatus', JSON.stringify(playerShipStatus));
   }, [playerShipStatus])
+ 
+  const placeComputerShips = () => {
+    const shipTypes = ['carrier', 'battleship', 'destroyer', 'submarine', 'patrol boat'];
+    const column = parseInt(Player().randomCoordinate());
+    const row = parseInt(Player().randomCoordinate());
+    const alignment = 'horizontal';
+    let newShipLocations = ([]);
+    for (let i = 0; i < 5; i++) {
+      let newShip = Gameboard().shipPlacement(shipTypes[i], column, row, alignment, newShipLocations);
+      setComputerShipLocations(computerShipLocations => computerShipLocations.concat(newShip));
+    }
+  }
+
+  // TODO: correct computer ship locations array
+
+  console.log(computerShipLocations);
 
   const placePlayerShips = (event) => {
     event.preventDefault();
@@ -69,6 +80,8 @@ const GameLoop = () => {
       setPlaceShips(false);
     }
   }
+
+  console.log(playerShipLocations);
 
   const attackResult = (getShipHit, playerShipStatus) => {
     const newShipStatus = Ship().isHit(getShipHit, playerShipStatus);
@@ -105,9 +118,9 @@ const GameLoop = () => {
     const column = parseInt(coordinates.charAt(0));
     const row = parseInt(coordinates.charAt(1));
     if (Gameboard().checkHitValidity(row, column, board)) {
-      let isShipHit = (Gameboard().receiveAttack(shipLocations, row, column));
+      let isShipHit = (Gameboard().receiveAttack(computerShipLocations, row, column));
       if (isShipHit) {
-          const getShipHit = Gameboard().shipHit(row, column, shipLocations);
+          const getShipHit = Gameboard().shipHit(row, column, computerShipLocations);
           setPlayerBoard(Gameboard().changeBoard(column, row, board, true));
           const displayResult = attackResult(getShipHit, playerShipStatus);
           setText(displayResult);
@@ -130,7 +143,7 @@ const GameLoop = () => {
         setComputerBoard(Gameboard().changeBoard(column, row, board));
         let isHit = (Gameboard().receiveAttack(playerShipLocations, row, column));
         if (isHit) {
-          const getShipHit = Gameboard().shipHit(row, column, shipLocations);
+          const getShipHit = Gameboard().shipHit(row, column, playerShipLocations);
           setComputerBoard(Gameboard().changeBoard(column, row, board, true));
           const displayResult = computerResult(getShipHit, computerShipStatus);
           setText(displayResult);
