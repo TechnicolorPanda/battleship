@@ -9,9 +9,7 @@ const GameLoop = () => {
   const [computerBoard, setComputerBoard] = useState(
     JSON.parse(localStorage.getItem('savedComputerBoard')) || []);
   const [playerBoard, setPlayerBoard] = useState(
-    JSON.parse(localStorage.getItem('savedPlayerBoard')) || []
-  );
-  const [playerShips, setPlayerShips] = useState([]);
+    JSON.parse(localStorage.getItem('savedPlayerBoard')) || []);
   const [computerShipLocations, setComputerShipLocations] = useState([]);
   const [playerShipLocations, setPlayerShipLocations] = useState([]);
   const [turn, setTurn] = useState(0);
@@ -48,11 +46,11 @@ const GameLoop = () => {
  
   const placeComputerShips = () => {
     const shipTypes = ['carrier', 'battleship', 'destroyer', 'submarine', 'patrol boat'];
-    const column = parseInt(Player().randomCoordinate());
-    const row = parseInt(Player().randomCoordinate());
-    const alignment = 'horizontal';
-    let newShipLocations = ([]);
     for (let i = 0; i < 5; i++) {
+      const column = parseInt(Player().randomCoordinate());
+      const row = parseInt(Player().randomCoordinate());
+      const alignment = 'horizontal';
+      let newShipLocations = ([]);
       let newShip = Gameboard().shipPlacement(shipTypes[i], column, row, alignment, newShipLocations);
       setComputerShipLocations(computerShipLocations => computerShipLocations.concat(newShip));
     }
@@ -177,61 +175,61 @@ const GameLoop = () => {
                       key = {uniqid()}
                       className = {column[0]}
                       value = {'0' + index}
-                      onClick = {initiateAttack}
+                      onClick = {placeShips ? null: initiateAttack}
                     ></td>
                     <td 
                       key = {uniqid()}
                       className = {column[1]}
                       value = {'1' + index}
-                      onClick = {initiateAttack}
+                      onClick = {placeShips ? null: initiateAttack}
                     ></td>
                     <td 
                       key = {uniqid()}
                       className = {column[2]}
                       value = {'2' + index}
-                      onClick = {initiateAttack}
+                      onClick = {placeShips ? null: initiateAttack}
                     ></td>
                     <td 
                       key = {uniqid()}
                       className = {column[3]}
                       value = {'3' + index}
-                      onClick = {initiateAttack}
+                      onClick = {placeShips ? null: initiateAttack}
                     ></td>
                     <td 
                       key = {uniqid()}
                       className = {column[4]}
                       value = {'4' + index}
-                      onClick = {initiateAttack}
+                      onClick = {placeShips ? null: initiateAttack}
                     ></td>
                     <td                   
                       key = {uniqid()}
                       className = {column[5]}
                       value = {'5' + index}
-                      onClick = {initiateAttack}
+                      onClick = {placeShips ? null: initiateAttack}
                     ></td>
                     <td 
                       key = {uniqid()}
                       className = {column[6]}
                       value = {'6' + index}
-                      onClick = {initiateAttack}
+                      onClick = {placeShips ? null: initiateAttack}
                     ></td>
                     <td 
                       key = {uniqid()}
                       className = {column[7]}
                       value = {'7' + index}
-                      onClick = {initiateAttack}
+                      onClick = {placeShips ? null: initiateAttack}
                     ></td>
                     <td 
                       key = {uniqid()}
                       className = {column[8]}
                       value = {'8' + index}
-                      onClick = {initiateAttack}
+                      onClick = {placeShips ? null: initiateAttack}
                     ></td>
                     <td 
                       key = {uniqid()}
                       className = {column[9]}
                       value = {'9' + index}
-                      onClick = {initiateAttack}
+                      onClick = {placeShips ? null: initiateAttack}
                     ></td>
                   </tr>
                 </tbody>

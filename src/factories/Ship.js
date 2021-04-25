@@ -1,5 +1,3 @@
-import Gameboard from "./Gameboard";
-
 const Ship = () => {
 
   const shipType = {

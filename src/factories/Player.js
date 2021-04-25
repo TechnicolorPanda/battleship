@@ -21,30 +21,6 @@ const Player = () => {
     return (randomNumber === 0) ? 'horizontal': 'vertical';
   }
 
-  const placeCarrier = (row, column, alignment) => {
-    return Gameboard().shipPlacement('carrier', row, column, alignment);
-  }
-
-  const placeBattleship = (row, column, alignment) => {
-    return Gameboard().shipPlacement('battleship', row, column, alignment);
-  }
-
-  const placeDestroyer = (row, column, alignment) => {
-      return Gameboard().shipPlacement('destroyer', row, column, alignment);
-  }
-
-  const placeSubmarine = (row, column, alignment) => {
-      return Gameboard().shipPlacement('submarine', row, column, alignment);
-  }
-
-  const placePatrolBoat = (row, column, alignment) => {
-    return Gameboard().shipPlacement('patrol boat', row, column, alignment);
-  }
-
-  const computerPlacesBoat = () => {
-    placeCarrier(randomCoordinate(), randomCoordinate(), randomAlignment());
-  }
-
   const enterPlay = (row, column) => {
     Gameboard().recordHit(row, column);
     if (Gameboard().shipHit(row, column)) {
@@ -52,7 +28,7 @@ const Player = () => {
     }   
   }
 
-  return { placeCarrier, enterPlay, selectUser, randomCoordinate };
+  return { enterPlay, selectUser, randomCoordinate };
 }
 
 export default Player;
