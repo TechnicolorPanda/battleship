@@ -61,15 +61,12 @@ const GameLoop = () => {
     for (let i = 0; i < 5; i++) {
       const column = parseInt(Player().randomCoordinate());
       const row = parseInt(Player().randomCoordinate());
+      const computerAlignment = (parseInt(Player().randomCoordinate()) < 5) ? 'horizontal': 'vertical';
       let newShipLocations = ([]);
-      let newShip = Gameboard().shipPlacement(shipTypes[i], column, row, alignment, newShipLocations);
+      let newShip = Gameboard().shipPlacement(shipTypes[i], column, row, computerAlignment, newShipLocations);
       setComputerShipLocations(computerShipLocations => computerShipLocations.concat(newShip));
     }
   }
-
-  // TODO: correct computer ship locations array
-
-  console.log(computerShipLocations);
 
   const placePlayerShips = (event) => {
     event.preventDefault();
