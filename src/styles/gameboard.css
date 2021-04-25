@@ -51,8 +51,8 @@ tr {
 }
 
 .hit {
-  height: 12px;
-  width: 12px;
+  height: 18px;
+  width: 18px;
   background-color: red;
   border-radius: 50%;
   display: table-cell;

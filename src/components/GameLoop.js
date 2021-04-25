@@ -61,7 +61,7 @@ const GameLoop = () => {
     for (let i = 0; i < 5; i++) {
       const column = parseInt(Player().randomCoordinate());
       const row = parseInt(Player().randomCoordinate());
-      const computerAlignment = (parseInt(Player().randomCoordinate()) < 5) ? 'horizontal': 'vertical';
+      const computerAlignment = Player().randomAlignment();
       let newShipLocations = ([]);
       let newShip = Gameboard().shipPlacement(shipTypes[i], column, row, computerAlignment, newShipLocations);
       setComputerShipLocations(computerShipLocations => computerShipLocations.concat(newShip));
@@ -170,8 +170,9 @@ const GameLoop = () => {
       <div className = 'dialogue'>
        {text}
        <br></br>
+       {placeShips ?
        <div className = 'toggle'>
-        horizontal 
+        horizontal
         <label className = 'switch' id = 'toggle'>
           <input type = 'checkbox' id = 'check'
           onClick = {changeAlignment}/>
@@ -179,10 +180,12 @@ const GameLoop = () => {
         </label>
         vertical
       </div>
-      </div>
+      : null}
 
+      </div>
+      {placeShips ? null:
         <div className = 'player'>
-          <h2>Player</h2>
+          <h2>Computer</h2>
           <table>
             {playerBoard.slice(0, 10).map((column, index) => {
               return (
@@ -254,9 +257,10 @@ const GameLoop = () => {
             })}
           </table>
       </div>
+    }
 
       <div className = 'computer'>
-        <h2>Computer</h2>
+        <h2>Player</h2>
           <table>
             {computerBoard.slice(0, 10).map((column, index) => {
               return (
