@@ -107,6 +107,7 @@ const Gameboard = () => {
   }
 
   const placeShip = (shipType, column, row, alignment) => {
+    console.log(alignment);
     if (alignment === 'horizontal') {
       return horizontalShip(shipType, column, row);
     } else {

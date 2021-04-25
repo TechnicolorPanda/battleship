@@ -22,6 +22,7 @@ const GameLoop = () => {
   );
   const [placeShips, setPlaceShips] = useState(true);
   const [shipNumber, setShipNumber] = useState(0);
+  const [alignment, setAlignment] = useState('vertical');
 
   useEffect(() => {
     setPlayerBoard(Gameboard().createBoard());
@@ -43,13 +44,23 @@ const GameLoop = () => {
   useEffect(() => {
     localStorage.setItem('savedPlayerShipStatus', JSON.stringify(playerShipStatus));
   }, [playerShipStatus])
+
+  const changeAlignment = () => {
+    const toggleAlignment = document.getElementById('toggle');
+    toggleAlignment.addEventListener('click', () => {
+      if(alignment === 'horizontal') {
+        setAlignment('vertical');
+      } else {
+        setAlignment('horizontal');
+      }
+    });
+  }
  
   const placeComputerShips = () => {
     const shipTypes = ['carrier', 'battleship', 'destroyer', 'submarine', 'patrol boat'];
     for (let i = 0; i < 5; i++) {
       const column = parseInt(Player().randomCoordinate());
       const row = parseInt(Player().randomCoordinate());
-      const alignment = 'horizontal';
       let newShipLocations = ([]);
       let newShip = Gameboard().shipPlacement(shipTypes[i], column, row, alignment, newShipLocations);
       setComputerShipLocations(computerShipLocations => computerShipLocations.concat(newShip));
@@ -66,7 +77,6 @@ const GameLoop = () => {
     const shipTypes = ['carrier', 'battleship', 'destroyer', 'submarine', 'patrol boat'];
     const column = parseInt(coordinates.charAt(0));
     const row = parseInt(coordinates.charAt(1));
-    const alignment = 'horizontal';
     const newShipLocations = ([]);
     const newShip = Gameboard().shipPlacement(shipTypes[shipNumber], column, row, alignment, newShipLocations);
     setPlayerShipLocations(playerShipLocations => playerShipLocations.concat(newShip));
@@ -162,6 +172,16 @@ const GameLoop = () => {
 
       <div className = 'dialogue'>
        {text}
+       <br></br>
+       <div className = 'toggle'>
+        horizontal 
+        <label className = 'switch' id = 'toggle'>
+          <input type = 'checkbox' id = 'check'
+          onClick = {changeAlignment}/>
+          <span className = 'slider round'></span>
+        </label>
+        vertical
+      </div>
       </div>
 
         <div className = 'player'>
