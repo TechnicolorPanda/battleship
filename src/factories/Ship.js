@@ -37,9 +37,7 @@ const Ship = () => {
       }
     }
   }
-
   return { shipLength, isHit, isSunk, shipDescriptions };
-
 }
 
 export default Ship;

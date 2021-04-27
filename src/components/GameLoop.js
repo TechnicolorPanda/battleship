@@ -62,9 +62,13 @@ const GameLoop = () => {
       const column = parseInt(Player().randomCoordinate());
       const row = parseInt(Player().randomCoordinate());
       const computerAlignment = Player().randomAlignment();
-      let newShipLocations = ([]);
-      let newShip = Gameboard().shipPlacement(shipTypes[i], column, row, computerAlignment, newShipLocations);
-      setComputerShipLocations(computerShipLocations => computerShipLocations.concat(newShip));
+      if (!Gameboard().checkOverlappingShips(shipTypes[i], column, row, computerAlignment, computerShipLocations)) {
+        let newShipLocations = ([]);
+        let newShip = Gameboard().shipPlacement(shipTypes[i], column, row, computerAlignment, newShipLocations);
+        setComputerShipLocations(computerShipLocations => computerShipLocations.concat(newShip));
+      } else {
+        i--;
+      }
     }
   }
 
@@ -75,18 +79,20 @@ const GameLoop = () => {
     const column = parseInt(coordinates.charAt(0));
     const row = parseInt(coordinates.charAt(1));
     const newShipLocations = ([]);
-    const newShip = Gameboard().shipPlacement(shipTypes[shipNumber], column, row, alignment, newShipLocations);
-    setPlayerShipLocations(playerShipLocations => playerShipLocations.concat(newShip));
-    if (shipNumber < 4) {
-      setText('Click square to place ' + shipTypes[shipNumber + 1] + ' on the board.')
-      setShipNumber(shipNumber => shipNumber + 1);
+    if (!Gameboard().checkOverlappingShips(shipTypes[shipNumber], column, row, alignment, playerShipLocations)) {
+      const newShip = Gameboard().shipPlacement(shipTypes[shipNumber], column, row, alignment, newShipLocations);
+      setPlayerShipLocations(playerShipLocations => playerShipLocations.concat(newShip));
+      if (shipNumber < 4) {
+        setText('Click square to place ' + shipTypes[shipNumber + 1] + ' on the board.')
+        setShipNumber(shipNumber => shipNumber + 1);
+      } else {
+        setText('The battle begins! Attack your opponents board.')
+        setPlaceShips(false);
+      }
     } else {
-      setText('The battle begins! Attack your opponents board.')
-      setPlaceShips(false);
+      setText('Ships may not overlap. Place ' + shipTypes[shipNumber + 1] + ' again.');
     }
   }
-
-  console.log(playerShipLocations);
 
   const attackResult = (getShipHit, playerShipStatus) => {
     const newShipStatus = Ship().isHit(getShipHit, playerShipStatus);

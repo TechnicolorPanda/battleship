@@ -28,7 +28,12 @@ const Player = () => {
     }   
   }
 
-  return { enterPlay, selectUser, randomCoordinate, randomAlignment };
+  return { 
+    enterPlay, 
+    selectUser, 
+    randomCoordinate, 
+    randomAlignment 
+  };
 }
 
 export default Player;

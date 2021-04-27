@@ -2,8 +2,6 @@ import Ship from './Ship.js';
 
 const Gameboard = () => {
 
-  // let shipLocations = [];
-
   const testCoordinateValidity = (x, y) => {
     if (x < 0 || x > 9 || y < 0 || y > 9) {
       return false;
@@ -47,10 +45,10 @@ const Gameboard = () => {
     return true;
   }
 
-  const checkOverlappingShips = (shipType, column, row, alignment) => {
+  const checkOverlappingShips = (shipType, column, row, alignment, shipLocations) => {
     let shipCoordinates = placeShip(shipType, column, row, alignment);
     for (let i = 0; i < shipCoordinates.length; i++) {
-      if (compareCoordinates(shipCoordinates[i])) {return true};
+      if (compareCoordinates(shipCoordinates[i], shipLocations)) {return true};
     }
     return false;
   }
@@ -63,7 +61,6 @@ const Gameboard = () => {
   const createRow = (column, board) => {
     return board[column];
   }
-
 
   const shipHit = (column, row, shipLocations) => {
     let newCoordinates = [column, row];
@@ -107,7 +104,6 @@ const Gameboard = () => {
   }
 
   const placeShip = (shipType, column, row, alignment) => {
-    console.log(alignment);
     if (alignment === 'horizontal') {
       return horizontalShip(shipType, column, row);
     } else {
@@ -126,13 +122,6 @@ const Gameboard = () => {
     }
     return false;
   }
-
-  // const deductHitPoints = (shipCoordinates, row, column) => {
-  //   if (receiveAttack(shipCoordinates, row, column)) {
-  //     let remaining = Ship().isHit(shipType);
-  //     return remaining;
-  //   }
-  // }
 
   const checkHitValidity = (row, column, board) => {
     if (board[row][column] === 'water') {
@@ -163,7 +152,6 @@ const Gameboard = () => {
   }
 
   return {
-    // getCoordinates,
     checkHitValidity, 
     checkOverlappingShips, 
     createBoard, 

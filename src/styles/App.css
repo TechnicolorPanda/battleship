@@ -1,8 +1,17 @@
 
 div {
-  background-color: white;
-  color: black;
+  background-color: black;
+  color: white;
   top: 0px;
   text-align: center;
+}
+
+h1 {
+  background-color: black;
+  color: white;
+}
+
+html {
+  background-color: black;
 }
 
