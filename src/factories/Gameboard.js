@@ -74,10 +74,22 @@ const Gameboard = () => {
     return newBoard;
   }
 
+  const recordShip = (column, row, board) => {
+    let newBoard = createRow(column, board);
+    let marker = 'ship';
+    newBoard.splice(row, 1, marker);
+    return newBoard;
+  }
+
   const changeBoard = (row, column, board, shipHit) => {
     board.splice(column, 1, recordHit(column, row, board, shipHit));
     return board;
   }
+
+  const changeShipBoard = (row, column, board) => {
+    board.splice(column, 1, recordShip(column, row, board));
+    return board;
+  } 
 
   const horizontalShip = (shipType, column, row) => {
     let shipCoordinates = [];
@@ -124,7 +136,7 @@ const Gameboard = () => {
   }
 
   const checkHitValidity = (row, column, board) => {
-    if (board[row][column] === 'water') {
+    if (board[row][column] === 'water' || board[row][column] === 'ship') {
       return true;
     } else {
       return false;
@@ -163,6 +175,7 @@ const Gameboard = () => {
     shipPlacement, 
     shipHit, 
     checkValidity,
+    changeShipBoard,
   };
 }
 

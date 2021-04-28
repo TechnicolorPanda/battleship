@@ -63,6 +63,10 @@ tr {
     background-color: blue;
 }
 
+.ship {
+  background-color: grey;
+}
+
 .miss {
   height: 12px;
   width: 12px;
