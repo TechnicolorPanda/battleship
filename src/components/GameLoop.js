@@ -55,6 +55,16 @@ const GameLoop = () => {
       }
     });
   }
+
+  const placeShip = (newShip) => {
+    const newShipLength = newShip[0].ship[0].coordinates.length;
+    let board = JSON.parse(localStorage.getItem('savedComputerBoard'));
+    for (let i = 0; i < newShipLength; i++) {
+      let column  = newShip[0].ship[0].coordinates[i][0];
+      let row = newShip[0].ship[0].coordinates[i][1];
+      setComputerBoard(Gameboard().changeShipBoard(column, row, board));
+    }
+  }
  
   const placeComputerShips = () => {
     const shipTypes = ['carrier', 'battleship', 'destroyer', 'submarine', 'patrol boat'];
@@ -86,13 +96,7 @@ const GameLoop = () => {
       && Gameboard().checkValidity(shipTypes[shipNumber], column, row, alignment)
       ) {
         const newShip = Gameboard().shipPlacement(shipTypes[shipNumber], column, row, alignment, newShipLocations);
-        for (let i = 0; i < newShip.length; i++) {
-          console.log(newShip[0].ship[0].coordinates[i]);
-          let column  = newShip[0].ship[0].coordinates[i][0];
-          let row = newShip[0].ship[0].coordinates[i][1];
-          let board = JSON.parse(localStorage.getItem('savedComputerBoard'));
-          setComputerBoard(Gameboard().changeShipBoard(column, row, board));
-        }
+        placeShip(newShip);
         setPlayerShipLocations(playerShipLocations => playerShipLocations.concat(newShip));
         if (shipNumber < 4) {
           setText('Click square to place ' + shipTypes[shipNumber + 1] + ' on the board.')
