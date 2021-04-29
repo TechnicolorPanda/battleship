@@ -46,14 +46,11 @@ const GameLoop = () => {
   }, [playerShipStatus])
 
   const changeAlignment = () => {
-    const toggleAlignment = document.getElementById('toggle');
-    toggleAlignment.addEventListener('click', () => {
       if(alignment === 'horizontal') {
         setAlignment('vertical');
       } else {
         setAlignment('horizontal');
       }
-    });
   }
 
   const placeShip = (newShip) => {
