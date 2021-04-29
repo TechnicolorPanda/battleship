@@ -22,7 +22,7 @@ const GameLoop = () => {
   );
   const [placeShips, setPlaceShips] = useState(true);
   const [shipNumber, setShipNumber] = useState(0);
-  const [alignment, setAlignment] = useState('vertical');
+  const [alignment, setAlignment] = useState('horizontal');
 
   useEffect(() => {
     setPlayerBoard(Gameboard().createBoard());
@@ -92,8 +92,8 @@ const GameLoop = () => {
     const row = parseInt(coordinates.charAt(1));
     const newShipLocations = ([]);
     if (
-      !Gameboard().checkOverlappingShips(shipTypes[shipNumber], column, row, alignment, playerShipLocations)
-      && Gameboard().checkValidity(shipTypes[shipNumber], column, row, alignment)
+      !Gameboard().checkOverlappingShips(shipTypes[shipNumber], row, column, alignment, playerShipLocations)
+      && Gameboard().checkValidity(shipTypes[shipNumber], row, column, alignment)
       ) {
         const newShip = Gameboard().shipPlacement(shipTypes[shipNumber], row, column, alignment, newShipLocations);
         placeShip(newShip);
