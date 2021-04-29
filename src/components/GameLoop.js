@@ -60,8 +60,8 @@ const GameLoop = () => {
     const newShipLength = newShip[0].ship[0].coordinates.length;
     let board = JSON.parse(localStorage.getItem('savedComputerBoard'));
     for (let i = 0; i < newShipLength; i++) {
-      let column  = newShip[0].ship[0].coordinates[i][0];
-      let row = newShip[0].ship[0].coordinates[i][1];
+      let row  = newShip[0].ship[0].coordinates[i][0];
+      let column = newShip[0].ship[0].coordinates[i][1];
       setComputerBoard(Gameboard().changeShipBoard(column, row, board));
     }
   }
@@ -95,7 +95,7 @@ const GameLoop = () => {
       !Gameboard().checkOverlappingShips(shipTypes[shipNumber], column, row, alignment, playerShipLocations)
       && Gameboard().checkValidity(shipTypes[shipNumber], column, row, alignment)
       ) {
-        const newShip = Gameboard().shipPlacement(shipTypes[shipNumber], column, row, alignment, newShipLocations);
+        const newShip = Gameboard().shipPlacement(shipTypes[shipNumber], row, column, alignment, newShipLocations);
         placeShip(newShip);
         setPlayerShipLocations(playerShipLocations => playerShipLocations.concat(newShip));
         if (shipNumber < 4) {
