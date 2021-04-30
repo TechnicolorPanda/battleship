@@ -24,6 +24,7 @@ const GameLoop = () => {
   const [placeShips, setPlaceShips] = useState(true);
   const [shipNumber, setShipNumber] = useState(0);
   const [alignment, setAlignment] = useState('horizontal');
+  const [shipsSunk, setShipsSunk] = useState('0');
 
   useEffect(() => {
     setPlayerBoard(Gameboard().createBoard());
@@ -115,6 +116,7 @@ const GameLoop = () => {
       if (Gameboard().allShipsSunk(newShipStatus)) {
         return ('All ships have been sunk. You win!')
       } else {
+        setShipsSunk(shipsSunk => parseInt(shipsSunk + 1));
         return ('Computer\'s ' + getShipHit + ' is sunk!');
       }
     } else {
@@ -189,22 +191,23 @@ const GameLoop = () => {
 
       <div className = 'dialogue'>
         <ul>
-       <li>{playerText}</li>
-       <li>{computerText}</li>
-
-       <li>
-       {placeShips ?
-       <div className = 'toggle'>
-        horizontal
-        <label className = 'switch' id = 'toggle'>
-          <input type = 'checkbox' id = 'check'
-          onClick = {changeAlignment}/>
-          <span className = 'slider round'></span>
-        </label>
-        vertical
-      </div>
-      : null}</li>
-      </ul>
+          <li>{playerText}</li>
+          <li>{computerText}</li>
+            {placeShips ?
+            <li><div className = 'toggle'>
+              horizontal
+              <label className = 'switch' id = 'toggle'>
+                <input 
+                  type = 'checkbox' 
+                  id = 'check'
+                  onClick = {changeAlignment}/>
+                  <span className = 'slider round'></span>
+              </label>
+                vertical
+            </div></li>
+            : <li>Ships sunk: {shipsSunk}</li>
+            }
+        </ul>
 
       </div>
       {placeShips ? null:

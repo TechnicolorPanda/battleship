@@ -48,6 +48,7 @@ p {
 
 ul {
   margin-top: 6px;
+  margin-bottom: 6px;
   list-style: none;
   margin-right: 25px;
   margin-left: 0px;
@@ -99,7 +100,7 @@ li {
 .dialogue {
   background: lightblue;
   width: 30%;
-  height: 5rem;
+  height: 5.5rem;
   margin-right: 35%;
   margin-left: 35%;
   margin-bottom: 10px;
