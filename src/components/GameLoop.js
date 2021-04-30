@@ -13,7 +13,8 @@ const GameLoop = () => {
   const [computerShipLocations, setComputerShipLocations] = useState([]);
   const [playerShipLocations, setPlayerShipLocations] = useState([]);
   const [turn, setTurn] = useState(0);
-  const [text, setText] = useState('');
+  const [playerText, setPlayerText] = useState('');
+  const [computerText, setComputerText] = useState('');
   const [playerShipStatus, setPlayerShipStatus] = useState(
     JSON.parse(localStorage.getItem('savedPlayerShipStatus')) || []
   );
@@ -30,7 +31,7 @@ const GameLoop = () => {
     setPlayerShipStatus(Ship().shipDescriptions());
     setComputerShipStatus(Ship().shipDescriptions());
     placeComputerShips();
-    setText('Click square to place carrier on the board.')
+    setPlayerText('Click square to place carrier on the board.')
   }, [])
 
   useEffect(() => {
@@ -46,11 +47,11 @@ const GameLoop = () => {
   }, [playerShipStatus])
 
   const changeAlignment = () => {
-      if(alignment === 'horizontal') {
-        setAlignment('vertical');
-      } else {
-        setAlignment('horizontal');
-      }
+    if(alignment === 'horizontal') {
+      setAlignment('vertical');
+    } else {
+      setAlignment('horizontal');
+    }
   }
 
   const placeShip = (newShip) => {
@@ -96,14 +97,14 @@ const GameLoop = () => {
         placeShip(newShip);
         setPlayerShipLocations(playerShipLocations => playerShipLocations.concat(newShip));
         if (shipNumber < 4) {
-          setText('Click square to place ' + shipTypes[shipNumber + 1] + ' on the board.')
+          setPlayerText('Click square to place ' + shipTypes[shipNumber + 1] + ' on the board.')
           setShipNumber(shipNumber => shipNumber + 1);
         } else {
-          setText('The battle begins! Attack your opponents board.')
+          setPlayerText('The battle begins! Attack your opponents board.')
           setPlaceShips(false);
         }
     } else {
-      setText('Ships may not overlap and must be on the board. Place ' + shipTypes[shipNumber + 1] + ' again.');
+      setPlayerText('Ships may not overlap and must be on the board. Place ' + shipTypes[shipNumber + 1] + ' again.');
     }
   }
 
@@ -147,14 +148,14 @@ const GameLoop = () => {
           const getShipHit = Gameboard().shipHit(row, column, computerShipLocations);
           setPlayerBoard(Gameboard().changeBoard(column, row, board, true));
           const displayResult = attackResult(getShipHit, playerShipStatus);
-          setText(displayResult);
+          setPlayerText(displayResult);
       } else {
         setPlayerBoard (Gameboard().changeBoard(column, row, board, false));
-        setText(' Your attack missed. ');
+        setPlayerText(' Your attack missed. ');
       }
       setTurn(turn => (turn + 1));
     } else {
-      setText('Coordinate has already been hit. Try again.')
+      setPlayerText('Coordinate has already been hit. Try again.')
     }
   }
 
@@ -170,10 +171,10 @@ const GameLoop = () => {
           const getShipHit = Gameboard().shipHit(row, column, playerShipLocations);
           setComputerBoard(Gameboard().changeBoard(column, row, board, true));
           const displayResult = computerResult(getShipHit, computerShipStatus);
-          setText(displayResult);
+          setComputerText(displayResult);
         } else {
           setComputerBoard (Gameboard().changeBoard(column, row, board, false));
-          setText(text + ' Computer attack missed. ');
+          setComputerText('Computer attack missed. ');
         }
         setTurn(turn => turn + 1);
       } else {
@@ -187,8 +188,11 @@ const GameLoop = () => {
       <h1>Battleship</h1>
 
       <div className = 'dialogue'>
-       {text}
-       <br></br>
+        <ul>
+       <li>{playerText}</li>
+       <li>{computerText}</li>
+
+       <li>
        {placeShips ?
        <div className = 'toggle'>
         horizontal
@@ -199,7 +203,8 @@ const GameLoop = () => {
         </label>
         vertical
       </div>
-      : null}
+      : null}</li>
+      </ul>
 
       </div>
       {placeShips ? null:

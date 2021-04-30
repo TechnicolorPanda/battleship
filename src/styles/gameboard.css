@@ -37,6 +37,26 @@ tr {
   background-color: black;
 }
 
+p {
+  margin-top: 5px;
+  display: block;
+  margin-block-start: .5em;
+  margin-block-end: .5em;
+  margin-inline-start: 15px;
+  margin-inline-end: 15px;
+}
+
+ul {
+  margin-top: 6px;
+  list-style: none;
+  margin-right: 25px;
+  margin-left: 0px;
+}
+
+li {
+  padding: 6px;
+}
+
 .game-board {
   background-color: black;
 }
