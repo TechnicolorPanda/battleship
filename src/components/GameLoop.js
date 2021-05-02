@@ -25,6 +25,7 @@ const GameLoop = () => {
   const [shipNumber, setShipNumber] = useState(0);
   const [alignment, setAlignment] = useState('horizontal');
   const [shipsSunk, setShipsSunk] = useState('0');
+  const [computerSunk, setComputerSunk] = useState('0');
 
   useEffect(() => {
     setPlayerBoard(Gameboard().createBoard());
@@ -131,6 +132,7 @@ const GameLoop = () => {
       if (Gameboard().allShipsSunk(newShipStatus)) {
         return ('All ships have been sunk. Computer wins!')
       } else {
+        setComputerSunk(computerSunk => parseInt(computerSunk + 1));
         return ('Your ' + getShipHit + ' is sunk!');
       }
     } else {
@@ -205,7 +207,7 @@ const GameLoop = () => {
               </label>
                 vertical
             </div></li>
-            : <li>Ships sunk: {shipsSunk}</li>
+            : <li>Sunk: Opponents {shipsSunk} | Yours {computerSunk}</li>
             }
         </ul>
 
