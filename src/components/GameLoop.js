@@ -207,7 +207,7 @@ const GameLoop = () => {
               </label>
                 vertical
             </div></li>
-            : <li>Sunk: Opponents {shipsSunk} | Yours {computerSunk}</li>
+            : null
             }
         </ul>
 
@@ -360,6 +360,17 @@ const GameLoop = () => {
             );
           })}
         </table>
+      </div>
+
+      <div>
+            {placeShips ?
+              null
+              : <div className = 'score'><h3>Ships sunk</h3>
+              <br></br>
+              opponent: {shipsSunk} 
+              <br></br>
+              yours: {computerSunk} </div>
+            }
       </div>
     </div>
   )

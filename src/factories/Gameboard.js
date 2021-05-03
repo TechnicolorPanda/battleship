@@ -25,16 +25,6 @@ const Gameboard = () => {
     }
   }
 
-  // const getCoordinates = (shipLocations) => {
-  //   let shipCoordinates = shipLocations[0].ship[0].coordinates;
-  //   for (let i = 1; i < shipLocations.length; i++) {
-  //     for (let j = 0; j < shipLocations[i].ship[0].coordinates.length; j++) {
-  //       shipCoordinates.push(shipLocations[i].ship[0].coordinates[j]);
-  //     }
-  //   }
-  //   return shipCoordinates;
-  // }
-
   const checkValidity = (shipType, column, row, alignment) => {
     let shipCoordinates = placeShip(shipType, column, row, alignment);
     for (let i = 0; i < shipCoordinates.length; i++) {
