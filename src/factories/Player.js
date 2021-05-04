@@ -21,15 +21,15 @@ const Player = () => {
     return (randomNumber === 0) ? 'horizontal': 'vertical';
   }
 
-  const enterPlay = (row, column) => {
-    Gameboard().recordHit(row, column);
-    if (Gameboard().shipHit(row, column)) {
-      Gameboard().deductHitPoints(row, column)
-    }   
-  }
+  // const enterPlay = (row, column) => {
+  //   Gameboard().recordHit(row, column);
+  //   if (Gameboard().shipHit(row, column)) {
+  //     Gameboard().deductHitPoints(row, column)
+  //   }   
+  // }
 
   return { 
-    enterPlay, 
+    // enterPlay, 
     selectUser, 
     randomCoordinate, 
     randomAlignment 

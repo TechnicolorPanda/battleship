@@ -91,12 +91,14 @@ test('records hit location', () => {
 })
 
 test('places ship position in array', () => {
-  expect (board.shipPlacement('submarine', 0, 2, 'horizontal')).toEqual(
+
+  const shipLocations = [];
+
+  expect (board.shipPlacement('submarine', 0, 2, 'horizontal', shipLocations)).toEqual(
     [{'ship': [{'coordinates': [[0, 2], [0, 3], [0, 4]], 'name': 'submarine'}]}]
   )
-  expect (board.shipPlacement('patrol boat', 3, 4, 'horizontal')).toEqual(
-    [{'ship': [{'coordinates': [[0, 2], [0, 3], [0, 4]], 'name': 'submarine'}]},
-    {'ship': [{'coordinates': [[3, 4], [3, 5]], 'name': 'patrol boat'}]}],
+  expect (board.shipPlacement('patrol boat', 3, 4, 'horizontal', shipLocations)).toEqual(
+    [{'ship': [{'coordinates': [[3, 4], [3, 5]], 'name': 'patrol boat'}]}]
   )
 })
 
