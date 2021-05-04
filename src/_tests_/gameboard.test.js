@@ -103,8 +103,11 @@ test('places ship position in array', () => {
 })
 
 test('records hits to ships', () => {
-  expect (board.shipHit(0, 3)).toBe('submarine');
-  expect (board.shipHit(3, 4)).toBe('patrol boat');
+  const shipLocations = [{'ship': [{'coordinates': [[0, 2], [0, 3], [0, 4]], 'name': 'submarine'}]},
+  {'ship': [{'coordinates': [[3, 4], [3, 5]], 'name': 'patrol boat'}]}];
+
+  expect (board.shipHit(0, 3, shipLocations)).toBe('submarine');
+  expect (board.shipHit(3, 4, shipLocations)).toBe('patrol boat');
 })
 
 test('records when all ships not sunk', () => {
