@@ -27,6 +27,8 @@ const GameLoop = () => {
   const [shipsSunk, setShipsSunk] = useState('0');
   const [computerSunk, setComputerSunk] = useState('0');
 
+
+
   useEffect(() => {
     setPlayerBoard(Gameboard().createBoard());
     setComputerBoard(Gameboard().createBoard());
@@ -54,6 +56,25 @@ const GameLoop = () => {
     } else {
       setAlignment('horizontal');
     }
+  }
+
+  const resetGame = (event) => {
+    event.preventDefault();
+    setPlayerBoard(Gameboard().createBoard());
+    setComputerBoard(Gameboard().createBoard());
+    setPlayerShipStatus(Ship().shipDescriptions());
+    setComputerShipStatus(Ship().shipDescriptions());
+    setPlayerText('Click square to place carrier on the board.')
+    setComputerText('');
+    setComputerShipLocations([]);
+    setPlayerShipLocations([]);
+    setTurn(0);
+    setPlaceShips(true);
+    setShipNumber(0);
+    setAlignment('horizontal');
+    setShipsSunk('0');
+    setComputerSunk('0');
+    placeComputerShips();
   }
 
   const placeShip = (newShip) => {
@@ -371,6 +392,14 @@ const GameLoop = () => {
               <br></br>
               yours: {computerSunk} </div>
             }
+      </div>
+      <div>
+        <button 
+          className = 'reset'
+          onClick = {resetGame}
+        >
+          Start New Game          
+        </button>
       </div>
     </div>
   )

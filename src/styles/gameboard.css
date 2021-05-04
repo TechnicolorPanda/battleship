@@ -99,7 +99,7 @@ li {
 .dialogue {
   background: lightblue;
   width: 30%;
-  height: 5.5rem;
+  height: 6.5rem;
   margin-right: 35%;
   margin-left: 35%;
   margin-bottom: 10px;
@@ -124,6 +124,22 @@ li {
 
 .toggle {
   background: lightblue;
+  color: black;
+  width: 100%;
+}
+
+.reset {
+  height: 50px;
+  width: 100px;
+  border-radius: 5%;
+  font-weight: bold;
+  float: center;
+  margin-right: 42%;
+  margin-left: 42%;
+}
+
+.reset:hover {
+  background-color: #487cf5;
 }
 
 .switch {
