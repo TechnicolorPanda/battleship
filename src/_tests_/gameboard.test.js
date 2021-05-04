@@ -111,9 +111,11 @@ test('records when all ships not sunk', () => {
   expect (board.allShipsSunk()).toBeFalsy();
 }) 
 
-test ('ensure ships are not overlapping', () => {
-  expect (board.checkOverlappingShips('battleship', 0, 2, 'vertical')).toBeTruthy();
-  expect (board.checkOverlappingShips('carrier', 6, 4, 'horizontal')).toBeFalsy();
+test('ensure ships are not overlapping', () => {
+  const shipLocations = [{'ship': [{'coordinates': [[1, 2], [1, 3], [1, 4]], 'name': 'submarine'}]}];
+
+  expect (board.checkOverlappingShips('battleship', 0, 2, 'vertical', shipLocations)).toBeTruthy();
+  expect (board.checkOverlappingShips('carrier', 6, 4, 'horizontal', shipLocations)).toBeFalsy();
 })
 
 test ('makes sure hit occurs in new location', () => {
