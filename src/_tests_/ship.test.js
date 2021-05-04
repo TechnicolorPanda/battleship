@@ -25,11 +25,17 @@ test('hits remaining on patrol boat that has been hit 1 time', () => {
   expect(newShip.isHit('carrier', shipStatus).ship[0].length).toBe(4);
 })
 
-test('destroyer has not been sunk', () => {
-  expect(newShip.isSunk('carrier')).toBe(false);
-})
+test('determines if ship sunk', () => {
 
-test('battleship has not been sunk', () => {
-  expect(newShip.isSunk('patrol boat')).toBe(true);
+  const shipStatus = {
+    ship: [
+      {name: 'carrier', length: 5},
+      {name: 'battleship', length: 4}, 
+      {name: 'destroyer', length: 3},  
+      {name: 'submarine', length: 3},    
+      {name: 'patrol boat', length: 0},
+    ]
+  }
+  expect(newShip.isSunk('carrier', shipStatus)).toBe(false);
+  expect(newShip.isSunk('patrol boat', shipStatus)).toBe(true);
 })
-
