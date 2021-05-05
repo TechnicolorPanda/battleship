@@ -37,7 +37,16 @@ const Ship = () => {
       }
     }
   }
-  return { shipLength, isHit, isSunk, shipDescriptions };
+
+  const changeAlignment = (alignment) => {
+    if(alignment === 'horizontal') {
+      return 'vertical';
+    } else {
+      return 'horizontal';
+    }
+  }
+
+  return { shipLength, isHit, isSunk, shipDescriptions, changeAlignment };
 }
 
 export default Ship;
