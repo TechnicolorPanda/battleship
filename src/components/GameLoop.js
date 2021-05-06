@@ -27,13 +27,17 @@ const GameLoop = () => {
   const [shipsSunk, setShipsSunk] = useState('0');
   const [computerSunk, setComputerSunk] = useState('0');
 
-  useEffect(() => {
+  const startGame = () => {
     setPlayerBoard(Gameboard().createBoard());
     setComputerBoard(Gameboard().createBoard());
     setPlayerShipStatus(Ship().shipDescriptions());
     setComputerShipStatus(Ship().shipDescriptions());
     placeComputerShips();
     setPlayerText('Click square to place carrier on the board.')
+  }
+
+  useEffect(() => {
+    startGame();
   }, [])
 
   useEffect(() => {
@@ -58,11 +62,7 @@ const GameLoop = () => {
 
   const resetGame = (event) => {
     event.preventDefault();
-    setPlayerBoard(Gameboard().createBoard());
-    setComputerBoard(Gameboard().createBoard());
-    setPlayerShipStatus(Ship().shipDescriptions());
-    setComputerShipStatus(Ship().shipDescriptions());
-    setPlayerText('Click square to place carrier on the board.')
+    setComputerBoard([]);
     setComputerText('');
     setComputerShipLocations([]);
     setPlayerShipLocations([]);
@@ -72,7 +72,9 @@ const GameLoop = () => {
     setAlignment('horizontal');
     setShipsSunk('0');
     setComputerSunk('0');
-    placeComputerShips();
+    console.log(computerShipLocations);
+    console.log(playerShipLocations);
+    startGame();
   }
 
   const placeShip = (newShip) => {
@@ -91,10 +93,11 @@ const GameLoop = () => {
       const column = parseInt(Player().randomCoordinate());
       const row = parseInt(Player().randomCoordinate());
       const computerAlignment = Player().randomAlignment();
+      const newShipLocations = ([]);
       if (!Gameboard().checkOverlappingShips(shipTypes[i], column, row, computerAlignment, computerShipLocations)
-        && Gameboard().checkValidity(shipTypes[i], column, row, alignment)
+        && Gameboard().checkValidity(shipTypes[i], column, row, computerAlignment)
         ) {
-          let newShipLocations = ([]);
+
           let newShip = Gameboard().shipPlacement(shipTypes[i], column, row, computerAlignment, newShipLocations);
           setComputerShipLocations(computerShipLocations => computerShipLocations.concat(newShip));
         } else {
@@ -102,6 +105,8 @@ const GameLoop = () => {
       }
     }
   }
+
+  console.log(computerShipLocations);
 
   const placePlayerShips = (event) => {
     event.preventDefault();
@@ -128,6 +133,8 @@ const GameLoop = () => {
       setPlayerText('Ships may not overlap and must be on the board. Place ' + shipTypes[shipNumber + 1] + ' again.');
     }
   }
+
+  console.log(playerShipLocations);
 
   const attackResult = (getShipHit, playerShipStatus) => {
     const newShipStatus = Ship().isHit(getShipHit, playerShipStatus);
