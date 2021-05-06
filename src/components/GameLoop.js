@@ -72,8 +72,6 @@ const GameLoop = () => {
     setAlignment('horizontal');
     setShipsSunk('0');
     setComputerSunk('0');
-    console.log(computerShipLocations);
-    console.log(playerShipLocations);
     startGame();
   }
 
@@ -94,19 +92,18 @@ const GameLoop = () => {
       const row = parseInt(Player().randomCoordinate());
       const computerAlignment = Player().randomAlignment();
       const newShipLocations = ([]);
-      if (!Gameboard().checkOverlappingShips(shipTypes[i], column, row, computerAlignment, computerShipLocations)
-        && Gameboard().checkValidity(shipTypes[i], column, row, computerAlignment)
+      if (!Gameboard().checkOverlappingShips(shipTypes[i], row, column, computerAlignment, computerShipLocations)
+        && Gameboard().checkValidity(shipTypes[i], row, column, computerAlignment)
         ) {
-
           let newShip = Gameboard().shipPlacement(shipTypes[i], column, row, computerAlignment, newShipLocations);
           setComputerShipLocations(computerShipLocations => computerShipLocations.concat(newShip));
+          console.log(newShip);
         } else {
+          console.log(i);
           i--;
       }
     }
   }
-
-  console.log(computerShipLocations);
 
   const placePlayerShips = (event) => {
     event.preventDefault();
@@ -115,8 +112,7 @@ const GameLoop = () => {
     const column = parseInt(coordinates.charAt(0));
     const row = parseInt(coordinates.charAt(1));
     const newShipLocations = ([]);
-    if (
-      !Gameboard().checkOverlappingShips(shipTypes[shipNumber], row, column, alignment, playerShipLocations)
+    if (!Gameboard().checkOverlappingShips(shipTypes[shipNumber], row, column, alignment, playerShipLocations)
       && Gameboard().checkValidity(shipTypes[shipNumber], row, column, alignment)
       ) {
         const newShip = Gameboard().shipPlacement(shipTypes[shipNumber], row, column, alignment, newShipLocations);
@@ -133,8 +129,6 @@ const GameLoop = () => {
       setPlayerText('Ships may not overlap and must be on the board. Place ' + shipTypes[shipNumber + 1] + ' again.');
     }
   }
-
-  console.log(playerShipLocations);
 
   const attackResult = (getShipHit, playerShipStatus) => {
     const newShipStatus = Ship().isHit(getShipHit, playerShipStatus);
