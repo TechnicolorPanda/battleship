@@ -26,8 +26,15 @@ const Player = () => {
     return hitOptions;
   }
 
+  const selectTarget = (hitOptions) => {
+    let selectRandomTarget = Math.floor(Math.random() * hitOptions.length);
+    console.log(selectRandomTarget);
+    return hitOptions[selectRandomTarget];
+  }
+
 
   return { 
+    selectTarget,
     hitAgain,
     selectUser, 
     randomCoordinate, 

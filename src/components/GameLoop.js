@@ -26,6 +26,8 @@ const GameLoop = () => {
   const [alignment, setAlignment] = useState('horizontal');
   const [shipsSunk, setShipsSunk] = useState('0');
   const [computerSunk, setComputerSunk] = useState('0');
+  const [useAI, setUseAI] = useState(false);
+  const [attackOptions, setAttackOptions] = useState([]);
 
   const startGame = () => {
     setPlayerBoard(Gameboard().createBoard());
@@ -187,38 +189,54 @@ const GameLoop = () => {
     }
   }
 
+  const computerPlay = (column, row) => {
+    let board = JSON.parse(localStorage.getItem('savedComputerBoard'));
+
+      // determines validity of coordinate to attack
+
+    if (Gameboard().checkHitValidity(row, column, board)) {
+      setComputerBoard(Gameboard().changeBoard(column, row, board));
+
+      // determines if attack hits a ship
+
+      let isHit = (Gameboard().receiveAttack(playerShipLocations, row, column));
+      if (isHit) {
+        setComputerBoard(Gameboard().changeBoard(column, row, board, true));
+        const getShipHit = Gameboard().shipHit(row, column, playerShipLocations);
+        setComputerText(computerResult(getShipHit, computerShipStatus));
+        setAttackOptions(Player().hitAgain(row, column));
+        setUseAI(true);
+      } else {
+        setComputerBoard (Gameboard().changeBoard(column, row, board, false));
+        setComputerText('Computer attack missed. ');
+      }
+
+      // allows player to play next turn or attempts to return a valid hit
+
+      setTurn(turn => turn + 1);
+    } else {
+      setTurn(turn => turn + 2);
+    }
+  }
+
   // computer plays turn
 
   useEffect(() => {
     if (Player().selectUser(turn).userName === 'computer') {
-      let column = Player().randomCoordinate();
-      let row = Player().randomCoordinate();
-      let board = JSON.parse(localStorage.getItem('savedComputerBoard'));
-
-      // determines validity of coordinate to attack
-
-      if (Gameboard().checkHitValidity(row, column, board)) {
-        setComputerBoard(Gameboard().changeBoard(column, row, board));
-
-        // determines if attack hits a ship
-
-        let isHit = (Gameboard().receiveAttack(playerShipLocations, row, column));
-        if (isHit) {
-          setComputerBoard(Gameboard().changeBoard(column, row, board, true));
-          const getShipHit = Gameboard().shipHit(row, column, playerShipLocations);
-          setComputerText(computerResult(getShipHit, computerShipStatus));
-        } else {
-          setComputerBoard (Gameboard().changeBoard(column, row, board, false));
-          setComputerText('Computer attack missed. ');
-        }
-
-        // allows player to play next turn or attempts to return a valid hit
-
-        setTurn(turn => turn + 1);
+      if (useAI) {
+        console.log(attackOptions);
+        let coordinates = Player().selectTarget(attackOptions);
+        console.log(coordinates);
+        let column = coordinates[0];
+        console.log(column);
+        let row = coordinates[1];
+        computerPlay(column, row);
       } else {
-        setTurn(turn => turn + 2);
+        let column = Player().randomCoordinate();
+        let row = Player().randomCoordinate();
+        computerPlay(column, row);
       }
-    };
+  }
   }, [turn])
 
   return (
