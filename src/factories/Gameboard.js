@@ -38,6 +38,7 @@ const Gameboard = () => {
   const checkOverlappingShips = (shipType, column, row, alignment, shipLocations) => {
     let shipCoordinates = placeShip(shipType, column, row, alignment);
     for (let i = 0; i < shipCoordinates.length; i++) {
+      console.log(shipLocations);
       if (compareCoordinates(shipCoordinates[i], shipLocations)) {return true};
     }
     return false;

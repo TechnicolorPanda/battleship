@@ -88,22 +88,26 @@ const GameLoop = () => {
   }
  
   const placeComputerShips = () => {
+    let shipLocations = [];
     const shipTypes = ['carrier', 'battleship', 'destroyer', 'submarine', 'patrol boat'];
     for (let i = 0; i < 5; i++) {
       const column = parseInt(Player().randomCoordinate());
       const row = parseInt(Player().randomCoordinate());
       const computerAlignment = Player().randomAlignment();
       const newShipLocations = ([]);
-      if (!Gameboard().checkOverlappingShips(shipTypes[i], row, column, computerAlignment, computerShipLocations)
+      if (!Gameboard().checkOverlappingShips(shipTypes[i], row, column, computerAlignment, shipLocations)
         && Gameboard().checkValidity(shipTypes[i], row, column, computerAlignment)
         ) {
           let newShip = Gameboard().shipPlacement(shipTypes[i], column, row, computerAlignment, newShipLocations);
-          setComputerShipLocations(computerShipLocations => computerShipLocations.concat(newShip));
           console.log(newShip);
+          shipLocations = shipLocations.concat(newShip);
+          // setComputerShipLocations(computerShipLocations => computerShipLocations.concat(newShip));
+          console.log(shipLocations);
         } else {
           console.log(i);
           i--;
-      }
+        }
+      setComputerShipLocations(shipLocations);
     }
   }
 
@@ -224,13 +228,13 @@ const GameLoop = () => {
   useEffect(() => {
     if (Player().selectUser(turn).userName === 'computer') {
       if (useAI) {
-        console.log(attackOptions);
         let coordinates = Player().selectTarget(attackOptions);
-        console.log(coordinates);
-        let column = coordinates[0];
+        let row = coordinates[0];
+        let column = coordinates[1];
         console.log(column);
-        let row = coordinates[1];
+        console.log(row);
         computerPlay(column, row);
+        setUseAI(false);
       } else {
         let column = Player().randomCoordinate();
         let row = Player().randomCoordinate();
