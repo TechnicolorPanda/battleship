@@ -95,16 +95,12 @@ const GameLoop = () => {
       const row = parseInt(Player().randomCoordinate());
       const computerAlignment = Player().randomAlignment();
       const newShipLocations = ([]);
-      if (!Gameboard().checkOverlappingShips(shipTypes[i], row, column, computerAlignment, shipLocations)
-        && Gameboard().checkValidity(shipTypes[i], row, column, computerAlignment)
+      if (!Gameboard().checkOverlappingShips(shipTypes[i], column, row, computerAlignment, shipLocations)
+        && Gameboard().checkValidity(shipTypes[i], column, row, computerAlignment)
         ) {
           let newShip = Gameboard().shipPlacement(shipTypes[i], column, row, computerAlignment, newShipLocations);
-          console.log(newShip);
           shipLocations = shipLocations.concat(newShip);
-          // setComputerShipLocations(computerShipLocations => computerShipLocations.concat(newShip));
-          console.log(shipLocations);
         } else {
-          console.log(i);
           i--;
         }
       setComputerShipLocations(shipLocations);
