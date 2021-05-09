@@ -146,15 +146,10 @@ const Gameboard = () => {
     return shipLocations;
   }
 
-  const allShipsSunk = (shipStatus) => {
-    return (Ship().isSunk('carrier', shipStatus) && 
-    Ship().isSunk('battleship', shipStatus) && 
-    Ship().isSunk('destroyer', shipStatus) && 
-    Ship().isSunk('submarine', shipStatus) && 
-    Ship().isSunk ('patrol boat', shipStatus)
-    ? true: false);
-  }
-
+  const allShipsSunk = (shipsSunk) => {
+    return (shipsSunk === 5) ? true: false
+  };
+  
   return {
     checkHitValidity, 
     checkOverlappingShips, 

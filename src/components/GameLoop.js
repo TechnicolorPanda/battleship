@@ -159,7 +159,7 @@ const GameLoop = () => {
     const newShipStatus = Ship().isHit(getShipHit, playerShipStatus);
     setPlayerShipStatus(newShipStatus);
     if (ships.isSunk(getShipHit, newShipStatus)) {
-      if (Gameboard().allShipsSunk(newShipStatus)) {
+      if (board.allShipsSunk(shipsSunk)) {
         setComputerText('');
         return('All ships have been sunk. You win!')
       } else {
@@ -200,7 +200,7 @@ const GameLoop = () => {
     const newShipStatus = ships.isHit(getShipHit, computerShipStatus);
     setComputerShipStatus(newShipStatus);
     if (ships.isSunk(getShipHit, newShipStatus)) {
-      if (board.allShipsSunk(newShipStatus)) {
+      if (board.allShipsSunk(computerSunk)) {
         setPlayerText('');
         return ('All ships have been sunk. Computer wins!')
       } else {

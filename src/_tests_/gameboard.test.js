@@ -110,30 +110,9 @@ test('records hits to ships', () => {
   expect (board.shipHit(3, 4, shipLocations)).toBe('patrol boat');
 })
 
-test('records when all ships not sunk', () => {
-  const shipStatus = {
-    ship: [
-    {name: 'carrier', length: 5},
-    {name: 'battleship', length: 4}, 
-    {name: 'destroyer', length: 3},  
-    {name: 'submarine', length: 3},    
-    {name: 'patrol boat', length: 0},
-  ]
-}
-  expect (board.allShipsSunk(shipStatus)).toBeFalsy();
-}) 
-
-test('records when all ships sunk', () => {
-  const shipStatus = {
-    ship: [
-    {name: 'carrier', length: 0},
-    {name: 'battleship', length: 0}, 
-    {name: 'destroyer', length: 0},  
-    {name: 'submarine', length: 0},    
-    {name: 'patrol boat', length: 0},
-  ]
-}
-  expect (board.allShipsSunk(shipStatus)).toBeTruthy();
+test('records whether all ships sunk', () => {
+  expect (board.allShipsSunk(4)).toBeFalsy();
+  expect (board.allShipsSunk(5)).toBeTruthy();
 }) 
 
 test('ensure ships are not overlapping', () => {
