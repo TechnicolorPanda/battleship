@@ -1,17 +1,16 @@
 
 div {
-  background-color: black;
+  background-color: rgb(158, 101, 42);
   color: white;
   top: 0px;
   text-align: center;
 }
 
 h1 {
-  background-color: black;
   color: white;
 }
 
 html {
-  background-color: black;
+  background-color: rgb(158, 101, 42);
 }
 

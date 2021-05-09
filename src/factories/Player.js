@@ -1,5 +1,3 @@
-import Gameboard from './Gameboard.js';
-
 const Player = () => {
 
   const createUser = (userName, userBoard) => ({ userName, userBoard });
@@ -28,7 +26,6 @@ const Player = () => {
 
   const selectTarget = (hitOptions) => {
     let selectRandomTarget = Math.floor(Math.random() * hitOptions.length);
-    console.log(selectRandomTarget);
     return hitOptions[selectRandomTarget];
   }
 
