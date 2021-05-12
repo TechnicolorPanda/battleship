@@ -147,7 +147,7 @@ const Gameboard = () => {
   }
 
   const allShipsSunk = (shipsSunk) => {
-    return (shipsSunk === 5) ? true: false
+    return (shipsSunk >= 5) ? true: false
   };
   
   return {

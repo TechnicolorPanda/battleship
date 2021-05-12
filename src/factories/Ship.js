@@ -21,10 +21,13 @@ const Ship = () => {
     return matchingShip.length;
   };
 
+  // TODO: seperate hit points between computer and player
+
   const isHit = (shipName, shipStatus) => {
     for (let i = 0; i < 5; i++) {
       if (shipStatus.ship[i].name === shipName) {
         shipStatus.ship[i].length--;
+        console.log(shipStatus.ship[i].length);
       }
     }
     return shipStatus;
