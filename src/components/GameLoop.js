@@ -156,9 +156,10 @@ const GameLoop = () => {
   // player's attack is recorded
 
   const attackResult = (getShipHit, playerShipStatus) => {
-    const newShipStatus = Ship().isHit(getShipHit, playerShipStatus);
-    setPlayerShipStatus(newShipStatus);
-    if (ships.isSunk(getShipHit, newShipStatus)) {
+    const newPlayerShipStatus = ships.opponentHit(getShipHit, playerShipStatus);
+    console.log(newPlayerShipStatus);
+    setPlayerShipStatus(newPlayerShipStatus);
+    if (ships.isSunk(getShipHit, newPlayerShipStatus)) {
       if (board.allShipsSunk(shipsSunk)) {
         setComputerText('');
         return('All ships have been sunk. You win!')
