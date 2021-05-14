@@ -32,15 +32,6 @@ const Ship = () => {
     return shipStatus;
   }
 
-  const opponentHit = (shipName, newShipStatus) => {
-    for (let i = 0; i < 5; i++) {
-      if (newShipStatus.ship[i].name === shipName) {
-        newShipStatus.ship[i].length--;
-      }
-    }
-    return newShipStatus;
-  }
-
   const isSunk = (shipName, shipStatus) => {
     for (let i = 0; i < 5; i++) {
       if (shipStatus.ship[i].name === shipName) {
@@ -57,7 +48,7 @@ const Ship = () => {
     }
   }
 
-  return { shipLength, isHit, isSunk, shipDescriptions, changeAlignment, opponentHit };
+  return { shipLength, isHit, isSunk, shipDescriptions, changeAlignment }
 }
 
 export default Ship;

@@ -13,12 +13,8 @@ const GameLoop = () => {
     JSON.parse(localStorage.getItem('savedComputerBoard')) || []);
   const [playerBoard, setPlayerBoard] = useState(
     JSON.parse(localStorage.getItem('savedPlayerBoard')) || []);
-  const [playerShipStatus, setPlayerShipStatus] = useState(
-    JSON.parse(localStorage.getItem('savedPlayerShipStatus')) || []
-  );
-  const [computerShipStatus, setComputerShipStatus] = useState(
-    JSON.parse(localStorage.getItem('savedComputerShipStatus')) || []
-  );
+  const [playerShipStatus, setPlayerShipStatus] = useState([]);
+  const [computerShipStatus, setComputerShipStatus] = useState([]);
   const [computerShipLocations, setComputerShipLocations] = useState([]);
   const [playerShipLocations, setPlayerShipLocations] = useState([]);
   const [turn, setTurn] = useState(0);
@@ -62,14 +58,6 @@ const GameLoop = () => {
   useEffect(() => {
     localStorage.setItem('savedComputerBoard', JSON.stringify(computerBoard));
   }, [computerBoard])
-
-  useEffect(() => {
-    localStorage.setItem('savedPlayerShipStatus', JSON.stringify(playerShipStatus));
-  }, [playerShipStatus])
-
-  useEffect(() => {
-    localStorage.setItem('savedComputerShipStatus', JSON.stringify(computerShipStatus));
-  }, [computerShipStatus])
 
   // resets game upon pressing button
 
@@ -156,10 +144,10 @@ const GameLoop = () => {
   // player's attack is recorded
 
   const attackResult = (getShipHit, playerShipStatus) => {
-    const newPlayerShipStatus = ships.opponentHit(getShipHit, playerShipStatus);
-    console.log(newPlayerShipStatus);
-    setPlayerShipStatus(newPlayerShipStatus);
-    if (ships.isSunk(getShipHit, newPlayerShipStatus)) {
+    const newShipStatus = ships.isHit(getShipHit, playerShipStatus);
+    console.log(newShipStatus);
+    setPlayerShipStatus(newShipStatus);
+    if (ships.isSunk(getShipHit, newShipStatus)) {
       if (board.allShipsSunk(shipsSunk)) {
         setComputerText('');
         return('All ships have been sunk. You win!')
@@ -199,6 +187,7 @@ const GameLoop = () => {
 
   const computerResult = (getShipHit, computerShipStatus) => {
     const newShipStatus = ships.isHit(getShipHit, computerShipStatus);
+    console.log(newShipStatus);
     setComputerShipStatus(newShipStatus);
     if (ships.isSunk(getShipHit, newShipStatus)) {
       if (board.allShipsSunk(computerSunk)) {
