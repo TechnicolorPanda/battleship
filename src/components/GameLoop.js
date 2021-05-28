@@ -59,6 +59,20 @@ const GameLoop = () => {
     localStorage.setItem('savedComputerBoard', JSON.stringify(computerBoard));
   }, [computerBoard])
 
+  useEffect(() => {
+    if (board.allShipsSunk(shipsSunk)) {
+      setComputerText('');
+      setPlayerText('All ships have been sunk. You win!');
+    } 
+  }, [shipsSunk])
+
+  useEffect(() => {
+    if (board.allShipsSunk(computerSunk)) {
+      setPlayerText('');
+      setComputerText('All ships have been sunk. Computer wins!');
+    }
+  }, [computerSunk])
+
   // resets game upon pressing button
 
   const resetGame = (event) => {
@@ -145,16 +159,11 @@ const GameLoop = () => {
 
   const attackResult = (getShipHit, playerShipStatus) => {
     const newShipStatus = ships.isHit(getShipHit, playerShipStatus);
-    console.log(newShipStatus);
     setPlayerShipStatus(newShipStatus);
+
     if (ships.isSunk(getShipHit, newShipStatus)) {
-      if (board.allShipsSunk(shipsSunk)) {
-        setComputerText('');
-        return('All ships have been sunk. You win!')
-      } else {
         setShipsSunk(shipsSunk => parseInt(shipsSunk + 1));
         return('Computer\'s ' + getShipHit + ' is sunk!');
-      }
     } else {
       return (' Your attack hit a ship!  ');
     }
@@ -189,13 +198,8 @@ const GameLoop = () => {
     const newComputerShipStatus = ships.isHit(getShipHit, computerShipStatus);
     setComputerShipStatus(newComputerShipStatus);
     if (ships.isSunk(getShipHit, newComputerShipStatus)) {
-      if (board.allShipsSunk(computerSunk)) {
-        setPlayerText('');
-        return ('All ships have been sunk. Computer wins!')
-      } else {
-        setComputerSunk(computerSunk => parseInt(computerSunk + 1));
-        return ('Your ' + getShipHit + ' is sunk!');
-      }
+      setComputerSunk(computerSunk => parseInt(computerSunk + 1));
+      return ('Your ' + getShipHit + ' is sunk!');
     } else {
       return (' Computer\'s attack hit a ship!  ');
     }
