@@ -1,12 +1,12 @@
 const Player = () => {
 
-  const createUser = (userName, userBoard) => ({ userName, userBoard });
+  const createUser = (userName, userBoard, userStatus) => ({ userName, userBoard, userStatus });
   
   const selectUser = (turn) => {
     if (turn % 2 === 0 ) {
-    return createUser('human', 'playerBoard');
+    return createUser('human', 'playerBoard', 'playerShipStatus');
     } else {
-    return createUser('computer', 'computerBoard');
+    return createUser('computer', 'computerBoard', 'computerShipStatus');
     }
   }
 
@@ -28,7 +28,6 @@ const Player = () => {
     let selectRandomTarget = Math.floor(Math.random() * hitOptions.length);
     return hitOptions[selectRandomTarget];
   }
-
 
   return { 
     selectTarget,

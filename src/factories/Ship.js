@@ -1,3 +1,5 @@
+// import Player from './Player.js';
+
 const Ship = () => {
 
   const shipType = {
@@ -14,14 +16,26 @@ const Ship = () => {
     return shipType;
   }
 
+  const computerTypes = {
+    ship: [
+      {name: 'carrier', length: 5},
+      {name: 'battleship', length: 4}, 
+      {name: 'destroyer', length: 3},  
+      {name: 'submarine', length: 3},    
+      {name: 'patrol boat', length: 2},
+    ]
+  }
+
+  const computerShips = () => {
+    return computerTypes;
+  }
+
   const shipLength = (newShip) => {
     let matchingShip = shipType.ship.find((element) => {
       return (element.name === newShip);
     })
     return matchingShip.length;
   };
-
-  // TODO: seperate hit points between computer and player
 
   const isHit = (shipName, shipStatus) => {
     for (let i = 0; i < 5; i++) {
@@ -31,7 +45,7 @@ const Ship = () => {
     }
     return shipStatus;
   }
-
+ 
   const isSunk = (shipName, shipStatus) => {
     for (let i = 0; i < 5; i++) {
       if (shipStatus.ship[i].name === shipName) {
@@ -48,7 +62,7 @@ const Ship = () => {
     }
   }
 
-  return { shipLength, isHit, isSunk, shipDescriptions, changeAlignment }
+  return { shipLength, computerShips, isHit, isSunk, shipDescriptions, changeAlignment }
 }
 
 export default Ship;

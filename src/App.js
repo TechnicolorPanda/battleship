@@ -1,4 +1,5 @@
 import './styles/App.css';
+import React from 'react';
 import GameLoop from './components/GameLoop';
 
 function App() {

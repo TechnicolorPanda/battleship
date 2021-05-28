@@ -30,7 +30,7 @@ const Gameboard = () => {
     for (let i = 0; i < shipCoordinates.length; i++) {
       if (testCoordinateValidity(shipCoordinates[i][0], shipCoordinates[i][1]) === false) {
         return false;
-      };
+      }
     }
     return true;
   }
@@ -40,12 +40,13 @@ const Gameboard = () => {
     for (let i = 0; i < shipCoordinates.length; i++) {
       if (compareCoordinates(shipCoordinates[i], shipLocations)) {
         return true
-      };
+      }
     }
     return false;
   }
 
   const createBoard = () => {
+    // eslint-disable-next-line no-unused-vars
     let newBoard = Array(10).fill(0).map(row => new Array(10).fill('water'));
     return newBoard;
   }
@@ -132,7 +133,7 @@ const Gameboard = () => {
       return true;
     } else {
       return false;
-    };
+    }
   }
 
   const shipPlacement = (shipType, column, row, alignment, shipLocations) => {

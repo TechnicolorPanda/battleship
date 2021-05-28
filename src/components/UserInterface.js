@@ -1,6 +1,7 @@
 import React from "react";
 import '../styles/gameboard.css';
 import uniqid from 'uniqid';
+/* eslint-disable react/prop-types */
 
 const UserInterface = (props) => {
   const {

@@ -40,7 +40,7 @@ const GameLoop = () => {
     setPlayerBoard(board.createBoard());
     setComputerBoard(board.createBoard());
     setPlayerShipStatus(ships.shipDescriptions());
-    setComputerShipStatus(ships.shipDescriptions());
+    setComputerShipStatus(ships.computerShips());
     placeComputerShips();
     setPlayerText('Click square to place carrier on the board.')
   }
@@ -186,10 +186,9 @@ const GameLoop = () => {
   // computer's attack is recorded
 
   const computerResult = (getShipHit, computerShipStatus) => {
-    const newShipStatus = ships.isHit(getShipHit, computerShipStatus);
-    console.log(newShipStatus);
-    setComputerShipStatus(newShipStatus);
-    if (ships.isSunk(getShipHit, newShipStatus)) {
+    const newComputerShipStatus = ships.isHit(getShipHit, computerShipStatus);
+    setComputerShipStatus(newComputerShipStatus);
+    if (ships.isSunk(getShipHit, newComputerShipStatus)) {
       if (board.allShipsSunk(computerSunk)) {
         setPlayerText('');
         return ('All ships have been sunk. Computer wins!')
