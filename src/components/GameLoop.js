@@ -27,6 +27,7 @@ const GameLoop = () => {
   const [computerSunk, setComputerSunk] = useState('0');
   const [useAI, setUseAI] = useState(false);
   const [attackOptions, setAttackOptions] = useState([]);
+  const [gameOver, setGameOver] = useState(false);
 
   // defines destructuring assignment
 
@@ -63,6 +64,7 @@ const GameLoop = () => {
     if (board.allShipsSunk(shipsSunk)) {
       setComputerText('');
       setPlayerText('All ships have been sunk. You win!');
+      setGameOver(true);
     } 
   }, [shipsSunk])
 
@@ -70,6 +72,7 @@ const GameLoop = () => {
     if (board.allShipsSunk(computerSunk)) {
       setPlayerText('');
       setComputerText('All ships have been sunk. Computer wins!');
+      setGameOver(true);
     }
   }, [computerSunk])
 
@@ -87,6 +90,7 @@ const GameLoop = () => {
     setAlignment('horizontal');
     setShipsSunk('0');
     setComputerSunk('0');
+    setGameOver(false);
     startGame();
   }
 
@@ -228,10 +232,9 @@ const GameLoop = () => {
       }
 
       // allows player to play next turn or attempts to return a valid hit
-
-      setTurn(turn => turn + 1);
+      gameOver ? null: setTurn(turn => turn + 1);
     } else {
-      setTurn(turn => turn + 2);
+      gameOver ? null: setTurn(turn => turn + 2);
     }
   }
 
@@ -268,6 +271,7 @@ const GameLoop = () => {
         computerBoard = {computerBoard}
         placePlayerShips = {placePlayerShips.bind(this)}
         resetGame = {resetGame.bind(this)}
+        gameOver = {gameOver}
       />
     </div>      
   );

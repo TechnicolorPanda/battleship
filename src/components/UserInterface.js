@@ -16,6 +16,7 @@ const UserInterface = (props) => {
     computerBoard,
     placePlayerShips,
     resetGame,
+    gameOver,
   } = props;
 
   return (
@@ -55,61 +56,61 @@ const UserInterface = (props) => {
                       key = {uniqid()}
                       className = {column[0]}
                       value = {'0' + index}
-                      onClick = {placeShips ? null: initiateAttack}
+                      onClick = {gameOver ? null: initiateAttack}
                     ></td>
                     <td 
                       key = {uniqid()}
                       className = {column[1]}
                       value = {'1' + index}
-                      onClick = {placeShips ? null: initiateAttack}
+                      onClick = {gameOver ? null: initiateAttack}
                     ></td>
                     <td 
                       key = {uniqid()}
                       className = {column[2]}
                       value = {'2' + index}
-                      onClick = {placeShips ? null: initiateAttack}
+                      onClick = {gameOver ? null: initiateAttack}
                     ></td>
                     <td 
                       key = {uniqid()}
                       className = {column[3]}
                       value = {'3' + index}
-                      onClick = {placeShips ? null: initiateAttack}
+                      onClick = {gameOver ? null: initiateAttack}
                     ></td>
                     <td 
                       key = {uniqid()}
                       className = {column[4]}
                       value = {'4' + index}
-                      onClick = {placeShips ? null: initiateAttack}
+                      onClick = {gameOver ? null: initiateAttack}
                     ></td>
                     <td                   
                       key = {uniqid()}
                       className = {column[5]}
                       value = {'5' + index}
-                      onClick = {placeShips ? null: initiateAttack}
+                      onClick = {gameOver ? null: initiateAttack}
                     ></td>
                     <td 
                       key = {uniqid()}
                       className = {column[6]}
                       value = {'6' + index}
-                      onClick = {placeShips ? null: initiateAttack}
+                      onClick = {gameOver ? null: initiateAttack}
                     ></td>
                     <td 
                       key = {uniqid()}
                       className = {column[7]}
                       value = {'7' + index}
-                      onClick = {placeShips ? null: initiateAttack}
+                      onClick = {gameOver ? null: initiateAttack}
                     ></td>
                     <td 
                       key = {uniqid()}
                       className = {column[8]}
                       value = {'8' + index}
-                      onClick = {placeShips ? null: initiateAttack}
+                      onClick = {gameOver ? null: initiateAttack}
                     ></td>
                     <td 
                       key = {uniqid()}
                       className = {column[9]}
                       value = {'9' + index}
-                      onClick = {placeShips ? null: initiateAttack}
+                      onClick = {gameOver ? null: initiateAttack}
                     ></td>
                   </tr>
                 </tbody>

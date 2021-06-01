@@ -112,6 +112,7 @@ li {
 }
 
 .dialogue {
+  padding-top: 5px;
   background: #c2cfd3;
   width: 30%;
   height: 6.5rem;
