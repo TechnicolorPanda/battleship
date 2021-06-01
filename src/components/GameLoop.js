@@ -71,7 +71,7 @@ const GameLoop = () => {
   useEffect(() => {
     if (board.allShipsSunk(computerSunk)) {
       setPlayerText('');
-      setComputerText('All ships have been sunk. Computer wins!');
+      setComputerText('All ships have been sunk. Opponent wins!');
       setGameOver(true);
     }
   }, [computerSunk])
@@ -167,7 +167,7 @@ const GameLoop = () => {
 
     if (ships.isSunk(getShipHit, newShipStatus)) {
         setShipsSunk(shipsSunk => parseInt(shipsSunk + 1));
-        return('Computer\'s ' + getShipHit + ' is sunk!');
+        return('Opponent\'s ' + getShipHit + ' is sunk!');
     } else {
       return (' Your attack hit a ship!  ');
     }
@@ -205,7 +205,7 @@ const GameLoop = () => {
       setComputerSunk(computerSunk => parseInt(computerSunk + 1));
       return ('Your ' + getShipHit + ' is sunk!');
     } else {
-      return (' Computer\'s attack hit a ship!  ');
+      return (' Opponent\'s attack hit a ship!  ');
     }
   }
 
@@ -228,7 +228,7 @@ const GameLoop = () => {
         setUseAI(true);
       } else {
         setComputerBoard (board.changeBoard(column, row, newBoard, false));
-        setComputerText('Computer attack missed. ');
+        setComputerText('Opponent\'s attack missed. ');
       }
 
       // allows player to play next turn or attempts to return a valid hit

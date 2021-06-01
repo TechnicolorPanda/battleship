@@ -15,6 +15,14 @@ Further learning outcomes include:
 - Using state management and state lifting in React;
 - Practice using React;
 
+### Screenshots
+
+#### Ship Placement
+![image](https://github.com/TechnicolorPanda/battleship/blob/main/public/images/ship-placement.png?raw=true)
+
+### Attack!
+![image](https://github.com/TechnicolorPanda/battleship/blob/main/public/images/attack-page.png?raw=true)
+
 ## Development
 
 ### Javascript Framework
@@ -26,6 +34,7 @@ Further learning outcomes include:
 - [ESLint](https://eslint.org/) - A linter tool to standardize code.
 - [Github Pages](https://pages.github.com/) - Hosting.
 - [Prettier](https://prettier.io/) - Code formatter.
+- [UniqueID](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/uniqueid) - Creates unique identification number.
 - [Create React App](https://github.com/facebook/create-react-app) - Installs and configures a skeleton React app.
 - [React Router](https://reactrouter.com/web/guides/quick-start) - Router tool for React applications.
 - [Jest](https://jestjs.io/) - A Javascript testing framework.
