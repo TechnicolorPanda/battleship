@@ -2,6 +2,8 @@ import Ship from './Ship.js';
 
 const Gameboard = () => {
 
+  // determines if coordinate selected is on the gameboard
+
   const testCoordinateValidity = (x, y) => {
     if (x < 0 || x > 9 || y < 0 || y > 9) {
       return false;
@@ -14,6 +16,8 @@ const Gameboard = () => {
     return (JSON.stringify(shipCoordinates) === JSON.stringify(newCoordinates));
   }
 
+  // determine if coordinates are the same as a placed ship
+
   const compareCoordinates= (newCoordinates, shipLocations) => {
     for (let i = 0; i < shipLocations.length; i++) {
       let shipCoordinates = shipLocations[i].ship[0].coordinates;
@@ -25,6 +29,8 @@ const Gameboard = () => {
     }
   }
 
+  // determins whether a ship is placed on blank coordinates on the board
+
   const checkValidity = (shipType, column, row, alignment) => {
     let shipCoordinates = placeShip(shipType, column, row, alignment);
     for (let i = 0; i < shipCoordinates.length; i++) {
@@ -34,6 +40,8 @@ const Gameboard = () => {
     }
     return true;
   }
+
+  // determines if ship is being placed on top of existing ship
 
   const checkOverlappingShips = (shipType, column, row, alignment, shipLocations) => {
     let shipCoordinates = placeShip(shipType, column, row, alignment);
@@ -45,20 +53,28 @@ const Gameboard = () => {
     return false;
   }
 
+  // create a blank board
+
   const createBoard = () => {
     // eslint-disable-next-line no-unused-vars
     let newBoard = Array(10).fill(0).map(row => new Array(10).fill('water'));
     return newBoard;
   }
 
+  // creates a new row
+
   const createRow = (column, board) => {
     return board[column];
   }
+
+  // determines if a ship is hit
 
   const shipHit = (column, row, shipLocations) => {
     let newCoordinates = [column, row];
     return compareCoordinates(newCoordinates, shipLocations);
   }
+
+  // records whether coordinate hits or misses opponents ship
 
   const recordHit = (column, row, board, shipHit) => {
     let newBoard = createRow(column, board);
@@ -67,6 +83,8 @@ const Gameboard = () => {
     return newBoard;
   }
 
+  // records placement of ship
+
   const recordShip = (column, row, board) => {
     let newBoard = createRow(column, board);
     let marker = 'ship';
@@ -74,15 +92,21 @@ const Gameboard = () => {
     return newBoard;
   }
 
+  // changes the board when hit occurs
+
   const changeBoard = (row, column, board, shipHit) => {
     board.splice(column, 1, recordHit(column, row, board, shipHit));
     return board;
   }
 
+  // changes the board to reflect ship placement
+
   const changeShipBoard = (row, column, board) => {
     board.splice(column, 1, recordShip(column, row, board));
     return board;
   } 
+
+  // places ship horizonally
 
   const horizontalShip = (shipType, column, row) => {
     let shipCoordinates = [];
@@ -96,6 +120,8 @@ const Gameboard = () => {
     return shipCoordinates;
   }
 
+  // places ship vertically
+
   const verticalShip = (shipType, column, row) => {
     let shipCoordinates = [];
     for (let i = 0; i < Ship().shipLength(shipType); i++) {
@@ -108,6 +134,8 @@ const Gameboard = () => {
     return shipCoordinates;
   }
 
+  // places ship on board
+
   const placeShip = (shipType, column, row, alignment) => {
     if (alignment === 'horizontal') {
       return horizontalShip(shipType, column, row);
@@ -115,6 +143,8 @@ const Gameboard = () => {
       return verticalShip(shipType, column, row);
     }
   }
+
+  // receives an attack
 
   const receiveAttack = (shipCoordinates, column, row) => {
     for (let i = 0; i < shipCoordinates.length; i++) {
@@ -127,6 +157,8 @@ const Gameboard = () => {
     }
     return false;
   }
+
+  // determines if hit is valid
 
   const checkHitValidity = (row, column, board) => {
     if (board[row][column] === 'water' || board[row][column] === 'ship') {

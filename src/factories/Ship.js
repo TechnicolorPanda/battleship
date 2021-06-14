@@ -2,6 +2,8 @@
 
 const Ship = () => {
 
+  // designates player ships
+
   const shipType = {
     ship: [
       {name: 'carrier', length: 5},
@@ -15,6 +17,8 @@ const Ship = () => {
   const shipDescriptions = () => {
     return shipType;
   }
+
+  // designates computer ships
 
   const computerTypes = {
     ship: [
@@ -30,12 +34,16 @@ const Ship = () => {
     return computerTypes;
   }
 
+  // determines length of specific ship
+
   const shipLength = (newShip) => {
     let matchingShip = shipType.ship.find((element) => {
       return (element.name === newShip);
     })
     return matchingShip.length;
   };
+
+  // determines whether ship is hit
 
   const isHit = (shipName, shipStatus) => {
     for (let i = 0; i < 5; i++) {
@@ -45,6 +53,8 @@ const Ship = () => {
     }
     return shipStatus;
   }
+
+  // determine if all coordinates on ship are hit thus sinking the ship
  
   const isSunk = (shipName, shipStatus) => {
     for (let i = 0; i < 5; i++) {
@@ -53,6 +63,8 @@ const Ship = () => {
       }
     }
   }
+
+  // changes the alignment of ship between vertical and horizontal
 
   const changeAlignment = (alignment) => {
     if(alignment === 'horizontal') {
